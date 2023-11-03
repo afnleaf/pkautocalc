@@ -1,4 +1,222 @@
+class PokemonData {
+    /*
+    constructor(name, item, ability, level, tera, evs, ivs, nature, moveset) {
+        this._Name = name;
+        this._Item = item;
+        this._Ability = ability;
+        this._Level = level;
+        this._Tera = tera;
+        this._EVs = evs;
+        this._IVs = ivs;
+        this._Nature = nature;
+        this._Moveset = moveset;
+    }
+    */
+    constructor() {
+        this._Name = "";
+        this._Item = "";
+        this._Ability = "";
+        this._Level = "";
+        this._Tera = "";
+        this._EVs = {};
+        this._IVs = {};
+        this._Nature = "";
+        this._Moveset = [];
+    }
+
+    setName(value) {
+        this._Name = value;
+    }
+
+    setItem(value) {
+        this._Item = value;
+    }
+    setAbility(value) {
+        this._Ability = value;
+    }
+
+    setLevel(value) {
+        this._Level = value;
+    }
+
+    setTera(value) {
+        this._Tera = value;
+    }
+
+    setEVs(value) {
+        this._EVs = value;
+    }
+
+    setIVs(value) {
+        this._IVs = value;
+    }
+
+    setNature(value) {
+        this._Nature = value;
+    }
+
+    setMoveset(value) {
+        this._Moveset = value;
+    }
+
+    printPokemon() {
+        console.log("Pokemon:")
+        console.log("Name: " + this._Name);
+        console.log("Item: " + this._Item);
+        console.log("Ability: " + this._Ability);
+        console.log("Level: " + this._Level);
+        console.log("Tera: " + this._Tera);
+        console.log("EVs: " + this.E_Vs);
+        console.log("IVs: " + this._IVs);
+        console.log("Nature:" + this._Nature);
+        console.log("Moveset:" + this._Moveset);
+        console.log("");
+    }
+}
+
+
+
+
+// starts the calculations
+function calculate() {
+    // check if teams are valid
+    // return notice to user that teams are not valid
+    readTextBox1();
+    readTextBox2();
+}
+
+function readTextBox1() {
+    // Get the textarea element by its id
+    var textBox1 = document.getElementById("textBoxLeft");
+    // Get the value of the textarea
+    var text = textBox1.value;
+    const parsedPokemon = parseText(text);
+    console.log("print object");
+    //console.log(parsedPokemon);
+    /*
+    for (let pokemon in parsedPokemon) {
+        pokemon.printPokemon();
+    }
+    */
+
+    parsedPokemon.forEach(pokemon => {
+        //console.log(color);
+        pokemon.printPokemon();
+    });
+
+
+    // Display the value in a paragraph or perform any further processing
+    //document.getElementById("output").textContent = "Textarea content: " + textareaValue;
+}
+
+function readTextBox2() {
+    // Get the textarea element by its id
+    var textBox2 = document.getElementById("textBoxRight");
+    // Get the value of the textarea
+    var text = textBox2.value;
+    //console.log(paste)
+}
+
+function parseText(text) {
+    // split by line and double space = new pokemon
+    const pokemonBlocks = text.split('\n\n');
+    // each block has the parsePokemon() function applied to it
+    return pokemonBlocks.map(parsePokemon);
+    /*
+    //const parsedPokemon = [];
+    for (let block in pokemonBlocks) {
+        console.log("parsing block");
+        console.log(block);
+        pokemon = parsePokemon(block);
+        console.log(pokemon);
+        parsedPokemon.push(pokemon);
+    }
+    return parsedPokemon;
+    */
+}
+
+function parsePokemon(block) {
+    //console.log("parsePokemon");
+    // init pokemon object
+    //let pokemonObject = Object.create(pokemonTemplate);
+    let pokemonObject = new PokemonData();
+    const moveset = [];
+    // split text into lines
+    const lines = block.split("\n");
+    //console.log(lines);
+
+    lines.forEach(line => {
+        console.log(line);
+        // split each line into key and value pairs
+        const [key, value] = line.split(": ");
+        if (key && value) {
+            //console.log(key + " " + value);
+            //pokemonObject = 
+            parseElement(pokemonObject, key, value);
+        // parse every move
+        } else if(line.startsWith("- ")) {
+            moveset.push(line.slice(2));
+         // parse name and item
+        } else {
+            const [name, item] = line.split(" @");
+            if(name && item) {
+                pokemonObject.setName(name.trim());
+                pokemonObject.setItem(item.trim());
+            }
+        }
+    });
+    //console.log("");
+    pokemonObject._Moveset = moveset;
+    return pokemonObject;
+}
+
+function parseElement(pokemonObject, key, value) {
+    console.log(key);
+    console.log(value);
+    switch (key) {
+        case "Name":
+            pokemonObject.setName(value.trim());
+            break;
+        case "Item":
+            pokemonObject.setItem(value.trim());
+            break;
+        case "Ability":
+            pokemonObject.setAbility(value.trim());
+            break;
+        case "Level":
+            pokemonObject.setLevel(value.trim());
+            break;
+        case "Tera Type":
+            pokemonObject.setTera(value.trim());
+            break;
+        case "EVs":
+            pokemonObject.setEVs(value.trim());
+            break;
+        case "IVs":
+            pokemonObject.setIVs(value.trim());
+            break;
+        case "Nature":
+            pokemonObject.setNature(value.trim());
+            break;
+        default:
+            //pokemonObject.Move = value;
+    }
+    //return pokemonObject;
+}
+
+function parseEVs(pokemonObject, evs) {
+
+}
+
+function parseIVs(ivs) {
+
+}
+
+
+
+
 // pokemon Object template
+/*
 let pokemonTemplate = {
     _Name: "",
     _Item: "",
@@ -51,130 +269,4 @@ let pokemonTemplate = {
         this.Moveset = value;
     },
 };
-
-
-function calculate() {
-    // check if teams are valid
-    // return notice to user that teams are not valid
-    readTextBox1();
-    readTextBox2();
-}
-
-function readTextBox1() {
-    // Get the textarea element by its id
-    var textBox1 = document.getElementById("textBoxLeft");
-    // Get the value of the textarea
-    var text = textBox1.value;
-    const parsedPokemon = parseText(text);
-
-    //console.log(parsedPokemon);
-    for (let pokemon in parsedPokemon) {
-        printPokemon(pokemon);
-    }
-
-    // Display the value in a paragraph or perform any further processing
-    //document.getElementById("output").textContent = "Textarea content: " + textareaValue;
-}
-
-function readTextBox2() {
-    // Get the textarea element by its id
-    var textBox2 = document.getElementById("textBoxRight");
-    // Get the value of the textarea
-    var text = textBox2.value;
-    //console.log(paste)
-}
-
-function parseText(text) {
-    // split by line and double space = new pokemon
-    const pokemonBlocks = text.split('\n\n');
-    // each block has the parsePokemon() function applied to it
-    return pokemonBlocks.map(parsePokemon);
-}
-
-function parsePokemon(block) {
-    // init pokemon object
-    let pokemonObject = Object.create(pokemonTemplate);
-    const moveset = [];
-    // split text into lines
-    const lines = block.split("\n");
-    //console.log(lines);
-
-    lines.forEach(line => {
-        console.log(line);
-        // split each line into key and value pairs
-        const [key, value] = line.split(": ");
-        if (key && value) {
-            //console.log(key + " " + value);
-            pokemonObject = parseElement(pokemonObject, key, value);
-        // parse every move
-        } else if(line.startsWith("- ")) {
-            moveset.push(line.slice(2));
-         // parse name and item
-        } else {
-            const [name, item] = line.split(" @");
-            if(name && item) {
-                pokemonObject.Name = name.trim();
-                pokemonObject.Item = item.trim();
-            }
-        }
-    });
-    //console.log("");
-    pokemonObject._Moveset = moveset;
-    return pokemonObject;
-}
-
-function parseElement(pokemonObject, key, value) {
-    console.log(key);
-    console.log(value);
-    switch (key) {
-        case "Name":
-            pokemonObject.Name = value.trim();
-            break;
-        case "Item":
-            pokemonObject.Item = value.trim();
-            break;
-        case "Ability":
-            pokemonObject.Ability = value.trim();
-            break;
-        case "Level":
-            pokemonObject.Level = value.trim();
-            break;
-        case "Tera Type":
-            pokemonObject.Tera = value.trim();
-            break;
-        case "EVs":
-            //pokemonObject.EVs = value;
-            pokemonObject.EVs = parseEVs(pokemonObject, value);
-            break;
-        case "IVs":
-            pokemonObject.IVs = parseIVs(pokemonObject, value);
-            break;
-        case "Nature":
-            pokemonObject.Nature = value.trim();
-            break;
-        default:
-            //pokemonObject.Move = value;
-    }
-}
-
-function parseEVs(pokemonObject, evs) {
-
-}
-
-function parseIVs(ivs) {
-
-}
-
-function printPokemon(pokemonObject) {
-    console.log("Pokemon:")
-    console.log("Name: " + pokemonObject.Name);
-    console.log("Item: " + pokemonObject.Item);
-    console.log("Ability: " + pokemonObject.Ability);
-    console.log("Level: " + pokemonObject.Level);
-    console.log("Tera: " + pokemonObject.Tera);
-    console.log("EVs: " + pokemonObject.EVs);
-    console.log("IVs: " + pokemonObject.IVs);
-    console.log("Nature:" + pokemonObject.Nature);
-    console.log("Moveset:" + pokemonObject.Moveset);
-    console.log("");
-}
+*/

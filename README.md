@@ -19,6 +19,7 @@ allow more than 4 moves
 singles vs doubles
 default vs standard meta
 pikalytics api?
+pokepaste automatic integration
 
 ## frontend ui design
 idkman
