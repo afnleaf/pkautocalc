@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>pkautocalc</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>pkautocalc</h1>
+    </header>
+    <!-- where user inputs teams-->
+    <div id="userInput">
+        <div id="pastes">
+            <!-- where one team is pasted-->
+            <div id="left">
+                <h3>Paste your team here.</h3>
+                <textarea id="textBoxLeft" name="textBox1" rows="4" cols="50">Paste your team here.</textarea>
+            </div>
+            <!-- where the other team is pasted-->
+            <div id="right">
+                <h3>Leave Empty to calculate vs meta.</h3>
+                <textarea id="textBoxRight" name="textBox2" rows="4" cols="50"></textarea>
+            </div>
+        </div>
+        
+        <!-- what user presses to indicate they want to calculate-->
+        <div id="submitButton">
+            <button type="button" onclick="calculate()">Calculate</button>
+        </div>
+
+    </div>
+    <!-- -->
+    <div id="results"></div>
+    <!-- -->
+    <script src="scrip.js"></script>
+
+</body>
+
+</html>
