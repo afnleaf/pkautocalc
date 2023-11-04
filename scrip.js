@@ -133,6 +133,7 @@ function readTextBox1() {
     });
 
 
+
     // Display the value in a paragraph or perform any further processing
     //document.getElementById("output").textContent = "Textarea content: " + textareaValue;
 }

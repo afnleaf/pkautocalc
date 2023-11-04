@@ -56,3 +56,15 @@ IVs:
 Nature:
 Moveset:
 
+## webapp architecture
+
+Frontend
+	parse pokemon objects
+	send request to backend server to make calculations
+	avoid load on user pc and having to package smogon calc
+Backend
+	execute calculations
+	
+
+Database
+
