@@ -60,17 +60,45 @@ class PokemonData {
     }
 
     printPokemon() {
-        console.log("Pokemon:")
-        console.log("Name: " + this._Name);
-        console.log("Item: " + this._Item);
-        console.log("Ability: " + this._Ability);
-        console.log("Level: " + this._Level);
-        console.log("Tera: " + this._Tera);
-        console.log("EVs: " + this.E_Vs);
-        console.log("IVs: " + this._IVs);
-        console.log("Nature:" + this._Nature);
-        console.log("Moveset:" + this._Moveset);
+        console.log(`Pokemon:`)
+        console.log(`Name: ${this._Name}`);
+        console.log(`Item: ${this._Item}`);
+        console.log(`Ability: ${this._Ability}`);
+        console.log(`Level: ${this._Level}`);
+        console.log(`Tera: ${this._Tera}`);
+        this.printEVs();
+        this.printIVs();
+        console.log(`Nature: ${this._Nature}`);
+        this.printMoveset();
+        //console.log(`Moveset: ${this._Moveset}`);
         console.log("");
+    }
+
+    printEVs() {
+        console.log(`EVs:`);
+        console.log(`\tHP: ${this._EVs.Hp}`);
+        console.log(`\tAtk: ${this._EVs.Atk}`);
+        console.log(`\tDef: ${this._EVs.Def}`);
+        console.log(`\tSpA: ${this._EVs.SpA}`);
+        console.log(`\tSpD: ${this._EVs.SpD}`);
+        console.log(`\tSpe: ${this._EVs.Spe}`);
+    }
+
+    printIVs() {
+        console.log(`IVs:`);
+        console.log(`\tHP: ${this._IVs.Hp}`);
+        console.log(`\tAtk: ${this._IVs.Atk}`);
+        console.log(`\tDef: ${this._IVs.Def}`);
+        console.log(`\tSpA: ${this._IVs.SpA}`);
+        console.log(`\tSpD: ${this._IVs.SpD}`);
+        console.log(`\tSpe: ${this._IVs.Spe}`);
+    }
+
+    printMoveset(moveset) {
+        console.log(`Moveset:`);
+        this._Moveset.forEach(move => {
+            console.log(`- ${move}`);
+        });
     }
 }
 
@@ -155,8 +183,12 @@ function parsePokemon(block) {
             parseElement(pokemonObject, key, value);
         // parse every move
         } else if(line.startsWith("- ")) {
-            moveset.push(line.slice(2));
-         // parse name and item
+            moveset.push(line.slice(2).trim());
+        // get nature
+        } else if(line.includes("Nature")) {
+            const [nature, empty] = line.split(" Nature");
+            pokemonObject.setNature(nature);
+        // parse name and item
         } else {
             const [name, item] = line.split(" @");
             if(name && item) {
@@ -164,6 +196,7 @@ function parsePokemon(block) {
                 pokemonObject.setItem(item.trim());
             }
         }
+        // catch condition for no item
     });
     //console.log("");
     pokemonObject._Moveset = moveset;
@@ -190,10 +223,10 @@ function parseElement(pokemonObject, key, value) {
             pokemonObject.setTera(value.trim());
             break;
         case "EVs":
-            pokemonObject.setEVs(value.trim());
+            pokemonObject.setEVs(parseEVs(value.trim()));
             break;
         case "IVs":
-            pokemonObject.setIVs(value.trim());
+            pokemonObject.setIVs(parseIVs(value.trim()));
             break;
         case "Nature":
             pokemonObject.setNature(value.trim());
@@ -204,12 +237,95 @@ function parseElement(pokemonObject, key, value) {
     //return pokemonObject;
 }
 
-function parseEVs(pokemonObject, evs) {
-
+function parseEVs(evs) {
+    console.log("parseevs");
+    console.log(evs);
+    const _EVs = {
+        Hp: 0,
+        Atk: 0,
+        Def: 0,
+        SpD: 0,
+        SpA: 0,
+        Spe: 0
+    }
+    var tokens = [`${evs}`];
+    // multiple tokens
+    if(evs.includes("/")) {
+        tokens = evs.split(" / ");
+    }
+    console.log(tokens);
+    tokens.forEach(token => {
+        const [value, key] = token.split(" ")
+        switch (key) {
+            case "HP":
+                _EVs.Hp = parseInt(value);
+                break;
+            case "Atk":
+                _EVs.Atk = parseInt(value);
+                break;
+            case "Def":
+                _EVs.Def = parseInt(value);
+                break;
+            case "SpA":
+                _EVs.SpA = parseInt(value);
+                break;
+            case "SpD":
+                _EVs.SpD = parseInt(value);
+                break;
+            case "Spe":
+                _EVs.Spe = parseInt(value);
+                break;
+            default:
+                //asdjadasd
+        }
+    });
+    return _EVs;
 }
 
 function parseIVs(ivs) {
-
+    console.log("parseivs");
+    console.log(ivs);
+    _IVs = 
+    {
+        Hp: 31,
+        Atk: 31,
+        Def: 31,
+        SpD: 31,
+        SpA: 31,
+        Spe: 31,
+    }
+    var tokens = [`${ivs}`];
+    // multiple tokens
+    if(ivs.includes("/")) {
+        tokens = ivs.split(" / ");
+    }
+    console.log(tokens);
+    tokens.forEach(token => {
+        const [value, key] = token.split(" ")
+        switch (key) {
+            case "HP":
+                _IVs.Hp = parseInt(value);
+                break;
+            case "Atk":
+                _IVs.Atk = parseInt(value);
+                break;
+            case "Def":
+                _IVs.Def = parseInt(value);
+                break;
+            case "SpA":
+                _IVs.SpA = parseInt(value);
+                break;
+            case "SpD":
+                _IVs.SpD = parseInt(value);
+                break;
+            case "Spe":
+                _IVs.Spe = parseInt(value);
+                break;
+            default:
+                //asdjadasd
+        }
+    });
+    return _IVs;
 }
 
 
