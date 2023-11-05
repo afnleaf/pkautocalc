@@ -13,6 +13,7 @@ export class PokemonData {
         this._Moveset = moveset;
     }
     */
+    
     constructor() {
         this._Name = "";
         this._Item = "";
