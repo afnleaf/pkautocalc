@@ -1,3 +1,10 @@
+// import the calculator
+//import {calculate, Generations, Pokemon, Move} from '@smogon/calc';
+//default gen
+//const gen = Generations.get(9); // alternatively: const gen = 5;
+
+
+// pokemon object
 class PokemonData {
     /*
     constructor(name, item, ability, level, tera, evs, ivs, nature, moveset) {
@@ -103,47 +110,28 @@ class PokemonData {
 }
 
 
-
-
 // starts the calculations
-function calculate() {
+function main() {
     // check if teams are valid
     // return notice to user that teams are not valid
-    readTextBox1();
-    readTextBox2();
+    
+    // get the textarea element by ID
+    var textBox1 = document.getElementById("textBoxLeft");
+    var textBox2 = document.getElementById("textBoxRight");
+    // parse what is in both
+    team1 = parseTextBox(textBox1);
+    team2 = parseTextBox(textBox2);
 }
 
-function readTextBox1() {
-    // Get the textarea element by its id
-    var textBox1 = document.getElementById("textBoxLeft");
+function parseTextBox(textBox) {
     // Get the value of the textarea
-    var text = textBox1.value;
+    var text = textBox.value;
     const parsedPokemon = parseText(text);
-    console.log("print object");
-    //console.log(parsedPokemon);
-    /*
-    for (let pokemon in parsedPokemon) {
-        pokemon.printPokemon();
-    }
-    */
-
     parsedPokemon.forEach(pokemon => {
         //console.log(color);
         pokemon.printPokemon();
     });
-
-
-
-    // Display the value in a paragraph or perform any further processing
-    //document.getElementById("output").textContent = "Textarea content: " + textareaValue;
-}
-
-function readTextBox2() {
-    // Get the textarea element by its id
-    var textBox2 = document.getElementById("textBoxRight");
-    // Get the value of the textarea
-    var text = textBox2.value;
-    //console.log(paste)
+    return parsedPokemon;
 }
 
 function parseText(text) {
@@ -332,58 +320,3 @@ function parseIVs(ivs) {
 
 
 
-// pokemon Object template
-/*
-let pokemonTemplate = {
-    _Name: "",
-    _Item: "",
-    _Ability: "",
-    _Level: "",
-    _Tera: "",
-    _EVs: {
-        HP: 0,
-        Atk: 0,
-        Def: 0,
-        SpD: 0,
-        SpA: 0,
-        Spe: 0,
-    },  
-    _IVs: {
-        HP: 31,
-        Atk: 31,
-        Def: 31,
-        SpD: 31,
-        SpA: 31,
-        Spe: 31,
-    },
-    _Nature: "",
-    _Moveset: [],
-    set _Name(value) {
-        this.Name = value;
-    },
-    set _Item(value) {
-        this.Item = value;
-    },
-    set _Ability(value) {
-        this.Ability = value;
-    },
-    set _Level(value) {
-        this.Level = value;
-    },
-    set _Tera(value) {
-        this.Tera = value;
-    },
-    set _EVs(value) {
-        this.EVs = value;
-    },
-    set _IVs(value) {
-        this.IVs = value;
-    },
-    set _Nature(value) {
-        this.Nature = value;
-    },
-    set _Moveset(value) {
-        this.Moveset = value;
-    },
-};
-*/
