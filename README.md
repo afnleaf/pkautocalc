@@ -68,3 +68,5 @@ Backend
 
 Database
 
+## must do
+catch error for 0 damage

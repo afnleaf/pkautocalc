@@ -18,55 +18,51 @@ async function main() {
     // contents as ArrayBuffer
     //await foo.arrayBuffer(); 
 
-    const team1 = parseText(text);
+    const teamText1 = parseText(text);
     
-    team1.forEach(pokemon => {
+    teamText1.forEach(pokemon => {
         pokemon.printPokemon();
         console.log(pokemon);
     });
 
-    const pokemonJSON = JSON.stringify(team1);
+    const pokemonJSON = JSON.stringify(teamText1);
     const path = "pokemonData.json";
     await Bun.write(path, pokemonJSON);
     const file = Bun.file(path);
-    const contents = await file.json();
+    const team1 = await file.json();
+    const team2 = team1;
 
-    contents.forEach(content => {
-        console.log(content);
-        //content.printPokemon();
-    });
-
-    calc(contents);
+    const resultsAttackerSide = calc(team1, team2);
+    const resultsDefenderSide = calc(team2, team1);
+    //console.log(resultsAttackerSide);
 }
 
 
-async function calc(pokemonData) {
+async function calc(team1, team2) {
+    // gen by default
     const gen = Generations.get(9);
 
-    const pokemon1 = toPokemon(gen, pokemonData[0]);
-    const pokemon2 = toPokemon(gen, pokemonData[1]);
-    //console.log(pokemonData[0]._Moveset[1]);
+    //const pokemon1 = toPokemon(gen, pokemonData[0]);
+    //const pokemon2 = toPokemon(gen, pokemonData[1]);
 
-    /*
-    const poke1 = new Pokemon(gen, 'Chansey', {
-        item: 'Eviolite',
-        nature: 'Calm',
-        evs: {hp: 252, spd: 252},
+    //double for loop to get through each matchup
+    team1.forEach(pokemon1 => {
+        const attacker = toPokemon(gen, pokemon1);
+        team2.forEach(pokemon2 => {
+            const defender = toPokemon(gen, pokemon2);
+            // loop through each move
+            pokemon1._Moveset.forEach(move => {
+                const result = calculate(
+                    gen,
+                    attacker,
+                    defender,
+                    new Move(gen, move.toString())
+                );
+                console.log(result.desc());
+            }); 
+        });
     });
-    */
-    //console.log("pokemon1");
-    //console.log(pokemon1);
-    //console.log("poke1");
-    //console.log(poke1);
 
-    const result = calculate(
-        gen,
-        pokemon1,
-        pokemon2,
-        new Move(gen, pokemonData[0]._Moveset[2].toString())
-    );
-    //console.log(result);
-    console.log(result.desc());
 }
 
 function toPokemon(gen, pokemon) {
