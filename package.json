@@ -1,1 +1,1 @@
-{ "dependencies": { "@smogon/calc": "^0.8.0" } }
+{ "dependencies": { "@smogon/calc": "^0.8.0", "dom-parser": "^1.0.10", "node-html-parser": "^6.1.11" } }

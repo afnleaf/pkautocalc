@@ -68,5 +68,11 @@ Backend
 
 Database
 
-## must do
-catch error for 0 damage
+## testing
+team1 pokepaste
+https://pokepast.es/2c7b8e8730f3c772
+
+team2 pokepaste
+https://pokepast.es/2022cd4afb1928d9
+
+
