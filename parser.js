@@ -18,16 +18,18 @@ export function parseText(text) {
     // check if on windows with carriage return \r
     var pokemonBlocks = [];
     if (text.includes("\r")) {
-        console.log("rn");
+        //console.log("rn");
         pokemonBlocks = text.split("\r\n\r\n");
     } else {
-        console.log("nn");
+        //console.log("nn");
         pokemonBlocks = text.split("\n\n");
     }
+    // remove last undefined item
+    const newPokemonBlocks = pokemonBlocks.slice(0, pokemonBlocks.length - 1);
 
-    console.log(pokemonBlocks);
+    //console.log(pokemonBlocks);
     // each block has the parsePokemon() function applied to it
-    return pokemonBlocks.map(parsePokemon);
+    return newPokemonBlocks.map(parsePokemon);
     /*
     //const parsedPokemon = [];
     for (let block in pokemonBlocks) {
@@ -49,6 +51,8 @@ function parsePokemon(block) {
     let pokemonObject = new PokemonData();
     // iv flag
     pokemonObject.setIVs(0);
+    // default level is 100
+    pokemonObject.setLevel(100);
     const moveset = [];
     // split text into lines
     const lines = block.split("\n");
@@ -109,7 +113,7 @@ function parseElement(pokemonObject, key, value) {
             pokemonObject.setAbility(value.trim());
             break;
         case "Level":
-            pokemonObject.setLevel(value.trim());
+            pokemonObject.setLevel(parseInt(value.trim()));
             break;
         case "Tera Type":
             pokemonObject.setTera(value.trim());

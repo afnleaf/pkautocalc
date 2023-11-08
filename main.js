@@ -1,4 +1,4 @@
-import { PokemonData } from './pokemonData.js';
+//import { PokemonData } from './pokemonData.js';
 import { parseText } from './parser.js';
 import {calculate, Generations, Pokemon, Move} from '@smogon/calc';
 
@@ -8,27 +8,31 @@ import { parse } from 'node-html-parser';
 // run with CLI arguments for pokepastes
 async function main() {
     if(checkArguments()) {
+        // get the pokepaste text
         const team1Text = await getText(Bun.argv[2]);
         const team2Text = await getText(Bun.argv[3]);
-
-        console.log(team1Text);
-        console.log(team2Text);
+        // parse the text into pokemon object data, see 'parser.js'
+        const team1Data = parseText(team1Text);
+        const team2Data = parseText(team2Text);
+        // calculate the results
+        const resultsAttackerSide = calc(team1Data, team2Data);
+        const resultsDefenderSide = calc(team2Data, team1Data);
+        //printResults()
     }
 }
 
+// check if the arguments given from cli are are valid
 function checkArguments() {
-    // error check for command line args
-
     if(Bun.argv.length === 4) {
-        // get teams
+        // get args from array
         const arg1 = Bun.argv[2];
         const arg2 = Bun.argv[3];
 
-        // check arg1
+        // check arg1 for validity
         if(!arg1.includes(".txt") && !arg1.includes("https://pokepast.es/")) {
             console.log("Argument 1 must be a pokepaste link or a txt file.");
             return false;
-        // check arg2
+        // check arg2 for validity
         } else if(!arg2.includes(".txt") && !arg2.includes("https://pokepast.es/")) {
             console.log("Argument 2 must be a pokepaste link or a txt file.");
             return false;
@@ -43,14 +47,17 @@ function checkArguments() {
     }
 }
 
+// function to get the pokepaste text from the txt file or pokepast.es link
 async function getText(file) {
-    // check if textfile
+    // textfile
     if(file.includes(".txt")) {
         return await Bun.file(file).text(); 
-    // check if pokepaste link
+    // pokepaste link
     } else if(file.includes("https://pokepast.es/")) {
+        // have to do a fetch GET request on the pokepaste link
+        // get the html text from the response and parse it
         try {
-            const response = await fetch(file);
+            const response = (await fetch(file));
             const html = await response.text();
             // using node-html-parser for this
             const doc = parse(html);
@@ -128,6 +135,9 @@ async function calc(team1, team2) {
     //const pokemon1 = toPokemon(gen, pokemonData[0]);
     //const pokemon2 = toPokemon(gen, pokemonData[1]);
 
+    //console.log(team1);
+    //console.log(team2);
+
     //double for loop to get through each matchup
     team1.forEach(pokemon1 => {
         const attacker = toPokemon(gen, pokemon1);
@@ -149,20 +159,24 @@ async function calc(team1, team2) {
 }
 
 function toPokemon(gen, pokemon) {
+    const pokemonName = pokemon._Name.toString();
+    const item = pokemon._Item.toString();
+    const nature = pokemon._Nature.toString();
+    const evs = {
+        hp: pokemon._EVs.Hp,
+        atk: pokemon._EVs.Atk,
+        def: pokemon._EVs.Def,
+        spa: pokemon._EVs.SpA,
+        spd: pokemon._EVs.SpD,
+        spe: pokemon._EVs.Spe
+    };
     return new Pokemon(
         gen,
-        pokemon._Name.toString(),
+        pokemonName,
         {
-            item: pokemon._Item.toString(),
-            nature: pokemon._Nature.toString(),
-            evs: {
-                hp: pokemon._EVs.Hp,
-                atk: pokemon._EVs.Atk,
-                def: pokemon._EVs.Def,
-                spa: pokemon._EVs.SpA,
-                spd: pokemon._EVs.SpD,
-                spe: pokemon._EVs.Spe
-            },
+            item: item,
+            nature: nature,
+            evs: evs,
         }
     );
 }
