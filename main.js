@@ -155,14 +155,18 @@ async function calc(team1, team2, field) {
             const defender = toPokemon(gen, pokemon2);
             // loop through each move
             pokemon1._Moveset.forEach(move => {
-                const result = calculate(
-                    gen,
-                    attacker,
-                    defender,
-                    new Move(gen, move.toString()),
-                    field
-                );
-                console.log(result.desc());
+                // filter out status moves
+                const moveData = new Move(gen, move.toString());
+                if(moveData.category != "Status") {
+                    const result = calculate(
+                        gen,
+                        attacker,
+                        defender,
+                        moveData,
+                        field
+                    );
+                    console.log(result.desc());
+                }
             }); 
         });
     });
