@@ -1,6 +1,6 @@
 //import { PokemonData } from './pokemonData.js';
 import { parseText } from './parser.js';
-import {calculate, Generations, Pokemon, Move} from '@smogon/calc';
+import {calculate, Generations, Pokemon, Move, Field} from '@smogon/calc';
 
 import { parse } from 'node-html-parser';
 
@@ -14,9 +14,11 @@ async function main() {
         // parse the text into pokemon object data, see 'parser.js'
         const team1Data = parseText(team1Text);
         const team2Data = parseText(team2Text);
+        // get field conditions
+        const field = getField();
         // calculate the results
-        const resultsAttackerSide = calc(team1Data, team2Data);
-        const resultsDefenderSide = calc(team2Data, team1Data);
+        const resultsAttackerSide = calc(team1Data, team2Data, field);
+        const resultsDefenderSide = calc(team2Data, team1Data, field);
         //printResults()
     }
 }
@@ -127,9 +129,17 @@ async function main1() {
     //console.log(resultsAttackerSide);
 }
 
+function getField() {
+    // default settings
+    const gameType = "Doubles";
+    return new Field(
+        gameType
+    );
+}
 
-async function calc(team1, team2) {
-    // gen by default
+
+async function calc(team1, team2, field) {
+    // gen 9 by default
     const gen = Generations.get(9);
 
     //const pokemon1 = toPokemon(gen, pokemonData[0]);
@@ -149,7 +159,8 @@ async function calc(team1, team2) {
                     gen,
                     attacker,
                     defender,
-                    new Move(gen, move.toString())
+                    new Move(gen, move.toString()),
+                    field
                 );
                 console.log(result.desc());
             }); 

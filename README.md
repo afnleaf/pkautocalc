@@ -75,4 +75,15 @@ https://pokepast.es/2c7b8e8730f3c772
 team2 pokepaste
 https://pokepast.es/2022cd4afb1928d9
 
+https://pokepast.es/65b41d45f97335ff
+
+
+## todo
+tera type moves as tera type
+
+filter out status moves
+figure out no damage moves
+seperate XHKO
+
+field conditions
 
