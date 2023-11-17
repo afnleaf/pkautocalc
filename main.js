@@ -17,10 +17,52 @@ async function main() {
         // get field conditions
         const field = getField();
         // calculate the results
-        const resultsAttackerSide = calc(team1Data, team2Data, field);
-        const resultsDefenderSide = calc(team2Data, team1Data, field);
+        const resultsAttack = await calc(team1Data, team2Data, field);
+        const resultsDefend = await calc(team2Data, team1Data, field);
+        //console.log(resultsAttackerSide);
+        //console.log(resultsDefenderSide);
+        //const path = Bun.file("./file.txt");
+        //await Bun.write(path, "Lorem ipsum");
         //printResults()
+        //const attacking = JSON.parse(JSON.stringify(resultsAttackerSide));
+        //const defending = JSON.parse(JSON.stringify(resultsDefenderSide));
+        //console.log(attacking);
+        //console.log(defending);
+        /*
+        console.log("Attacking:");
+        printResults(resultsAttack);
+        console.log("==========================================================");
+        console.log("Defending:");
+        printResults(resultsDefend);
+        */
+        const html = buildHTML(resultsAttack, resultsDefend);
+        console.log(html);
     }
+}
+
+// print the description
+function printResults(results) {
+    results.forEach(result => {
+        console.log(result.desc());
+    });
+}
+
+function buildHTML(resultsAttack, resultsDefense) {
+    var html = ``;
+    html += `
+    <h1>Results</h1>
+    <h2>Attack</h2>
+    `;
+    resultsAttack.forEach(result => {
+        html += `<p>${result.desc()}</p>`;
+    });
+    html += `
+    <h2>Defense</h2>
+    `;
+    resultsDefense.forEach(result => {
+        html += `<p>${result.desc()}</p>`;
+    });
+    return html;
 }
 
 // check if the arguments given from cli are are valid
@@ -141,6 +183,8 @@ function getField() {
 async function calc(team1, team2, field) {
     // gen 9 by default
     const gen = Generations.get(9);
+    // store each result in an array
+    var results = [];
 
     //const pokemon1 = toPokemon(gen, pokemonData[0]);
     //const pokemon2 = toPokemon(gen, pokemonData[1]);
@@ -165,12 +209,23 @@ async function calc(team1, team2, field) {
                         moveData,
                         field
                     );
-                    console.log(result.desc());
+                    //console.log(result.desc());
+                    //results.push(result.desc());
+                    results.push(result);
                 }
             }); 
         });
     });
 
+    /*
+    If you want json String
+    var JsonString = JSON.stringify(JsArray);
+    If you want json Object
+    var JsonObject = JSON.parse(JSON.stringify(JsArray));
+    */
+    //return JSON.stringify(results);
+    //return JSON.parse(JSON.stringify(results));
+    return results;
 }
 
 function toPokemon(gen, pokemon) {
