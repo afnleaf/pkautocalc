@@ -79,11 +79,13 @@ https://pokepast.es/65b41d45f97335ff
 
 
 ## todo
-tera type moves as tera type
+add tera type moves as tera type
+ev optimization stats
 
 filter out status moves
 figure out no damage moves
 seperate XHKO
-
 field conditions
+	passed through frontend
+
 

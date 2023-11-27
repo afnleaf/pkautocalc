@@ -36,7 +36,8 @@ async function main() {
         printResults(resultsDefend);
         */
         const html = buildHTML(resultsAttack, resultsDefend);
-        console.log(html);
+        //console.log(html);
+        return html;
     }
 }
 

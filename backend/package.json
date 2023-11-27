@@ -1,0 +1,20 @@
+{
+  "name": "pkautocalc-server",
+  "module": "server.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": { 
+      "@smogon/calc": "^0.8.0",
+      "dom-parser": "^1.0.10",
+      "node-html-parser": "^6.1.11" 
+  },
+  "scripts" : {
+    "dev": "bun --hot server.js",
+    "prod": "bun server.js"
+  }
+}
