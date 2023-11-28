@@ -1,15 +1,16 @@
 {
-  "name": "pkautocalc-client",
-  "module": "index.ts",
-  "type": "module",
+  "name": "new",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "elysia": "latest",
+    "serve-static-bun": "^0.5.3"
+  },
   "devDependencies": {
     "bun-types": "latest"
   },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "scripts" : {
-    "dev": "bun --hot index.js",
-    "prod": "bun index.ts"
-  }
+  "module": "src/index.js"
 }

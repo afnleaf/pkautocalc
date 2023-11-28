@@ -3,3 +3,4 @@ bun.lockb
 /frontend/node_modules
 /no
 /app
+/test
