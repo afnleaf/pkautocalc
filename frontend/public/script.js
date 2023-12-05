@@ -1,3 +1,46 @@
+/**
+* Posts json to server
+* @param {string} http endpoint url 
+* @param {data} json object
+* @return response from the server
+*/
+async function postData(url = '', data = {}) {
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+    return response;
+}
+
+/**
+* Collect user input and post to server. 
+* Expects response with results from server.
+* Displays results.
+*/
+async function requestResults() {
+    const data = {
+        "team1" : document.getElementById("textBoxLeft").value,
+        "team2" : document.getElementById("textBoxRight").value
+    }
+
+    const url = 'http://localhost:8080/calculation';
+    
+    try {
+        const result = await postData(url, data);
+        //console.log(result);
+        const htmlResult = await result.text();
+        document.getElementById('results').innerHTML = htmlResult;
+    } catch (error) {
+        console.error('Error during POST request:', error);
+    }
+}
+
+/*
+
 function main() {
     // check if teams are valid
     // return notice to user that teams are not valid
@@ -9,7 +52,6 @@ function main() {
     console.log(textBox2);
 }
 
-/*
 async function requestResults() {
     console.log("getting results");
     fetch('http://localhost:8080/results') // Assuming the server container is named "server"
@@ -87,33 +129,3 @@ async function requestResults() {
     );
 }
 */
-
-async function postData(url = '', data = {}) {
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
-
-    return response;
-}
-
-async function requestResults() {
-    const data = {
-        "team1" : document.getElementById("textBoxLeft").value,
-        "team2" : document.getElementById("textBoxRight").value
-    }
-
-    const url = 'http://localhost:8080/calculation';
-    
-    try {
-        const result = await postData(url, data);
-        //console.log(result);
-        const htmlResult = await result.text();
-        document.getElementById('results').innerHTML = htmlResult;
-    } catch (error) {
-        console.error('Error during POST request:', error);
-    }
-}
