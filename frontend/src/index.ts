@@ -1,9 +1,9 @@
 import { Elysia } from 'elysia'
 import { html } from '@elysiajs/html'
 //import { staticPlugin } from '@elysiajs/static'
+const PORT = process.env.PORT || 3000;
 
 const app = new Elysia();
-
 app.use(html());
 
 /*
@@ -28,7 +28,7 @@ app.get("/results", async () => {
 })
 */
 // port
-app.listen(3000);
+app.listen(PORT);
 
 console.log(
   `Frontend is running at ${app.server?.hostname}:${app.server?.port}`

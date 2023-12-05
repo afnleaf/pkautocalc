@@ -4,49 +4,6 @@ import {calculate, Generations, Pokemon, Move, Field} from '@smogon/calc';
 import { parse } from 'node-html-parser';
 
 
-// run with CLI arguments for pokepastes
-export async function main(text1, text2) {
-    //console.log(text1);
-    //console.log(text2);
-    text1 = "https://pokepast.es/2c7b8e8730f3c772";
-    text2 = "https://pokepast.es/2022cd4afb1928d9";
-    //if(checkArguments()) {
-    if(true) {
-        // get the pokepaste text
-        //const team1Text = await getText(Bun.argv[2]);
-        //const team2Text = await getText(Bun.argv[3]);
-        const team1Text = await getText(text1);
-        const team2Text = await getText(text2);
-        // parse the text into pokemon object data, see 'parser.js'
-        const team1Data = parseText(team1Text);
-        const team2Data = parseText(team2Text);
-        // get field conditions
-        const field = getField();
-        // calculate the results
-        const resultsAttack = await calc(team1Data, team2Data, field);
-        const resultsDefend = await calc(team2Data, team1Data, field);
-        //console.log(resultsAttackerSide);
-        //console.log(resultsDefenderSide);
-        //const path = Bun.file("./file.txt");
-        //await Bun.write(path, "Lorem ipsum");
-        //printResults()
-        //const attacking = JSON.parse(JSON.stringify(resultsAttackerSide));
-        //const defending = JSON.parse(JSON.stringify(resultsDefenderSide));
-        //console.log(attacking);
-        //console.log(defending);
-        /*
-        console.log("Attacking:");
-        printResults(resultsAttack);
-        console.log("==========================================================");
-        console.log("Defending:");
-        printResults(resultsDefend);
-        */
-        const html = buildHTML(resultsAttack, resultsDefend);
-        //console.log(html);
-        return html;
-    }
-}
-
 export async function runCalculations(text1, text2) {
     const team1Text = await getText(text1);
     const team2Text = await getText(text2);
@@ -63,12 +20,6 @@ export async function runCalculations(text1, text2) {
     return html;
 }
 
-// print the description
-function printResults(results) {
-    results.forEach(result => {
-        console.log(result.desc());
-    });
-}
 
 function buildHTML(resultsAttack, resultsDefense) {
     var html = ``;
@@ -101,31 +52,6 @@ function buildHTML(resultsAttack, resultsDefense) {
     return html;
 }
 
-// check if the arguments given from cli are are valid
-function checkArguments() {
-    if(Bun.argv.length === 4) {
-        // get args from array
-        const arg1 = Bun.argv[2];
-        const arg2 = Bun.argv[3];
-
-        // check arg1 for validity
-        if(!arg1.includes(".txt") && !arg1.includes("https://pokepast.es/")) {
-            console.log("Argument 1 must be a pokepaste link or a txt file.");
-            return false;
-        // check arg2 for validity
-        } else if(!arg2.includes(".txt") && !arg2.includes("https://pokepast.es/")) {
-            console.log("Argument 2 must be a pokepaste link or a txt file.");
-            return false;
-        // both args good
-        } else {
-            return true;
-        }
-    } else {
-        console.log("Run with two command line arguments.");
-        console.log("bun run main.js <team1paste.txt> <team2paste.txt>");
-        return false;
-    }
-}
 
 // function to get the pokepaste text from the txt file or pokepast.es link
 async function getText(file) {
@@ -165,47 +91,6 @@ async function getText(file) {
     }
 }
 
-
-
-// starts the calculations
-async function main1() {
-    // use txt file as replacement for
-    //const filePath = "test.txt";
-    //const textFile = Bun.file(filePath);
-
-    const arg1 = Bun.argv[2];
-    const arg2 = Bun.argv[3];
-
-    console.log(arg1);
-    console.log(arg2);
-
-    // contents as a string
-    const text = await textFile.text(); 
-    console.log(text);
-    // contents as ReadableStream
-    //const text2 = await textFile.stream();
-    //console.log(text2); 
-    // contents as ArrayBuffer
-    //await foo.arrayBuffer(); 
-
-    const teamText1 = parseText(text);
-    
-    teamText1.forEach(pokemon => {
-        pokemon.printPokemon();
-        console.log(pokemon);
-    });
-
-    const pokemonJSON = JSON.stringify(teamText1);
-    const path = "pokemonData.json";
-    await Bun.write(path, pokemonJSON);
-    const file = Bun.file(path);
-    const team1 = await file.json();
-    const team2 = team1;
-
-    const resultsAttackerSide = calc(team1, team2);
-    const resultsDefenderSide = calc(team2, team1);
-    //console.log(resultsAttackerSide);
-}
 
 function getField() {
     // default settings
@@ -264,6 +149,7 @@ async function calc(team1, team2, field) {
     return results;
 }
 
+
 function toPokemon(gen, pokemon) {
     const pokemonName = pokemon._Name.toString();
     const item = pokemon._Item.toString();
@@ -286,7 +172,3 @@ function toPokemon(gen, pokemon) {
         }
     );
 }
-
-main();
-
-
