@@ -8,7 +8,7 @@ app.use(html());
 
 app.use(staticPlugin({ 
   prefix: '/',
-  alwaysStatic: true,
+  alwaysStatic: false,
 }))
 
 // homepage
