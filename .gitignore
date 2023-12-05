@@ -1,6 +1,7 @@
 bun.lockb
 /backend/node_modules
 /frontend/node_modules
+/node_modules
 /no
 /app
 /test
