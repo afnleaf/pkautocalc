@@ -1,15 +1,17 @@
 import { Elysia } from 'elysia'
 import { html } from '@elysiajs/html'
-import { staticPlugin } from '@elysiajs/static'
+//import { staticPlugin } from '@elysiajs/static'
 
 const app = new Elysia();
 
 app.use(html());
 
+/*
 app.use(staticPlugin({ 
   prefix: '/',
   alwaysStatic: false,
 }))
+*/
 
 // homepage
 app.get("/", () => Bun.file("./public/index.html").text())
@@ -20,21 +22,17 @@ app.get("/favicon-32x32.png", () => Bun.file("./public/favicon-32x32.png"))
 app.get("/favicon-16x16.png", () => Bun.file("./public/favicon-16x16.png"))
 app.get("/favicon.ico", () => Bun.file("./public/favicon.ico"))
 // results
+/*
 app.get("/results", async () => {
   return "results";
 })
+*/
 // port
 app.listen(3000);
 
-
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  `Frontend is running at ${app.server?.hostname}:${app.server?.port}`
 );
-
-
-
-
-
 
 
 /*
