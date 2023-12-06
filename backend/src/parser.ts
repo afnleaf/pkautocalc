@@ -1,22 +1,9 @@
-import { PokemonData } from './pokemonData.js';
+import { PokemonData } from './pokemonData.ts';
 
-export function parseTextBox(textBox) {
-    // Get the value of the textarea
-    var text = textBox.value;
-    const parsedPokemon = parseText(text);
-    /*
-    parsedPokemon.forEach(pokemon => {
-        //console.log(color);
-        pokemon.printPokemon();
-    });
-    */
-    return parsedPokemon;
-}
-
-export function parseText(text) {
+export function parseText(text: string): PokemonData[] {
     // split by line and double space = new pokemon
     // check if on windows with carriage return \r
-    var pokemonBlocks = [];
+    var pokemonBlocks: string[] = [];
     if (text.includes("\r")) {
         //console.log("rn");
         pokemonBlocks = text.split("\r\n\r\n");
@@ -30,30 +17,13 @@ export function parseText(text) {
     //console.log(pokemonBlocks);
     // each block has the parsePokemon() function applied to it
     return newPokemonBlocks.map(parsePokemon);
-    /*
-    //const parsedPokemon = [];
-    for (let block in pokemonBlocks) {
-        console.log("parsing block");
-        console.log(block);
-        pokemon = parsePokemon(block);
-        console.log(pokemon);
-        parsedPokemon.push(pokemon);
-    }
-    */
-    //return parsedPokemon;
-    
 }
 
-function parsePokemon(block) {
-    //console.log("parsePokemon");
+function parsePokemon(block: string): PokemonData {
     // init pokemon object
-    //let pokemonObject = Object.create(pokemonTemplate);
     let pokemonObject = new PokemonData();
-    // iv flag
-    pokemonObject.setIVs(0);
-    // default level is 100
-    pokemonObject.setLevel(100);
-    const moveset = [];
+    // 
+    const moveset: string[] = [];
     // split text into lines
     const lines = block.split("\n");
     //console.log(lines);
@@ -84,7 +54,7 @@ function parsePokemon(block) {
         // catch condition for no item
     });
     // catch condition for IVs not set
-    if(pokemonObject._IVs === 0) {
+    if(pokemonObject._IVs === pokemonObject.notset) {
         const _IVs = {
             Hp: 31,
             Atk: 31,
@@ -99,7 +69,7 @@ function parsePokemon(block) {
     return pokemonObject;
 }
 
-function parseElement(pokemonObject, key, value) {
+function parseElement(pokemonObject: PokemonData, key: string, value: string): void {
     //console.log(key);
     //console.log(value);
     switch (key) {
@@ -133,7 +103,7 @@ function parseElement(pokemonObject, key, value) {
     //return pokemonObject;
 }
 
-function parseEVs(evs) {
+function parseEVs(evs: string): { Hp: number, Atk: number, Def: number, SpA: number, SpD: number, Spe: number } {
     //console.log("parseevs");
     //console.log(evs);
     const _EVs = {
@@ -178,7 +148,7 @@ function parseEVs(evs) {
     return _EVs;
 }
 
-function parseIVs(ivs) {
+function parseIVs(ivs: string): { Hp: number, Atk: number, Def: number, SpA: number, SpD: number, Spe: number } {
     //console.log("parseivs");
     //console.log(ivs);
     const _IVs = {

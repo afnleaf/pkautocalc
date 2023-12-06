@@ -1,13 +1,21 @@
-//import { PokemonData } from './pokemonData.js';
-import { parseText } from './parser.js';
-import {calculate, Generations, Pokemon, Move, Field} from '@smogon/calc';
+import { parseText } from './parser.ts';
+import { calculate, Generations, Pokemon, Move, Field } from '@smogon/calc';
 import { parse } from 'node-html-parser';
+import { PokemonData } from './pokemonData.ts';
 
+type BaseStats = {
+    Hp: number;
+    Atk: number;
+    Def: number;
+    SpA: number;
+    SpD: number;
+    Spe: number;
+};
 
-export async function runCalculations(text1, text2) {
+export async function runCalculations(text1: string, text2: string): Promise<string> {
     const team1Text = await getText(text1);
     const team2Text = await getText(text2);
-    // parse the text into pokemon object data, see 'parser.js'
+    // parse the text into pokemon object data, see 'parser.ts'
     const team1Data = parseText(team1Text);
     const team2Data = parseText(team2Text);
     // get field conditions
@@ -20,9 +28,8 @@ export async function runCalculations(text1, text2) {
     return html;
 }
 
-
-function buildHTML(resultsAttack, resultsDefense) {
-    var html = ``;
+function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
+    let html = ``;
     html += `
     <h1>Results</h1>
     <h2>Attack</h2>
@@ -52,24 +59,26 @@ function buildHTML(resultsAttack, resultsDefense) {
     return html;
 }
 
-
 // function to get the pokepaste text from the txt file or pokepast.es link
-async function getText(file) {
+async function getText(file: string): Promise<string> {
+    /*
     // textfile
-    if(file.includes(".txt")) {
-        return await Bun.file(file).text(); 
+    if (file.includes(".txt")) {
+        return await Bun.file(file).text();
     // pokepaste link
-    } else if(file.includes("https://pokepast.es/")) {
+    } else if (file.includes("https://pokepast.es/")) {
+    */
+    if (file.includes("https://pokepast.es/")) {    
         // have to do a fetch GET request on the pokepaste link
         // get the html text from the response and parse it
         try {
-            const response = (await fetch(file));
+            const response = await fetch(file);
             const html = await response.text();
             // using node-html-parser for this
             const doc = parse(html);
             const articles = doc.querySelectorAll("article");
             // the pokemon paste string that will be returned
-            var pokepaste = "";
+            let pokepaste = "";
             // loop through each article (pokemon)
             articles.forEach(article => {
                 // get all of the lines in an article
@@ -84,28 +93,41 @@ async function getText(file) {
             return pokepaste;
         } catch(error) {
             console.log(error);
+            return '';
         }
     } else {
         console.log("Invalid text file type.");
-        return 0;
+        return '';
     }
 }
 
-
-function getField() {
+/*
+function getField(): Field {
     // default settings
     const gameType = "Doubles";
-    return new Field(
-        gameType
-    );
+    return new Field(gameType);
+}
+*/
+
+function getField(): Field {
+    // default settings
+    const gameType: "Doubles" = "Doubles";
+    const fieldSettings: Partial<Field> = {
+        gameType: gameType,
+        // Add other optional properties if needed
+    };
+    return new Field(fieldSettings);
 }
 
 
-async function calc(team1, team2, field) {
+
+async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): Promise<any[]> {
     // gen 9 by default
-    const gen = Generations.get(9);
+    //let gen: typeof Generations = (Generations as typeof Generations).get(9);
+    //const gen = Generations.get(9);
+    const gen = 9;
     // store each result in an array
-    var results = [];
+    const results: any[] = [];
 
     //const pokemon1 = toPokemon(gen, pokemonData[0]);
     //const pokemon2 = toPokemon(gen, pokemonData[1]);
@@ -122,7 +144,7 @@ async function calc(team1, team2, field) {
             pokemon1._Moveset.forEach(move => {
                 // filter out status moves
                 const moveData = new Move(gen, move.toString());
-                if(moveData.category != "Status") {
+                if (moveData.category !== "Status") {
                     const result = calculate(
                         gen,
                         attacker,
@@ -149,8 +171,8 @@ async function calc(team1, team2, field) {
     return results;
 }
 
-
-function toPokemon(gen, pokemon) {
+//function toPokemon(gen: typeof Generations, pokemon: PokemonData): Pokemon {
+function toPokemon(gen: any, pokemon: PokemonData): Pokemon {
     const pokemonName = pokemon._Name.toString();
     const item = pokemon._Item.toString();
     const nature = pokemon._Nature.toString();
@@ -172,3 +194,7 @@ function toPokemon(gen, pokemon) {
         }
     );
 }
+
+// Uncomment and fix the types if needed
+// const result = runCalculations('text1', 'text2');
+// console.log(result);

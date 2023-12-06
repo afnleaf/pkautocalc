@@ -1,68 +1,85 @@
-// pokemon object
+// type for evs and iv values
+type BaseStats = {
+    Hp: number;
+    Atk: number;
+    Def: number;
+    SpA: number;
+    SpD: number;
+    Spe: number;
+};
+
+// Pokemon object
 export class PokemonData {
-    /*
-    constructor(name, item, ability, level, tera, evs, ivs, nature, moveset) {
-        this._Name = name;
-        this._Item = item;
-        this._Ability = ability;
-        this._Level = level;
-        this._Tera = tera;
-        this._EVs = evs;
-        this._IVs = ivs;
-        this._Nature = nature;
-        this._Moveset = moveset;
-    }
-    */
-    
+    // types
+    public _Name: string;
+    public _Item: string;
+    public _Ability: string;
+    public _Level: number;
+    public _Tera: string;
+    public _EVs: BaseStats;
+    public _IVs: BaseStats;
+    public _Nature: string;
+    public _Moveset: string[];
+    // basestats notset flag
+    public notset: BaseStats = { 
+        Hp: -1, 
+        Atk: -1, 
+        Def: -1, 
+        SpA: -1, 
+        SpD: -1, 
+        Spe: -1 
+    };
+
     constructor() {
         this._Name = "";
         this._Item = "";
         this._Ability = "";
-        this._Level = "";
+        this._Level = 100;
         this._Tera = "";
-        this._EVs = {};
-        this._IVs = {};
+        this._EVs = this.notset;
+        this._IVs = this.notset;
         this._Nature = "";
         this._Moveset = [];
     }
 
-    setName(value) {
+    setName(value: string): void {
         this._Name = value;
     }
 
-    setItem(value) {
+    setItem(value: string): void {
         this._Item = value;
     }
-    setAbility(value) {
+
+    setAbility(value: string): void {
         this._Ability = value;
     }
 
-    setLevel(value) {
+    setLevel(value: number): void {
         this._Level = value;
     }
 
-    setTera(value) {
+    setTera(value: string): void {
         this._Tera = value;
     }
 
-    setEVs(value) {
+    setEVs(value: BaseStats): void {
         this._EVs = value;
     }
 
-    setIVs(value) {
+    setIVs(value: BaseStats): void {
         this._IVs = value;
     }
 
-    setNature(value) {
+    setNature(value: string): void {
         this._Nature = value;
     }
 
-    setMoveset(value) {
+    setMoveset(value: string[]): void {
         this._Moveset = value;
     }
 
-    printPokemon() {
-        console.log(`Pokemon:`)
+    printPokemon(): void {
+        console.log(`Pokemon:`);
         console.log(`Name: ${this._Name}`);
         console.log(`Item: ${this._Item}`);
         console.log(`Ability: ${this._Ability}`);
@@ -72,11 +89,10 @@ export class PokemonData {
         this.printIVs();
         console.log(`Nature: ${this._Nature}`);
         this.printMoveset();
-        //console.log(`Moveset: ${this._Moveset}`);
         console.log("");
     }
 
-    printEVs() {
+    printEVs(): void {
         console.log(`EVs:`);
         console.log(`\tHP: ${this._EVs.Hp}`);
         console.log(`\tAtk: ${this._EVs.Atk}`);
@@ -86,7 +102,7 @@ export class PokemonData {
         console.log(`\tSpe: ${this._EVs.Spe}`);
     }
 
-    printIVs() {
+    printIVs(): void {
         console.log(`IVs:`);
         console.log(`\tHP: ${this._IVs.Hp}`);
         console.log(`\tAtk: ${this._IVs.Atk}`);
@@ -96,7 +112,7 @@ export class PokemonData {
         console.log(`\tSpe: ${this._IVs.Spe}`);
     }
 
-    printMoveset(moveset) {
+    printMoveset(): void {
         console.log(`Moveset:`);
         this._Moveset.forEach(move => {
             console.log(`- ${move}`);

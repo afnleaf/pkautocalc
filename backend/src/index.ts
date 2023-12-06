@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia'
 import { cors } from '@elysiajs/cors'
 //import { html } from '@elysiajs/html'
-import { runCalculations } from './server.js'
+import { runCalculations } from './server.ts'
 
 const PORT = process.env.PORT || 8080;
 
