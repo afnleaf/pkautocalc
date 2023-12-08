@@ -12,6 +12,59 @@ type BaseStats = {
     Spe: number;
 };
 
+
+export async function runCalculations(text1: string, text2: string): Promise<string> {
+    // html response
+    let html = `<h1>Error</h1>`;
+    let errorflag: boolean = false;
+
+    // data
+    let team1Text;
+    let team1Data;
+    let team2Text;
+    let team2Data;
+
+
+    // validate textbox1
+    try {
+        //
+        team1Text = await getText(text1);
+        // parse the text into pokemon object data, see 'parser.ts'
+        team1Data = parseText(team1Text);
+    } catch(error) {
+        errorflag = true;
+        html += `
+        <p>There is something wrong with the input for textbox1.</p>
+        `;
+    }
+
+    // validate textbox2
+    try {
+        //
+        team2Text = await getText(text2);
+        // parse the text into pokemon object data, see 'parser.ts'
+        team2Data = parseText(team2Text);
+    } catch(error) {
+        errorflag = true;
+        html += `
+        <p>There is something wrong with the input for textbox2.</p>
+        `;
+    }
+
+    if(!errorflag) {
+        html = ``;
+        // get field conditions
+        const field = getField();
+        // calculate the results
+        const resultsAttack = await calc(team1Data, team2Data, field);
+        const resultsDefend = await calc(team2Data, team1Data, field);
+        html += buildHTML(resultsAttack, resultsDefend);
+    }
+
+    return html;
+}
+
+/*
 export async function runCalculations(text1: string, text2: string): Promise<string> {
     // html response
     let html = ``;
@@ -44,6 +97,7 @@ export async function runCalculations(text1: string, text2: string): Promise<str
     }
     return html;
 }
+*/
 
 function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     let html = ``;
@@ -76,6 +130,7 @@ function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     return html;
 }
 
+/*
 function validateText(text: string): boolean {
     const urlPattern = /^https:\/\/pokepast\.es\/[0-9a-fA-F]{16}$/;
     const movesetPattern = /^[A-Za-z0-9\s@#$%^&*!()-=_+{}\[\]:;<>,./?\\|]+/;
@@ -87,10 +142,12 @@ function validateText(text: string): boolean {
     //otherwise fails
     return false;
 }
+*/
 
 
 // function to get the pokepaste text from the txt file or pokepast.es link
-async function getText(file: string): Promise<string> {
+// returns same string if its not a pokepaste link
+async function getText(paste: string): Promise<string> {
     /*
     // textfile
     if (file.includes(".txt")) {
@@ -98,11 +155,11 @@ async function getText(file: string): Promise<string> {
     // pokepaste link
     } else if (file.includes("https://pokepast.es/")) {
     */
-    if (file.includes("https://pokepast.es/")) {    
+    if (paste.includes("https://pokepast.es/")) {    
         // have to do a fetch GET request on the pokepaste link
         // get the html text from the response and parse it
         try {
-            const response = await fetch(file);
+            const response = await fetch(paste);
             const html = await response.text();
             // using node-html-parser for this
             const doc = parse(html);
@@ -127,9 +184,10 @@ async function getText(file: string): Promise<string> {
             //return '';
         }
     } else {
-        console.log("Invalid text file type.");
-        throw new Error("Invalid text file type.");
+        //console.log("Invalid text file type.");
+        //throw new Error("Invalid text file type.");
         //return '';
+        return paste;
     }
 }
 
