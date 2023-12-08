@@ -13,18 +13,35 @@ type BaseStats = {
 };
 
 export async function runCalculations(text1: string, text2: string): Promise<string> {
-    const team1Text = await getText(text1);
-    const team2Text = await getText(text2);
-    // parse the text into pokemon object data, see 'parser.ts'
-    const team1Data = parseText(team1Text);
-    const team2Data = parseText(team2Text);
-    // get field conditions
-    const field = getField();
-    // calculate the results
-    const resultsAttack = await calc(team1Data, team2Data, field);
-    const resultsDefend = await calc(team2Data, team1Data, field);
-    const html = buildHTML(resultsAttack, resultsDefend);
-    //console.log(html);
+    // html response
+    let html = ``;
+    // validate string input
+    if(validateText(text1)) {
+        if(validateText(text2)) {
+            console.log()
+            const team1Text = await getText(text1);
+            const team2Text = await getText(text2);
+            // parse the text into pokemon object data, see 'parser.ts'
+            const team1Data = parseText(team1Text);
+            const team2Data = parseText(team2Text);
+            // get field conditions
+            const field = getField();
+            // calculate the results
+            const resultsAttack = await calc(team1Data, team2Data, field);
+            const resultsDefend = await calc(team2Data, team1Data, field);
+            html += buildHTML(resultsAttack, resultsDefend);
+        } else {
+            html += `
+            <h1>Error</h1>
+            <p>There is something wrong with the input for textbox2.</p>
+            `;
+        }
+    } else {
+        html += `
+        <h1>Error</h1>
+        <p>There is something wrong with the input for textbox1.</p>
+        `;
+    }
     return html;
 }
 
@@ -58,6 +75,19 @@ function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     });
     return html;
 }
+
+function validateText(text: string): boolean {
+    const urlPattern = /^https:\/\/pokepast\.es\/[0-9a-fA-F]{16}$/;
+    const movesetPattern = /^[A-Za-z0-9\s@#$%^&*!()-=_+{}\[\]:;<>,./?\\|]+/;
+    if(urlPattern.test(text)) {
+        return true;
+    } else if (movesetPattern.test(text)) {
+        return true;
+    }
+    //otherwise fails
+    return false;
+}
+
 
 // function to get the pokepaste text from the txt file or pokepast.es link
 async function getText(file: string): Promise<string> {
@@ -93,11 +123,13 @@ async function getText(file: string): Promise<string> {
             return pokepaste;
         } catch(error) {
             console.log(error);
-            return '';
+            throw new Error(error);
+            //return '';
         }
     } else {
         console.log("Invalid text file type.");
-        return '';
+        throw new Error("Invalid text file type.");
+        //return '';
     }
 }
 
@@ -172,6 +204,7 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): P
 }
 
 //function toPokemon(gen: typeof Generations, pokemon: PokemonData): Pokemon {
+//ability
 function toPokemon(gen: any, pokemon: PokemonData): Pokemon {
     const pokemonName = pokemon._Name.toString();
     const item = pokemon._Item.toString();

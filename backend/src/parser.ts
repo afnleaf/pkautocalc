@@ -98,7 +98,7 @@ function parseElement(pokemonObject: PokemonData, key: string, value: string): v
             pokemonObject.setNature(value.trim());
             break;
         default:
-            //pokemonObject.Move = value;
+            throw new Error(`Unknown attribute: <${key}>`);
     }
     //return pokemonObject;
 }
@@ -142,7 +142,8 @@ function parseEVs(evs: string): { Hp: number, Atk: number, Def: number, SpA: num
                 _EVs.Spe = parseInt(value);
                 break;
             default:
-                //asdjadasd
+                //throw error
+                throw new Error(`Unknown EV stat: <${key}>`);
         }
     });
     return _EVs;
@@ -187,7 +188,8 @@ function parseIVs(ivs: string): { Hp: number, Atk: number, Def: number, SpA: num
                 _IVs.Spe = parseInt(value);
                 break;
             default:
-                //asdjadasd
+                //throw error
+                throw new Error(`Unknown IV stat: <${key}>`);
         }
     });
     return _IVs;
