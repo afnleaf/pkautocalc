@@ -1,7 +1,7 @@
-import { parseText } from './parser.ts';
+import { parseText } from './parser';
 import { calculate, Generations, Pokemon, Move, Field } from '@smogon/calc';
 import { parse } from 'node-html-parser';
-import { PokemonData } from './pokemonData.ts';
+import { PokemonData } from './pokemonData';
 
 type BaseStats = {
     Hp: number;
@@ -31,6 +31,12 @@ export async function runCalculations(text1: string, text2: string): Promise<str
         team1Text = await getText(text1);
         // parse the text into pokemon object data, see 'parser.ts'
         team1Data = parseText(team1Text);
+        /*
+        team1Data.forEach(pokemon => {
+            console.log(pokemon);
+            pokemon.printPokemon();
+        });
+        */
     } catch(error) {
         errorflag = true;
         html += `
@@ -187,6 +193,7 @@ async function getText(paste: string): Promise<string> {
         //console.log("Invalid text file type.");
         //throw new Error("Invalid text file type.");
         //return '';
+        console.log(paste);
         return paste;
     }
 }

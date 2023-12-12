@@ -1,18 +1,19 @@
-import { PokemonData } from './pokemonData.ts';
+import { PokemonData } from './pokemonData';
 
 export function parseText(text: string): PokemonData[] {
     // split by line and double space = new pokemon
     // check if on windows with carriage return \r
     var pokemonBlocks: string[] = [];
     if (text.includes("\r")) {
-        //console.log("rn");
+        console.log("rn");
         pokemonBlocks = text.split("\r\n\r\n");
     } else {
-        //console.log("nn");
+        console.log("nn");
         pokemonBlocks = text.split("\n\n");
     }
     // remove last undefined item
     const newPokemonBlocks = pokemonBlocks.slice(0, pokemonBlocks.length - 1);
+    console.log(newPokemonBlocks);
 
     //console.log(pokemonBlocks);
     // each block has the parsePokemon() function applied to it
@@ -26,7 +27,7 @@ function parsePokemon(block: string): PokemonData {
     const moveset: string[] = [];
     // split text into lines
     const lines = block.split("\n");
-    //console.log(lines);
+    console.log(lines);
 
     lines.forEach(line => {
         //console.log(line);
