@@ -1,23 +1,38 @@
 import { PokemonData } from './pokemonData';
 
-export function parseText(text: string): PokemonData[] {
+export function parseText(paste: string): PokemonData[] {
     // split by line and double space = new pokemon
     // check if on windows with carriage return \r
+
+    var text: string = paste.trim();
+    //console.log(paste);
+    //console.log(text);
     var pokemonBlocks: string[] = [];
+    // do I even need to consider carriage return in browser?
     if (text.includes("\r")) {
-        console.log("rn");
+        //console.log("rn");
         pokemonBlocks = text.split("\r\n\r\n");
     } else {
-        console.log("nn");
+        //console.log("nn");
         pokemonBlocks = text.split("\n\n");
     }
+    /*
     // remove last undefined item
-    const newPokemonBlocks = pokemonBlocks.slice(0, pokemonBlocks.length - 1);
+    let newPokemonBlocks;
+    if(pokemonBlocks[pokemonBlocks.length] === "") {
+        newPokemonBlocks = pokemonBlocks.slice(0, pokemonBlocks.length - 1);
+    } else {
+        newPokemonBlocks = pokemonBlocks;
+    }
+    //const newPokemonBlocks = pokemonBlocks.slice(0, pokemonBlocks.length - 1);
     console.log(newPokemonBlocks);
 
     //console.log(pokemonBlocks);
     // each block has the parsePokemon() function applied to it
     return newPokemonBlocks.map(parsePokemon);
+    */
+    // each block has the parsePokemon() function applied to it
+    return pokemonBlocks.map(parsePokemon);
 }
 
 function parsePokemon(block: string): PokemonData {
@@ -27,7 +42,7 @@ function parsePokemon(block: string): PokemonData {
     const moveset: string[] = [];
     // split text into lines
     const lines = block.split("\n");
-    console.log(lines);
+    //console.log(lines);
 
     lines.forEach(line => {
         //console.log(line);
@@ -45,12 +60,14 @@ function parsePokemon(block: string): PokemonData {
             const [nature, empty] = line.split(" Nature");
             pokemonObject.setNature(nature);
         // parse name and item
-        } else {
+        } else if(line.includes("@")){
             const [name, item] = line.split(" @");
+            pokemonObject.setName(name.trim());
             if(name && item) {
-                pokemonObject.setName(name.trim());
                 pokemonObject.setItem(item.trim());
             }
+        } else {
+            throw new Error(`Unknown attribute: <${line}>`);
         }
         // catch condition for no item
     });
@@ -71,6 +88,7 @@ function parsePokemon(block: string): PokemonData {
 }
 
 function parseElement(pokemonObject: PokemonData, key: string, value: string): void {
+    //console.log("parseElement()");
     //console.log(key);
     //console.log(value);
     switch (key) {

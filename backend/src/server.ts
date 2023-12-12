@@ -193,7 +193,7 @@ async function getText(paste: string): Promise<string> {
         //console.log("Invalid text file type.");
         //throw new Error("Invalid text file type.");
         //return '';
-        console.log(paste);
+        //console.log(paste);
         return paste;
     }
 }
