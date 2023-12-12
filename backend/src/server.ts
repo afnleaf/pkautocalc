@@ -179,7 +179,7 @@ async function getText(paste: string): Promise<string> {
             });
             return pokepaste;
         } catch(error) {
-            console.log(error);
+            console.log("error getText()");
             throw new Error(error);
             //return '';
         }

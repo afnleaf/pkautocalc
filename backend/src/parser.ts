@@ -98,6 +98,7 @@ function parseElement(pokemonObject: PokemonData, key: string, value: string): v
             pokemonObject.setNature(value.trim());
             break;
         default:
+            console.log(`Unknown attribute: <${key}>`);
             throw new Error(`Unknown attribute: <${key}>`);
     }
     //return pokemonObject;
