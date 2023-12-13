@@ -274,6 +274,7 @@ function toPokemon(gen: any, pokemon: PokemonData): Pokemon {
     const pokemonName = pokemon._Name.toString();
     const item = pokemon._Item.toString();
     const nature = pokemon._Nature.toString();
+    const ability = pokemon._Ability.toString();
     const evs = {
         hp: pokemon._EVs.Hp,
         atk: pokemon._EVs.Atk,
@@ -286,6 +287,7 @@ function toPokemon(gen: any, pokemon: PokemonData): Pokemon {
         gen,
         pokemonName,
         {
+            ability: ability,
             item: item,
             nature: nature,
             evs: evs,
