@@ -1,5 +1,11 @@
 import { PokemonData } from './pokemonData';
 
+
+/**
+* Parses pokemon data out of a block
+* @param {string} paste - string containing the entire pokemon paste
+* @return {PokemonData} - the object
+*/
 export function parseText(paste: string): PokemonData[] {
     // split by line and double space = new pokemon
     // check if on windows with carriage return \r
@@ -35,6 +41,11 @@ export function parseText(paste: string): PokemonData[] {
     return pokemonBlocks.map(parsePokemon);
 }
 
+/**
+* Parses pokemon data out of a block
+* @param {string} block - string containing only one pokemon from the paste
+* @return {PokemonData} - the object
+*/
 function parsePokemon(block: string): PokemonData {
     // init pokemon object
     let pokemonObject = new PokemonData();
@@ -62,7 +73,7 @@ function parsePokemon(block: string): PokemonData {
         // parse name and item
         } else if(line.includes("@")){
             const [name, item] = line.split(" @");
-            pokemonObject.setName(name.trim());
+            pokemonObject.setName(nameTrim(name.trim()));
             if(name && item) {
                 pokemonObject.setItem(item.trim());
             }
@@ -87,17 +98,39 @@ function parsePokemon(block: string): PokemonData {
     return pokemonObject;
 }
 
+/*
+* To extract the real pokemon name if a pokemon has a nickname
+* @param {} asdasd
+*/
+function nameTrim(name: string): string {
+    let trimmedName: string = name;
+    // slice out the name between the last parentheses of the string
+    if(name.includes("(") && name.includes(")")) {
+        trimmedName = name.slice(name.lastIndexOf("(") + 1, name.lastIndexOf(")"));
+    }
+    return trimmedName;
+}
+
+
+/**
+* Parses Element separated by :
+* @param {PokemonData} pokemonObject - object to store the pokemon data
+* @param {string} key - pokemon element
+* @param {string} value - the value associated with the key
+*/
 function parseElement(pokemonObject: PokemonData, key: string, value: string): void {
     //console.log("parseElement()");
     //console.log(key);
     //console.log(value);
     switch (key) {
+        /*
         case "Name":
             pokemonObject.setName(value.trim());
             break;
         case "Item":
             pokemonObject.setItem(value.trim());
             break;
+        */
         case "Ability":
             pokemonObject.setAbility(value.trim());
             break;
@@ -113,9 +146,11 @@ function parseElement(pokemonObject: PokemonData, key: string, value: string): v
         case "IVs":
             pokemonObject.setIVs(parseIVs(value.trim()));
             break;
+        /*
         case "Nature":
             pokemonObject.setNature(value.trim());
             break;
+        */
         default:
             console.log(`Unknown attribute: <${key}>`);
             throw new Error(`Unknown attribute: <${key}>`);
@@ -123,6 +158,12 @@ function parseElement(pokemonObject: PokemonData, key: string, value: string): v
     //return pokemonObject;
 }
 
+
+/**
+* Parses EVs out of EV string
+* @param {string} evs - string containing EV numbers 
+* @return EVs data
+*/
 function parseEVs(evs: string): { Hp: number, Atk: number, Def: number, SpA: number, SpD: number, Spe: number } {
     //console.log("parseevs");
     //console.log(evs);
@@ -169,6 +210,12 @@ function parseEVs(evs: string): { Hp: number, Atk: number, Def: number, SpA: num
     return _EVs;
 }
 
+
+/**
+* Parses IVs out of IV string
+* @param {string} ivs - string containing IV numbers 
+* @return IVs data
+*/
 function parseIVs(ivs: string): { Hp: number, Atk: number, Def: number, SpA: number, SpD: number, Spe: number } {
     //console.log("parseivs");
     //console.log(ivs);

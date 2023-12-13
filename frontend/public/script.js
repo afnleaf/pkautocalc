@@ -1,6 +1,6 @@
 /**
 * Posts json to server
-* @param {string} http endpoint url 
+* @param {url} http endpoint url 
 * @param {data} json object
 * @return response from the server
 */
