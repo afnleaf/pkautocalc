@@ -22,13 +22,17 @@ async function postData(url = '', data = {}) {
 * Displays results.
 */
 async function requestResults() {
+    let htmlLoading = `<h1>Calculating...</h1>`;
+    htmlLoading += `<img src="Hitmontop.gif">`
+    // inform user that calculations are taking place
+    document.getElementById('results').innerHTML = htmlLoading;
+
+    // run the calculations
     const data = {
         "team1" : document.getElementById("textBoxLeft").value,
         "team2" : document.getElementById("textBoxRight").value
     }
-
     const url = 'http://localhost:8080/calculation';
-    
     try {
         const result = await postData(url, data);
         //console.log(result);

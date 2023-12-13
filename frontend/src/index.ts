@@ -21,6 +21,8 @@ app.get("/script.js", () => Bun.file("./public/script.js"))
 app.get("/favicon-32x32.png", () => Bun.file("./public/favicon-32x32.png"))
 app.get("/favicon-16x16.png", () => Bun.file("./public/favicon-16x16.png"))
 app.get("/favicon.ico", () => Bun.file("./public/favicon.ico"))
+// loading
+app.get("/Hitmontop.gif", () => Bun.file("./public/Hitmontop.gif"))
 // results
 /*
 app.get("/results", async () => {

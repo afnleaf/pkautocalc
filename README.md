@@ -79,13 +79,17 @@ https://pokepast.es/65b41d45f97335ff
 
 
 ## todo
+
+### backend
 add tera type moves as tera type
 ev optimization stats
-
-filter out status moves
 figure out no damage moves
+
+### frontend
+add loading screen
 seperate XHKO
 field conditions
 	passed through frontend
+
 
 
