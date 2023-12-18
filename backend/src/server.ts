@@ -24,6 +24,11 @@ export async function runCalculations(text1: string, text2: string): Promise<str
     let team2Text;
     let team2Data;
 
+    // condition for meta paste
+    if(text2.trim() == "") {
+        //text2 = "https://pokepast.es/dc1eac2d8740c97b";
+        text2 = process.env.METAPASTE;
+    }
 
     // validate textbox1
     try {

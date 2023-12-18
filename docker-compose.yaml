@@ -10,6 +10,7 @@ services:
     environment:
       - ENV_VARIABLE_1=value1
       - ENV_VARIABLE_2=value2
+      - METAPASTE="https://pokepast.es/dc1eac2d8740c97b"
     # This creates interactive mode which lets us execute commands in a shell when the container is running. 
     stdin_open: true
     tty: true
