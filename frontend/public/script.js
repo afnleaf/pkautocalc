@@ -32,7 +32,8 @@ async function requestResults() {
         "team1" : document.getElementById("textBoxLeft").value,
         "team2" : document.getElementById("textBoxRight").value
     }
-    const url = 'http://localhost:8080/calculation';
+    //const url = 'http://localhost:8080/calculation';
+    const url = "http://192.168.2.104:8080/calculaton";
     try {
         const result = await postData(url, data);
         //console.log(result);
