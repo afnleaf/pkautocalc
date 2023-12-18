@@ -35,7 +35,8 @@ async function requestResults() {
     //const url = 'http://localhost:8080/calculation';
     // how to amke this dynamic
     //const url = "http://192.168.2.104:8080/calculation";
-    const url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/calculation`;
+    //const url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/calculation`;
+    const url = `${window.location.protocol}//${window.location.hostname}:${8080}/calculation`;
 
     try {
         const result = await postData(url, data);
