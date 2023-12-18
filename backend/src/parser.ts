@@ -108,6 +108,11 @@ function nameTrim(name: string): string {
     if(name.includes("(") && name.includes(")")) {
         trimmedName = name.slice(name.lastIndexOf("(") + 1, name.lastIndexOf(")"));
     }
+    // check if name is F or M
+    if(trimmedName === "F" || trimmedName === "M") {
+        const splitName = name.split("(");
+        trimmedName = splitName[0].trim();
+    }
     return trimmedName;
 }
 

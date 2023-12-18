@@ -24,10 +24,10 @@ export async function runCalculations(text1: string, text2: string): Promise<str
     let team2Text;
     let team2Data;
 
-    console.log(process.env.METAPASTE);
+    //console.log(process.env.METAPASTE);
     // condition for meta paste
-    if(text2.trim() == "") {
-        console.log(`-${text2}-`);
+    if(text2.trim() === "") {
+        //console.log(`-${text2}-`);
         //text2 = "https://pokepast.es/dc1eac2d8740c97b";
         text2 = process.env.METAPASTE;
     }

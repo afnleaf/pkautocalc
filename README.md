@@ -89,8 +89,8 @@ https://pokepast.es/65b41d45f97335ff
 ### backend
 add tera type moves as tera type
 figure out no damage moves
-if right side empty, use default meta paste
 is there any way to multithread the calculation?
+fix female vs male in pokemon name
 
 ### frontend
 seperate XHKO
