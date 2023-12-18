@@ -242,12 +242,13 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): P
     //double for loop to get through each matchup
     team1.forEach(pokemon1 => {
         const attacker = toPokemon(gen, pokemon1);
+        //console.log(attacker);
         team2.forEach(pokemon2 => {
             const defender = toPokemon(gen, pokemon2);
             // loop through each move
             pokemon1._Moveset.forEach(move => {
-                // filter out status moves
                 const moveData = new Move(gen, move.toString());
+                // filter out status moves
                 if (moveData.category !== "Status") {
                     const result = calculate(
                         gen,
@@ -256,10 +257,16 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): P
                         moveData,
                         field
                     );
-                    //console.log(result.desc());
+                    //console.log(result);
                     //results.push(result.desc());
                     results.push(result);
                 }
+                // get tera blast with tera type activated
+                /*
+                if(move.toString() === "Tera Blast") {
+                    attacker
+                }
+                */
             }); 
         });
     });
@@ -282,6 +289,7 @@ function toPokemon(gen: any, pokemon: PokemonData): Pokemon {
     const item = pokemon._Item.toString();
     const nature = pokemon._Nature.toString();
     const ability = pokemon._Ability.toString();
+    let tera: any = pokemon._Tera.toString();
     const evs = {
         hp: pokemon._EVs.Hp,
         atk: pokemon._EVs.Atk,
@@ -298,6 +306,7 @@ function toPokemon(gen: any, pokemon: PokemonData): Pokemon {
             item: item,
             nature: nature,
             evs: evs,
+            teraType: tera
         }
     );
 }
