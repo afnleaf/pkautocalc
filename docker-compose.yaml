@@ -2,32 +2,6 @@ version: "3.8"
 
 services:
 
-  backend:
-    build:
-      context: ./backend
-    ports:
-      - "8080:8080"
-    environment:
-      - ENV_VARIABLE_1=value1
-      - ENV_VARIABLE_2=value2
-      - METAPASTE=https://pokepast.es/dc1eac2d8740c97b
-    # This creates interactive mode which lets us execute commands in a shell when the container is running. 
-    stdin_open: true
-    tty: true
-
-  frontend:
-    build:
-      context: ./frontend
-    ports:
-      - "3000:3000"
-    environment:
-      - PUBLIC_SERVER_PORT=8080
-      - PUBLIC_SERVER_HOST=http://backend
-    stdin_open: true
-    tty: true
-    depends_on:
-      - backend
-
   nginxproxymanager:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
@@ -38,6 +12,32 @@ services:
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8080:8080"
+    container_name: backend
+    environment:
+      - METAPASTE=https://pokepast.es/dc1eac2d8740c97b
+    # This creates interactive mode which lets us execute commands in a shell when the container is running. 
+    stdin_open: true
+    tty: true
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    container_name: frontend
+    environment:
+    #  - PUBLIC_SERVER_PORT=8080
+    #  - PUBLIC_SERVER_HOST=http://backend
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
 
   #nginx:
   #  image: nginx
