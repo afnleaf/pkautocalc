@@ -39,9 +39,14 @@ app.post("/results", async ({body}) => {
     //const url = 'http://localhost:8080/calculation';
     //const url = 'http://127.0.0.1:8080/calculation';
     const url = 'backend:8080/calculation';
+    const { team1, team2 } = body as { team1: string; team2: string }
+    const data = {
+      "team1" : team1,
+      "team2" : team2
+  }
 
     try {
-        const result = await postData(url, {body});
+        const result = await postData(url, data);
         //console.log(result);
         const htmlResult = await result.text();
         return htmlResult;

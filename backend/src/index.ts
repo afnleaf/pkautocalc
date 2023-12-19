@@ -11,13 +11,16 @@ const app = new Elysia();
 app.use(cors());
 
 // send text in textbox to server
-app.post("/calculation", async ({body}) => {
+app.post("/calculation", async ({ body }) => {
     console.log(body);
     // parse out
-    const tbody = body as { body: { team1: any, team2: any }};
+    //const tbody = body as { body: { team1: any, team2: any }};
     try {
         //const htmlResponse = await main();
-        const htmlResponse = await runCalculations(tbody["body.team1"], tbody["body.team2"]);
+        //const htmlResponse = await runCalculations(tbody["body.team1"].toString(), tbody["body.team2"].toString());
+        const team1 = body.body.team1;
+        const team2 = body.body.team2;
+        const htmlResponse = await runCalculations(team1, team2);
         //console.log(htmlResponse);
         return htmlResponse;
     } catch(error) {
