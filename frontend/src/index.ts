@@ -31,13 +31,15 @@ app.post("/results", async () => {
   return "results";
 })
 */
+
 app.post("/results", async ({body}) => {
     console.log(body);
     // parse out
     const tbody = body as { team1: any, team2: any };
     //const url = 'http://localhost:8080/calculation';
-    const url = 'http://127.0.0.1:8080/calculation';
-    
+    //const url = 'http://127.0.0.1:8080/calculation';
+    const url = 'backend:8080/calculation';
+
     try {
         const result = await postData(url, {tbody});
         //console.log(result);
