@@ -23,18 +23,53 @@ app.get("/favicon-16x16.png", () => Bun.file("./public/favicon-16x16.png"))
 app.get("/favicon.ico", () => Bun.file("./public/favicon.ico"))
 // loading
 app.get("/Hitmontop.gif", () => Bun.file("./public/Hitmontop.gif"))
-// results
+// calcualtion
 /*
-app.get("/results", async () => {
+app.post("/results", async () => {
   return "results";
 })
 */
+app.post("/results", async ({body}) => {
+  console.log(body);
+  // parse out
+  const tbody = body as { team1: any, team2: any };
+  const url = "https://localhost:8080/calculations";
+    try {
+        const result = await postData(url, {body});
+        //console.log(result);
+        const htmlResult = await result.text();
+        return htmlResult;
+    } catch (error) {
+        console.error('Error during POST request:', error);
+    }
+});
+
 // port
 app.listen(PORT);
 
 console.log(
   `Frontend is running at ${app.server?.hostname}:${app.server?.port}`
 );
+
+
+
+/**
+* Posts json to server
+* @param {url} http endpoint url 
+* @param {data} json object
+* @return response from the server
+*/
+async function postData(url = '', data = {}) {
+  const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  });
+
+  return response;
+}
 
 
 /*
