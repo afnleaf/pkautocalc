@@ -14,7 +14,7 @@ app.use(cors());
 app.post("/calculation", async ({body}) => {
     console.log(body);
     // parse out
-    const tbody = body as { team1: any, team2: any };
+    const tbody = body as { body: { team1: any, team2: any }};
     try {
         //const htmlResponse = await main();
         const htmlResponse = await runCalculations(tbody["team1"], tbody["team2"]);
