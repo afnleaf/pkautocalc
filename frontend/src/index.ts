@@ -1,9 +1,11 @@
 import { Elysia } from 'elysia'
 import { html } from '@elysiajs/html'
+import { cors } from '@elysiajs/cors'
 //import { staticPlugin } from '@elysiajs/static'
 const PORT = process.env.PORT || 3000;
 
 const app = new Elysia();
+app.use(cors());
 app.use(html());
 
 /*
@@ -30,12 +32,12 @@ app.post("/results", async () => {
 })
 */
 app.post("/results", async ({body}) => {
-  console.log(body);
-  // parse out
-  const tbody = body as { team1: any, team2: any };
-  const url = "https://localhost:8080/calculations";
+    console.log(body);
+    // parse out
+    const tbody = body as { team1: any, team2: any };
+    const url = 'http://localhost:8080/calculation';
     try {
-        const result = await postData(url, {body});
+        const result = await postData(url, {tbody});
         //console.log(result);
         const htmlResult = await result.text();
         return htmlResult;
@@ -48,7 +50,7 @@ app.post("/results", async ({body}) => {
 app.listen(PORT);
 
 console.log(
-  `Frontend is running at ${app.server?.hostname}:${app.server?.port}`
+    `Frontend is running at ${app.server?.hostname}:${app.server?.port}`
 );
 
 
@@ -60,15 +62,15 @@ console.log(
 * @return response from the server
 */
 async function postData(url = '', data = {}) {
-  const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-  });
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
 
-  return response;
+    return response;
 }
 
 

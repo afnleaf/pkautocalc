@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 8080;
 const app = new Elysia();
 
 // enable cors
-app.use(cors())
+app.use(cors());
 
 // send text in textbox to server
 app.post("/calculation", async ({body}) => {
@@ -23,6 +23,10 @@ app.post("/calculation", async ({body}) => {
     } catch(error) {
         console.error('Error during processing:', error);
     }
+});
+
+app.get("/test", () => {
+    return "test";
 });
 
 // port
