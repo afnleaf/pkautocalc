@@ -32,7 +32,7 @@ app.post("/results", async () => {
 })
 */
 
-app.post("/results", async ({body}) => {
+app.post("/results", async (body) => {
     console.log(body);
     // parse out
     //const tbody = body as { team1: any, team2: any };
@@ -41,7 +41,7 @@ app.post("/results", async ({body}) => {
     const url = 'backend:8080/calculation';
 
     try {
-        const result = await postData(url, {body});
+        const result = await postData(url, body);
         //console.log(result);
         const htmlResult = await result.text();
         return htmlResult;
