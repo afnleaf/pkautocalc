@@ -17,7 +17,7 @@ app.post("/calculation", async ({body}) => {
     const tbody = body as { body: { team1: any, team2: any }};
     try {
         //const htmlResponse = await main();
-        const htmlResponse = await runCalculations(tbody["team1"], tbody["team2"]);
+        const htmlResponse = await runCalculations(tbody["body.team1"], tbody["body.team2"]);
         //console.log(htmlResponse);
         return htmlResponse;
     } catch(error) {
