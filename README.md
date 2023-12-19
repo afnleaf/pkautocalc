@@ -6,11 +6,14 @@ upload to hastebin/pastebin
 currently gen 9 only
 
 ## stack
-bun?
+bun
 smogon/damage-calc
-js
+elysia
+javascript
+typescript
 css
 html
+
 
 ## ideas
 team length limits for calculation speed requirements
@@ -89,6 +92,8 @@ https://pokepast.es/65b41d45f97335ff
 ### backend
 add tera type moves as tera type
 tera defense
+(tera type passed from toPokemon)
+
 figure out no damage moves
 is there any way to multithread the calculation?
 
@@ -96,7 +101,7 @@ is there any way to multithread the calculation?
 seperate XHKO
 field conditions
 	passed through frontend
-
+make everything look nicer
 
 ### production
 how?

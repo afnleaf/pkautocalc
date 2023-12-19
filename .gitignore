@@ -10,3 +10,4 @@ web_application_with_html_and_steps.png
 docker-compose_old.yaml
 nginx.conf
 pokemon.yaml
+/letsencrypt

@@ -77,40 +77,7 @@ export async function runCalculations(text1: string, text2: string): Promise<str
     return html;
 }
 
-/*
-export async function runCalculations(text1: string, text2: string): Promise<string> {
-    // html response
-    let html = ``;
-    // validate string input
-    if(validateText(text1)) {
-        if(validateText(text2)) {
-            console.log()
-            const team1Text = await getText(text1);
-            const team2Text = await getText(text2);
-            // parse the text into pokemon object data, see 'parser.ts'
-            const team1Data = parseText(team1Text);
-            const team2Data = parseText(team2Text);
-            // get field conditions
-            const field = getField();
-            // calculate the results
-            const resultsAttack = await calc(team1Data, team2Data, field);
-            const resultsDefend = await calc(team2Data, team1Data, field);
-            html += buildHTML(resultsAttack, resultsDefend);
-        } else {
-            html += `
-            <h1>Error</h1>
-            <p>There is something wrong with the input for textbox2.</p>
-            `;
-        }
-    } else {
-        html += `
-        <h1>Error</h1>
-        <p>There is something wrong with the input for textbox1.</p>
-        `;
-    }
-    return html;
-}
-*/
+
 
 function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     let html = ``;
@@ -142,21 +109,6 @@ function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     });
     return html;
 }
-
-/*
-function validateText(text: string): boolean {
-    const urlPattern = /^https:\/\/pokepast\.es\/[0-9a-fA-F]{16}$/;
-    const movesetPattern = /^[A-Za-z0-9\s@#$%^&*!()-=_+{}\[\]:;<>,./?\\|]+/;
-    if(urlPattern.test(text)) {
-        return true;
-    } else if (movesetPattern.test(text)) {
-        return true;
-    }
-    //otherwise fails
-    return false;
-}
-*/
-
 
 // function to get the pokepaste text from the txt file or pokepast.es link
 // returns same string if its not a pokepaste link
@@ -241,10 +193,10 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): P
 
     //double for loop to get through each matchup
     team1.forEach(pokemon1 => {
-        const attacker = toPokemon(gen, pokemon1);
+        const attacker = toPokemon(gen, pokemon1, false);
         //console.log(attacker);
         team2.forEach(pokemon2 => {
-            const defender = toPokemon(gen, pokemon2);
+            const defender = toPokemon(gen, pokemon2, false);
             // loop through each move
             pokemon1._Moveset.forEach(move => {
                 const moveData = new Move(gen, move.toString());
@@ -262,11 +214,17 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): P
                     results.push(result);
                 }
                 // get tera blast with tera type activated
-                /*
                 if(move.toString() === "Tera Blast") {
-                    attacker
+                    const attacker = toPokemon(gen, pokemon1, true);
+                    const result = calculate(
+                        gen,
+                        attacker,
+                        defender,
+                        moveData,
+                        field
+                    );
+                    results.push(result);
                 }
-                */
             }); 
         });
     });
@@ -284,7 +242,7 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): P
 
 //function toPokemon(gen: typeof Generations, pokemon: PokemonData): Pokemon {
 //ability
-function toPokemon(gen: any, pokemon: PokemonData): Pokemon {
+function toPokemon(gen: any, pokemon: PokemonData, teraflag: boolean): Pokemon {
     const pokemonName = pokemon._Name.toString();
     const item = pokemon._Item.toString();
     const nature = pokemon._Nature.toString();
@@ -298,19 +256,86 @@ function toPokemon(gen: any, pokemon: PokemonData): Pokemon {
         spd: pokemon._EVs.SpD,
         spe: pokemon._EVs.Spe
     };
-    return new Pokemon(
-        gen,
-        pokemonName,
-        {
-            ability: ability,
-            item: item,
-            nature: nature,
-            evs: evs,
-            teraType: tera
-        }
-    );
+
+    // tera on
+    if(teraflag) {
+        return new Pokemon(
+            gen,
+            pokemonName,
+            {
+                ability: ability,
+                item: item,
+                nature: nature,
+                evs: evs,
+                teraType: tera
+            }
+        );
+    // tera off
+    } else {
+        return new Pokemon(
+            gen,
+            pokemonName,
+            {
+                ability: ability,
+                item: item,
+                nature: nature,
+                evs: evs,
+            }
+        );
+    }
 }
 
 // Uncomment and fix the types if needed
 // const result = runCalculations('text1', 'text2');
 // console.log(result);
+
+
+
+/*
+export async function runCalculations(text1: string, text2: string): Promise<string> {
+    // html response
+    let html = ``;
+    // validate string input
+    if(validateText(text1)) {
+        if(validateText(text2)) {
+            console.log()
+            const team1Text = await getText(text1);
+            const team2Text = await getText(text2);
+            // parse the text into pokemon object data, see 'parser.ts'
+            const team1Data = parseText(team1Text);
+            const team2Data = parseText(team2Text);
+            // get field conditions
+            const field = getField();
+            // calculate the results
+            const resultsAttack = await calc(team1Data, team2Data, field);
+            const resultsDefend = await calc(team2Data, team1Data, field);
+            html += buildHTML(resultsAttack, resultsDefend);
+        } else {
+            html += `
+            <h1>Error</h1>
+            <p>There is something wrong with the input for textbox2.</p>
+            `;
+        }
+    } else {
+        html += `
+        <h1>Error</h1>
+        <p>There is something wrong with the input for textbox1.</p>
+        `;
+    }
+    return html;
+}
+*/
+
+/*
+function validateText(text: string): boolean {
+    const urlPattern = /^https:\/\/pokepast\.es\/[0-9a-fA-F]{16}$/;
+    const movesetPattern = /^[A-Za-z0-9\s@#$%^&*!()-=_+{}\[\]:;<>,./?\\|]+/;
+    if(urlPattern.test(text)) {
+        return true;
+    } else if (movesetPattern.test(text)) {
+        return true;
+    }
+    //otherwise fails
+    return false;
+}
+*/
