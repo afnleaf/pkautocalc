@@ -42,26 +42,47 @@
 ## pokemon object data
 
 Name:
+
 Item:
+ 
 Ability:
+
 Level:
+
 Tera:
+
 EVs: 
+
 	HP:
+
 	Atk:
+
 	Def:
+
 	SpD:
+
 	SpA:
+
 	Spe:
+
 IVs:
+
 	HP:
+
 	Atk:
+
 	Def:
+
 	SpD:
+
 	SpA:
+
 	Spe:
+
 Nature:
+
 Moveset:
+
 
 ## webapp architecture
 
