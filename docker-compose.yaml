@@ -2,16 +2,16 @@ version: "3.8"
 
 services:
 
-  nginxproxymanager:
-    image: 'jc21/nginx-proxy-manager:latest'
-    restart: unless-stopped
-    ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
-    volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
+  #nginxproxymanager:
+  #  image: 'jc21/nginx-proxy-manager:latest'
+  #  restart: unless-stopped
+  #  ports:
+  #    - '80:80'
+  #    - '81:81'
+  #    - '443:443'
+  #  volumes:
+  #    - ./data:/data
+  #    - ./letsencrypt:/etc/letsencrypt
 
   backend:
     build:
@@ -39,14 +39,14 @@ services:
     depends_on:
       - backend
 
-  #nginx:
-  #  image: nginx
-  #  ports:
-  #    - "80:80"
-  #  volumes:
-  #    - ./nginx.conf:/etc/nginx/nginx.conf:ro
-  #  networks:
-  #    - my-network
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - my-network
 
 #networks:
 #  my-network:

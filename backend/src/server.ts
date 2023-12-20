@@ -1,7 +1,10 @@
-import { parseText } from './parser';
 import { calculate, Generations, Pokemon, Move, Field } from '@smogon/calc';
 import { parse } from 'node-html-parser';
 import { PokemonData } from './pokemonData';
+import { parseText } from './parser';
+// for move effectiveness
+import { getMoveEffectiveness } from '@smogon/calc/src/mechanics/util';
+import { TypeName } from '@smogon/calc/src/data/interface';
 
 type BaseStats = {
     Hp: number;
@@ -12,7 +15,7 @@ type BaseStats = {
     Spe: number;
 };
 
-
+// frontend server depends upon this
 export async function runCalculations(text1: string, text2: string): Promise<string> {
     // html response
     let html = `<h1>Error</h1>`;
@@ -86,29 +89,33 @@ function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     <h2>Attack</h2>
     `;
     resultsAttack.forEach(result => {
-        try {
-            html += `<p>${result.desc()}</p>`;
-        } catch (error) {
-            //console.log(error);
-            html += `<p>0</p>`;
-            //html += `<p>${result.desc()}</p>`;
-        }
+        html += getResult(result);
     });
     html += `
     <h2>Defense</h2>
     `;
     resultsDefense.forEach(result => {
-        //html += `<p>${result.desc()}</p>`;
-        try {
-            html += `<p>${result.desc()}</p>`;
-        } catch (error) {
-            //console.log(error);
-            html += `<p>0</p>`;
-            //html += `<p>${result.desc()}</p>`;
-        }
+
+       html += getResult(result);
     });
     return html;
 }
+
+// render customized result html
+function getResult(result: any): string {
+    let html = ``;
+    //Attacker-name Move-name vs. Defender-name: 0-0 (0.0-0.0%) -- Immunity
+    try {
+        html += `<p>${result.desc()}</p>`;
+    } catch (error) {
+        //console.log(error);
+        let text = `${result.attacker.name} ${result.move.name} vs. ${result.defender.name}: 0-0 (0.0-0.0%) -- Immunity`;
+        html += `<p>${text}</p>`;
+        //html += `<p>${result.desc()}</p>`;
+    }
+    return html;
+}
+
 
 // function to get the pokepaste text from the txt file or pokepast.es link
 // returns same string if its not a pokepaste link
@@ -120,7 +127,7 @@ async function getText(paste: string): Promise<string> {
     // pokepaste link
     } else if (file.includes("https://pokepast.es/")) {
     */
-    if (paste.includes("https://pokepast.es/")) {    
+    if (paste.includes("https://pokepast.es/" )) {    
         // have to do a fetch GET request on the pokepaste link
         // get the html text from the response and parse it
         try {
@@ -144,7 +151,7 @@ async function getText(paste: string): Promise<string> {
             });
             return pokepaste;
         } catch(error) {
-            console.log("error getText()");
+            console.log("error in getText(). Failed to fetch from https://pokepast.es/");
             throw new Error(error);
             //return '';
         }
@@ -157,13 +164,6 @@ async function getText(paste: string): Promise<string> {
     }
 }
 
-/*
-function getField(): Field {
-    // default settings
-    const gameType = "Doubles";
-    return new Field(gameType);
-}
-*/
 
 function getField(): Field {
     // default settings
@@ -174,49 +174,51 @@ function getField(): Field {
     };
     return new Field(fieldSettings);
 }
-
-
+/*
+async function getCalcResult(gen: any, move: Move, attacker: Pokemon, defender: Pokemon, field: Field): Promise<any> {
+    let result: any = calculate(
+        gen,
+        attacker,
+        defender,
+        move,
+        field
+    );
+    return result;
+}
+*/
 
 async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): Promise<any[]> {
     // gen 9 by default
     //let gen: typeof Generations = (Generations as typeof Generations).get(9);
-    //const gen = Generations.get(9);
-    const gen = 9;
+    const gen = Generations.get(9);
+    //const gen = 9;
     // store each result in an array
     const results: any[] = [];
-
-    //const pokemon1 = toPokemon(gen, pokemonData[0]);
-    //const pokemon2 = toPokemon(gen, pokemonData[1]);
-
-    //console.log(team1);
-    //console.log(team2);
 
     //double for loop to get through each matchup
     team1.forEach(pokemon1 => {
         const attacker = toPokemon(gen, pokemon1, false);
+        const teraAttacker = toPokemon(gen, pokemon1, true);
         //console.log(attacker);
         team2.forEach(pokemon2 => {
             const defender = toPokemon(gen, pokemon2, false);
+            const teraDefender = toPokemon(gen, pokemon2, true);
             // loop through each move
             pokemon1._Moveset.forEach(move => {
                 const moveData = new Move(gen, move.toString());
+                let result: any;
                 // filter out status moves
                 if (moveData.category !== "Status") {
-                    const result = calculate(
+                    // get effectiveness for conditions
+                    let effectiveness: any = getMoveEffectiveness(
                         gen,
-                        attacker,
-                        defender,
                         moveData,
-                        field
+                        teraDefender.teraType as TypeName
                     );
-                    //console.log(result);
-                    //results.push(result.desc());
-                    results.push(result);
-                }
-                // get tera blast with tera type activated
-                if(move.toString() === "Tera Blast") {
-                    const attacker = toPokemon(gen, pokemon1, true);
-                    const result = calculate(
+                    //console.log(effectiveness);
+                    
+                    // regular
+                    result = calculate(
                         gen,
                         attacker,
                         defender,
@@ -224,6 +226,55 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): P
                         field
                     );
                     results.push(result);
+
+                    // get tera blast with tera type activated
+                    if(move.toString() === "Tera Blast") {
+                        result = calculate(
+                            gen,
+                            teraAttacker,
+                            defender,
+                            moveData,
+                            field
+                        );
+                        results.push(result);
+                    }
+
+                    //check if type of move is neutral vs tera type defender
+                    if(effectiveness != 1) {
+                        result = calculate(
+                            gen,
+                            attacker,
+                            teraDefender,
+                            moveData,
+                            field
+                        );
+                        results.push(result); 
+                    }
+
+                    // check if tera attacker pokemons tera type is same type as move
+                    if(teraAttacker.teraType == moveData.type) {
+                        result = calculate(
+                            gen,
+                            teraAttacker,
+                            defender,
+                            moveData,
+                            field
+                        );
+                        results.push(result); 
+                        
+
+                        // tera attacker and defender
+                        if(effectiveness != 1) {
+                            result = calculate(
+                                gen,
+                                teraAttacker,
+                                teraDefender,
+                                moveData,
+                                field
+                            );
+                            results.push(result); 
+                        }
+                    }
                 }
             }); 
         });
@@ -240,14 +291,28 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): P
     return results;
 }
 
-//function toPokemon(gen: typeof Generations, pokemon: PokemonData): Pokemon {
-//ability
+//if(moveData.type teraDefender.teraType)
+/*
+export function getMoveEffectiveness(
+gen: Generation,
+move: Move,
+type: TypeName,
+isGhostRevealed?: boolean,
+isGravity?: boolean,
+isRingTarget?: boolean,
+)
+*/
+//teraDefender.
+//const gen2 = Generations.get(9);
+
+
 function toPokemon(gen: any, pokemon: PokemonData, teraflag: boolean): Pokemon {
     const pokemonName = pokemon._Name.toString();
     const item = pokemon._Item.toString();
     const nature = pokemon._Nature.toString();
     const ability = pokemon._Ability.toString();
-    let tera: any = pokemon._Tera.toString();
+    //let tera: any = pokemon._Tera.toString(); 
+    let tera: TypeName = pokemon._Tera.toString() as TypeName; 
     const evs = {
         hp: pokemon._EVs.Hp,
         atk: pokemon._EVs.Atk,
@@ -257,6 +322,7 @@ function toPokemon(gen: any, pokemon: PokemonData, teraflag: boolean): Pokemon {
         spe: pokemon._EVs.Spe
     };
 
+    // if I knew how to access the object under pokemonName and what is called, I could remove this code
     // tera on
     if(teraflag) {
         return new Pokemon(
@@ -289,7 +355,13 @@ function toPokemon(gen: any, pokemon: PokemonData, teraflag: boolean): Pokemon {
 // const result = runCalculations('text1', 'text2');
 // console.log(result);
 
-
+/*
+function getField(): Field {
+    // default settings
+    const gameType = "Doubles";
+    return new Field(gameType);
+}
+*/
 
 /*
 export async function runCalculations(text1: string, text2: string): Promise<string> {
@@ -338,4 +410,22 @@ function validateText(text: string): boolean {
     //otherwise fails
     return false;
 }
+
+
 */
+
+/*
+//html += `<p>${result.desc()}</p>`;
+try {
+    html += `<p>${result.desc()}</p>`;
+} catch (error) {
+    //console.log(error);
+    html += `<p>0</p>`;
+    //html += `<p>${result.desc()}</p>`;
+}
+*/
+
+//const pokemon1 = toPokemon(gen, pokemonData[0]);
+//const pokemon2 = toPokemon(gen, pokemonData[1]);
+//console.log(team1);
+//console.log(team2);

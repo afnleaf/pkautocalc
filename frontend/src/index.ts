@@ -32,6 +32,15 @@ app.post("/results", async () => {
 })
 */
 
+// to explain how to use the calculator
+app.get("/howto", () => {
+  let html: string = ``;
+  html += `<h1>How to use</h1>`;
+  return html;
+});
+
+
+// post results to backend
 app.post("/results", async ({body}) => {
     console.log(body);
     // parse out
@@ -54,6 +63,8 @@ app.post("/results", async ({body}) => {
         console.error('Error during POST request:', error);
     }
 });
+
+
 
 // port
 app.listen(PORT);

@@ -72,12 +72,14 @@ Moveset:
 	- display results
 	- avoid load on user pc and having to package smogon calc
 - Backend
-	- parse pokemon objects
+	- parse pokemon objects from user input text
 	- execute calculations
-	- return html of results
+	- render and return html of results
+- Database (not implemented)
+	- store data of meta sets parsed from smogon usage stats
+	- backend: parse smogon stats and store in db
+	- backend: access database to create a superset of mons to calculate vs
 	
-
-Database
 
 ## testing
 team1 pokepaste
@@ -92,17 +94,17 @@ https://pokepast.es/65b41d45f97335ff
 ## todo
 
 ### backend
-- figure out no damage moves
 - is there any way to multithread the calculation?
-- tera defense
+- ring target?
+- update @smogon/calc using github repo, npm is not updated
 
 ### frontend
+- links to me
 - how to use
 - seperate XHKO
 - field conditions
 	- passed through frontend
 - make everything look nicer
-
 
 ### production
 - how? 
@@ -111,9 +113,19 @@ https://pokepast.es/65b41d45f97335ff
 - domain name pkautocalc.duckdns.org
 - why not host it myself (yes)
 - user traffic (monitoring in backend)
+	- portainer
 - content size
 - geographic distribution
 
 
+
+
+## 
+filter out status moves
+tera blast as tera type and normal
+
+check if tera attacker pokemons tera type is same type as move (TERA STAB) 
+
+check if type of move is neutral vs tera type defender
 
 
