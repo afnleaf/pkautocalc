@@ -109,7 +109,19 @@ function getResult(result: any): string {
         html += `<p>${result.desc()}</p>`;
     } catch (error) {
         //console.log(error);
-        let text = `${result.attacker.name} ${result.move.name} vs. ${result.defender.name}: 0-0 (0.0-0.0%) -- Immunity`;
+        let teraAtk: string;
+        if(result.attacker.teraType) {
+            teraAtk = `Tera ${result.attacker.teraType}`;
+        } else {
+            teraAtk = ``;
+        }
+        let teraDef: string;
+        if(result.defender.teraType) {
+            teraDef = `Tera ${result.defender.teraType}`;
+        } else {
+            teraDef = ``;
+        }
+        let text = `${teraAtk} ${result.attacker.name} ${result.move.name} vs. ${teraDef} ${result.defender.name}: 0-0 (0.0-0.0%) -- Immunity`;
         html += `<p>${text}</p>`;
         //html += `<p>${result.desc()}</p>`;
     }
@@ -206,6 +218,8 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): P
             // loop through each move
             pokemon1._Moveset.forEach(move => {
                 const moveData = new Move(gen, move.toString());
+                //console.log("================================");
+                //console.log(moveData);
                 let result: any;
                 // filter out status moves
                 if (moveData.category !== "Status") {
@@ -237,6 +251,25 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): P
                             field
                         );
                         results.push(result);
+                        // condition for tera'd terablast
+                        const teraMoveData = new Move(gen, move.toString());
+                        teraMoveData.type = teraAttacker.teraType as TypeName;
+                        let teraEffectiveness: any = getMoveEffectiveness(
+                            gen,
+                            teraMoveData,
+                            teraDefender.teraType as TypeName
+                        );
+                        if(teraEffectiveness != 1) {
+                            result = calculate(
+                                gen,
+                                teraAttacker,
+                                teraDefender,
+                                teraMoveData,
+                                field
+                            );
+                            results.push(result); 
+                        }
+
                     }
 
                     //check if type of move is neutral vs tera type defender
