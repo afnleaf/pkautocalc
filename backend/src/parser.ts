@@ -22,6 +22,11 @@ export function parseText(paste: string): PokemonData[] {
         //console.log("nn");
         pokemonBlocks = text.split("\n\n");
     }
+    // remove bad blocks
+    pokemonBlocks = pokemonBlocks.filter(block => block.trim() !== "");
+    // remove whitespace around each block
+    pokemonBlocks = pokemonBlocks.map(block => block.trim());
+    
     /*
     // remove last undefined item
     let newPokemonBlocks;
@@ -40,6 +45,7 @@ export function parseText(paste: string): PokemonData[] {
     // each block has the parsePokemon() function applied to it
     return pokemonBlocks.map(parsePokemon);
 }
+
 
 /**
 * Parses pokemon data out of a block
@@ -109,6 +115,7 @@ function parsePokemon(block: string): PokemonData {
     pokemonObject._Moveset = moveset;
     return pokemonObject;
 }
+
 
 /*
 * To extract the real pokemon name if a pokemon has a nickname

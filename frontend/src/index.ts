@@ -57,6 +57,7 @@ app.get("/howto", () => {
     <li><p>Nature is preceded by the nature name, no separator.</p></li>
     <li><p>Moves must be on their own line and start with a <code>-</code> dash. You can add any number of moves to a pokemon.</p></li>
     <li><p>EVs and IVs follow the same pattern. HP, Atk, Def, SpA, SpD, Spe must be separated by a <code>/</code> forward-slash.</p></li>
+    <li><p>Each pokemon must be separated by a newline.</p></li>
   </ul>
   <p>You can also paste in a <code>pokepaste.es</code> link directly into the input textbox. The server will be able to parse the team out of the paste link on its own.</p>
   <p>The default meta paste is currently this: <a href="https://pokepast.es/dc1eac2d8740c97b">https://pokepast.es/dc1eac2d8740c97b</a></p>

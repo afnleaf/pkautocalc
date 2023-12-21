@@ -98,6 +98,7 @@ https://pokepast.es/65b41d45f97335ff
 - update @smogon/calc using github repo, npm is not updated
 - remove rendunt tera defensive type
 - tera defensive needs to be looked at again, like when a move will do more damage than base
+- separate pokemon in results
 
 ### frontend
 - links to me
