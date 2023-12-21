@@ -95,12 +95,13 @@ https://pokepast.es/65b41d45f97335ff
 
 ### backend
 - is there any way to multithread the calculation?
-- ring target?
 - update @smogon/calc using github repo, npm is not updated
+- remove rendunt tera defensive type
+- tera defensive needs to be looked at again, like when a move will do more damage than base
 
 ### frontend
 - links to me
-- how to use
+- how to use (kinda done)
 - seperate XHKO
 - field conditions
 	- passed through frontend

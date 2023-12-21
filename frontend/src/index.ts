@@ -35,7 +35,35 @@ app.post("/results", async () => {
 // to explain how to use the calculator
 app.get("/howto", () => {
   let html: string = ``;
-  html += `<h1>How to use</h1>`;
+  html += `
+  <h1>How to use</h1>
+  <p>Pokepastes are stored on the <a href="https://pokepast.es/">https://pokepast.es/</a> website. The following link contains a team:</p>
+  <a href="https://pokepast.es/3225476ca42a906d">https://pokepast.es/3225476ca42a906d</a>
+  <br>
+  <br>
+  <div><code>Incineroar @ Sitrus Berry</code></div>
+  <div><code>Ability: Intimidate  </code></div>
+  <div><code>Level: 50  </code></div>
+  <div><code>Tera Type: Dragon  </code></div>
+  <div><code>EVs: 252 HP / 252 Atk / 4 SpD  </code></div>
+  <div><code>Adamant Nature  </code></div>
+  <div><code>- Flare Blitz  </code></div>
+  <div><code>- Parting Shot  </code></div>
+  <div><code>- Knock Off  </code></div>
+  <div><code>- Fake Out </code></div>
+  <ul>
+    <li><p>Name and Item must be on the same line separeted by an <code>@</code> symbol.</p></li>
+    <li><p>Ability, Level, Tera Type, EVs, IVs, on their own line. Separated by a <code>:</code> semicolon.</p></li>
+    <li><p>Nature is preceded by the nature name, no separator.</p></li>
+    <li><p>Moves must be on their own line and start with a <code>-</code> dash. You can add any number of moves to a pokemon.</p></li>
+    <li><p>EVs and IVs follow the same pattern. HP, Atk, Def, SpA, SpD, Spe must be separated by a <code>/</code> forward-slash.</p></li>
+  </ul>
+  <p>You can also paste in a <code>pokepaste.es</code> link directly into the input textbox. The server will be able to parse the team out of the paste link on its own.</p>
+  <p>The default meta paste is currently this: <a href="https://pokepast.es/dc1eac2d8740c97b">https://pokepast.es/dc1eac2d8740c97b</a></p>
+  <br>
+  <br>
+  <a href="/">back</a> 
+  `;
   return html;
 });
 

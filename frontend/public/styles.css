@@ -38,6 +38,14 @@ h3 {
     line-height: 1.2
 }
 
+code {
+    background-color: #999;
+    border-radius: 3px;
+    font-family: courier, monospace;
+    padding: 0 3px;
+}
+  
+
 
 /* sections */
 #teamInfo {

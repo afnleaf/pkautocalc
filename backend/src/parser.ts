@@ -82,6 +82,18 @@ function parsePokemon(block: string): PokemonData {
         }
         // catch condition for no item
     });
+    // catch condition for EVs not set
+    if(pokemonObject._EVs === pokemonObject.notset) {
+        const _EVs = {
+            Hp: 0,
+            Atk: 0,
+            Def: 0,
+            SpD: 0,
+            SpA: 0,
+            Spe: 0
+        }
+        pokemonObject.setEVs(_EVs);
+    }
     // catch condition for IVs not set
     if(pokemonObject._IVs === pokemonObject.notset) {
         const _IVs = {
