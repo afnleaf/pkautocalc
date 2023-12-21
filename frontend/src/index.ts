@@ -38,7 +38,7 @@ app.get("/howto", () => {
   html += `
   <h1>How to use</h1>
   <p>Pokepastes are stored on the <a href="https://pokepast.es/">https://pokepast.es/</a> website. The following link contains a team:</p>
-  <a href="https://pokepast.es/3225476ca42a906d">https://pokepast.es/3225476ca42a906d</a>
+  <a href="https://pokepast.es/2c7b8e8730f3c772">https://https://pokepast.es/2c7b8e8730f3c772</a>
   <br>
   <br>
   <div><code>Incineroar @ Sitrus Berry</code></div>
