@@ -9,6 +9,7 @@
     "@elysiajs/cors": "^0.7.2",
     "@elysiajs/html": "^0.7.3",
     "@elysiajs/static": "^0.7.1",
+    "@pkmn/img": "^0.2.21",
     "elysia": "latest"
   },
   "devDependencies": {

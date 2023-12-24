@@ -1,4 +1,5 @@
 import { calculate, Generations, Pokemon, Move, Field } from '@smogon/calc';
+import { Sprites, Icons } from '@pkmn/img';
 import { parse } from 'node-html-parser';
 import { PokemonData } from './pokemonData';
 import { parseText } from './parser';
@@ -89,37 +90,54 @@ function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     <h1>Results</h1>
     <h2>Attacking</h2>
     `;
-    let prevName = "";
+    let prevAttacker = "";
+    let prevDefender = "";
     resultsAttack.forEach(result => {
-        html += renderResult(result, prevName, true);
-        prevName = result.attacker.name;
+        html += renderResult(result, prevAttacker, prevDefender, true);
+        prevAttacker = result.attacker.name;
+        prevDefender = result.defender.name;
     });
     html += `
     <br>
     <h2>Defending</h2>
     `;
-    prevName = "";
+    prevAttacker = "";
+    prevDefender = "";
     resultsDefense.forEach(result => {
-       html += renderResult(result, prevName, false);
-       prevName = result.attacker.name;
+       html += renderResult(result, prevAttacker, prevDefender, false);
+       prevAttacker = result.attacker.name;
+       prevDefender = result.defender.name;
     });
     return html;
 }
 
 
 // render customized result html
-function renderResult(result: any, prevName: string, side: boolean): string {
+function renderResult(result: any, prevAttacker: string, prevDefender: string, side: boolean): string {
     let html = ``;
-    // create a visual break between new pokemon
-    if(result.attacker.name != prevName) {
+    // create a visual break between new attacking pokemon
+    if(result.attacker.name != prevAttacker) {
         html += `<br>`;
-        
+        const {url, w, h, pixelated} = Sprites.getPokemon(result.attacker.name);
+        html += `<img src="${url}" width="${w}" height="${h}">`;
+        html += `<h3>${result.attacker.name}</h3>`
+        //if (pixelated) img.style.imageRendering = 'pixelated';
+        //const icon = document.createElement('span');
+        //icon.style = Icons.getItem('Choice Band').style;
+        prevDefender = "";
     }
+    // create a visual break between new defending pokemon
+    if(result.defender.name != prevDefender) {
+        const {url, w, h, pixelated} = Sprites.getPokemon(result.defender.name);
+        html += `vs. <strong>${result.defender.name}</strong> <img src="${url}" width="${w*0.4}" height="${h*0.4}">`;
+        //html += `<h5></h5>`
+    }
+
     
     try {
-        console.log("----");
-        console.log(result.kochance());
-        console.log(result.desc());
+        //console.log("----");
+        //console.log(result.kochance());
+        //console.log(result.desc());
         const s: string[] = result.desc().split('--');
         let colour: string;
         if(side){
@@ -157,6 +175,7 @@ function renderResult(result: any, prevName: string, side: boolean): string {
     }
     return html;
 }
+
 
 function getKOChanceColourAttack(n: number): string {
     if(n === 1) {

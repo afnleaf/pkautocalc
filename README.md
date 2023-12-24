@@ -99,6 +99,7 @@ https://pokepast.es/65b41d45f97335ff
 - remove rendunt tera defensive type
 - tera defensive needs to be looked at again, like when a move will do more damage than base
 - separate pokemon in results
+- fix female vs male versions
 
 ### frontend
 - links to me
