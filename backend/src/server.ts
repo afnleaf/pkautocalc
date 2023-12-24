@@ -5,6 +5,7 @@ import { parseText } from './parser';
 // for move effectiveness
 import { getMoveEffectiveness } from '@smogon/calc/src/mechanics/util';
 import { TypeName } from '@smogon/calc/src/data/interface';
+import { getKOChance } from '@smogon/calc/dist/desc';
 
 type BaseStats = {
     Hp: number;
@@ -86,29 +87,51 @@ function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     let html = ``;
     html += `
     <h1>Results</h1>
-    <h2>Attack</h2>
+    <h2>Attacking</h2>
     `;
+    let prevName = "";
     resultsAttack.forEach(result => {
-        html += getResult(result);
+        html += renderResult(result, prevName, true);
+        prevName = result.attacker.name;
     });
     html += `
-    <h2>Defense</h2>
+    <br>
+    <h2>Defending</h2>
     `;
+    prevName = "";
     resultsDefense.forEach(result => {
-
-       html += getResult(result);
+       html += renderResult(result, prevName, false);
+       prevName = result.attacker.name;
     });
     return html;
 }
 
+
 // render customized result html
-function getResult(result: any): string {
+function renderResult(result: any, prevName: string, side: boolean): string {
     let html = ``;
-    //Attacker-name Move-name vs. Defender-name: 0-0 (0.0-0.0%) -- Immunity
+    // create a visual break between new pokemon
+    if(result.attacker.name != prevName) {
+        html += `<br>`;
+        
+    }
+    
     try {
-        html += `<p>${result.desc()}</p>`;
+        console.log("----");
+        console.log(result.kochance());
+        console.log(result.desc());
+        const s: string[] = result.desc().split('--');
+        let colour: string;
+        if(side){
+            colour = getKOChanceColourAttack(result.kochance().n);
+        } else {
+            colour = getKOChanceColourDefend(result.kochance().n);
+        }
+        html += `<p>${s[0]} -- <span style="color:${colour}">${s[1] || "light chip"}</span></p>`;
     } catch (error) {
-        //console.log(error);
+        // console.log(error);
+        // branch required for desc() error, print our own immunity text
+        // Attacker-name Move-name vs. Defender-name: 0-0 (0.0-0.0%) -- Immunity
         let teraAtk: string;
         if(result.attacker.teraType) {
             teraAtk = `Tera ${result.attacker.teraType}`;
@@ -121,13 +144,45 @@ function getResult(result: any): string {
         } else {
             teraDef = ``;
         }
-        let text = `${teraAtk} ${result.attacker.name} ${result.move.name} vs. ${teraDef} ${result.defender.name}: 0-0 (0.0-0.0%) -- Immunity`;
+        let colour: string;
+        if(side) {
+            colour = "#d85146";
+        } else {
+            colour = "#50a95f";
+        }
+        let end = `<span style="color:${colour};">Immunity</span>`
+        let text = `${teraAtk} ${result.attacker.name} ${result.move.name} vs. ${teraDef} ${result.defender.name}: 0-0 (0.0-0.0%) -- ${end}`;
         html += `<p>${text}</p>`;
         //html += `<p>${result.desc()}</p>`;
     }
     return html;
 }
 
+function getKOChanceColourAttack(n: number): string {
+    if(n === 1) {
+        // green
+        return "#50a95f";
+    } else if(n === 2 || n === 3) {
+        // orange
+        return "#f3a02f";
+    } else {
+        // red
+        return "#d85146";
+    }
+} 
+
+function getKOChanceColourDefend(n: number): string {
+    if(n === 1) {
+        // red
+        return "#d85146";
+    } else if(n === 2 || n === 3) {
+        // orange
+        return "#f3a02f";
+    } else {
+        // green
+        return "#50a95f";
+    }
+}
 
 // function to get the pokepaste text from the txt file or pokepast.es link
 // returns same string if its not a pokepaste link
@@ -186,18 +241,6 @@ function getField(): Field {
     };
     return new Field(fieldSettings);
 }
-/*
-async function getCalcResult(gen: any, move: Move, attacker: Pokemon, defender: Pokemon, field: Field): Promise<any> {
-    let result: any = calculate(
-        gen,
-        attacker,
-        defender,
-        move,
-        field
-    );
-    return result;
-}
-*/
 
 async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): Promise<any[]> {
     // gen 9 by default
@@ -324,20 +367,6 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): P
     return results;
 }
 
-//if(moveData.type teraDefender.teraType)
-/*
-export function getMoveEffectiveness(
-gen: Generation,
-move: Move,
-type: TypeName,
-isGhostRevealed?: boolean,
-isGravity?: boolean,
-isRingTarget?: boolean,
-)
-*/
-//teraDefender.
-//const gen2 = Generations.get(9);
-
 
 function toPokemon(gen: any, pokemon: PokemonData, teraflag: boolean): Pokemon {
     const pokemonName = pokemon._Name.toString();
@@ -462,3 +491,30 @@ try {
 //const pokemon2 = toPokemon(gen, pokemonData[1]);
 //console.log(team1);
 //console.log(team2);
+
+/*
+async function getCalcResult(gen: any, move: Move, attacker: Pokemon, defender: Pokemon, field: Field): Promise<any> {
+    let result: any = calculate(
+        gen,
+        attacker,
+        defender,
+        move,
+        field
+    );
+    return result;
+}
+*/
+
+//if(moveData.type teraDefender.teraType)
+/*
+export function getMoveEffectiveness(
+gen: Generation,
+move: Move,
+type: TypeName,
+isGhostRevealed?: boolean,
+isGravity?: boolean,
+isRingTarget?: boolean,
+)
+*/
+//teraDefender.
+//const gen2 = Generations.get(9);

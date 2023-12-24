@@ -120,9 +120,7 @@ https://pokepast.es/65b41d45f97335ff
 - geographic distribution
 
 
-
-
-## 
+## tera stuff
 filter out status moves
 tera blast as tera type and normal
 
@@ -131,3 +129,22 @@ check if tera attacker pokemons tera type is same type as move (TERA STAB)
 check if type of move is neutral vs tera type defender
 
 
+## UI components
+- user input textboxes
+	- left textbox
+	- right textbox
+- field options
+	- level: 100, 50, 5
+	- singles vs doubles
+	- generation
+	- weather
+	- other field conditions
+- calculate button
+- link to howto page
+- credits
+	- github
+	- me
+- other links
+	- twitter
+	- youtube
+	- pokepastefix
