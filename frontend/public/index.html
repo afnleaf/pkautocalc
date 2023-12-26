@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        <h1>pkautocalc</h1>
+        <h1>Pokemon Auto Calculator</h1>
     </header>
     <!-- where user inputs teams-->
     <div id="userInput">
@@ -29,7 +29,29 @@
                 <textarea id="textBoxRight" name="textBox2" rows="25" cols="50"></textarea>
             </div>
         </div>
-        
+
+        <div id="field"> 
+            <div id="gametype">
+                <button id="pBut" type="button" style="border:solid;" onclick="pp()">
+                    singles
+                </button>
+                <button id="doubles" type="button" onclick="pp()">
+                    doubles
+                </button>
+            </div>
+            <div id="level">
+                <button id="hundred" type="button" onclick="pp()">
+                    100
+                </button>
+                <button id="fifty" type="button" onclick="pp()">
+                    50
+                </button>
+                <button id="five" type="button" onclick="pp()">
+                    5
+                </button>
+            </div>
+        </div>
+        <!-- <p>Your team sucks lol</p> -->
         <!-- what user presses to indicate they want to calculate -->
         <div id="submitButton">
             <button id="postButton" type="button" onclick=requestResults()>Calculate</button>

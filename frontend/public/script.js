@@ -50,6 +50,16 @@ async function requestResults() {
     }
 }
 
+function pp() {
+    if( document.getElementById('pBut').style.borderStyle = 'solid') {
+        // do some stuff
+        document.getElementById('pBut').style.borderStyle = 'inset';
+    } else {
+        // do some other stuff
+        document.getElementById('pBut').style.borderStyle = 'solid';
+    }
+}
+
 /*
 
 function main() {

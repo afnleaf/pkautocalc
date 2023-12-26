@@ -6,7 +6,7 @@ import { parseText } from './parser';
 // for move effectiveness
 import { getMoveEffectiveness } from '@smogon/calc/src/mechanics/util';
 import { TypeName } from '@smogon/calc/src/data/interface';
-import { getKOChance } from '@smogon/calc/dist/desc';
+//import { getKOChance } from '@smogon/calc/dist/desc';
 
 type BaseStats = {
     Hp: number;
@@ -24,10 +24,10 @@ export async function runCalculations(text1: string, text2: string): Promise<str
     let errorflag: boolean = false;
 
     // data
-    let team1Text;
-    let team1Data;
-    let team2Text;
-    let team2Data;
+    let team1Text: string = "";
+    let team1Data: PokemonData[] = [];
+    let team2Text: string = "";
+    let team2Data: PokemonData[] = [];
 
     //console.log(process.env.METAPASTE);
     // condition for meta paste
@@ -52,7 +52,7 @@ export async function runCalculations(text1: string, text2: string): Promise<str
     } catch(error) {
         errorflag = true;
         html += `
-        <p>There is something wrong with the input for textbox1.</p>
+        <p>There is something wrong with the input for textbox1: ${error}</p>
         `;
     }
 
@@ -65,7 +65,7 @@ export async function runCalculations(text1: string, text2: string): Promise<str
     } catch(error) {
         errorflag = true;
         html += `
-        <p>There is something wrong with the input for textbox2.</p>
+        <p>There is something wrong with the input for textbox2: ${error}</p>
         `;
     }
 
@@ -82,14 +82,74 @@ export async function runCalculations(text1: string, text2: string): Promise<str
     return html;
 }
 
+function gradeKOChanceAttack(n: number): number {
+    if(n === 1) {
+        // green
+        return 1;
+    } else if(n === 2 || n === 3) {
+        // orange
+        return 0.5;
+    } else {
+        // red
+        return 0;
+    }
+} 
 
+function gradeKOChanceDefend(n: number): number {
+    if(n === 1) {
+        // red
+        return 0;
+    } else if(n === 2 || n === 3) {
+        // orange
+        return 0.5;
+    } else {
+        // green
+        return 1;
+    }
+}
 
+function gradeAttack(resultsAttack: any[]): string {
+    let html: string = ``;
+    let score: number = 0;
+    resultsAttack.forEach(result => {
+        try {
+            score += gradeKOChanceAttack(result.kochance().n);
+        } catch (error) {
+            score += 0;
+        } 
+    });
+    html += `${score}/${resultsAttack.length}`;
+    return html;
+}
+
+function gradeDefense(resultsDefense: any[]): string {
+    let html: string = ``;
+    let score: number = 0;
+    resultsDefense.forEach(result => {
+        try {
+            score += gradeKOChanceDefend(result.kochance().n);
+        } catch (error) {
+            score += 0;
+        } 
+    });
+    html += `${score}/${resultsDefense.length}`;
+    return html;
+}
+
+// start the html rendering process
 function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
-    let html = ``;
+    let html: string = ``;
+    
+    // attack
     html += `
     <h1>Results</h1>
     <h2>Attacking</h2>
     `;
+    // get test score for all of attack
+    html += `
+    <p>${gradeAttack(resultsAttack)}</p>
+    `;
+    // get individual results
     let prevAttacker = "";
     let prevDefender = "";
     resultsAttack.forEach(result => {
@@ -97,9 +157,15 @@ function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
         prevAttacker = result.attacker.name;
         prevDefender = result.defender.name;
     });
+    
+    // defense
     html += `
     <br>
     <h2>Defending</h2>
+    `;
+    // get test score for all of defense
+    html += `
+    <p>${gradeDefense(resultsDefense)}</p>
     `;
     prevAttacker = "";
     prevDefender = "";
@@ -114,7 +180,7 @@ function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
 
 // render customized result html
 function renderResult(result: any, prevAttacker: string, prevDefender: string, side: boolean): string {
-    let html = ``;
+    let html: string = ``;
     // create a visual break between new attacking pokemon
     if(result.attacker.name != prevAttacker) {
         html += `<br>`;
@@ -128,8 +194,13 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
     }
     // create a visual break between new defending pokemon
     if(result.defender.name != prevDefender) {
-        const {url, w, h, pixelated} = Sprites.getPokemon(result.defender.name);
-        html += `vs. <strong>${result.defender.name}</strong> <img src="${url}" width="${w*0.4}" height="${h*0.4}">`;
+        // const {url, w, h, pixelated} = Sprites.getPokemon(result.attacker.name);
+        // const {url, w, h, pixelated} = Sprites.getPokemon(result.defender.name);
+        const attackerSprite = Sprites.getPokemon(result.attacker.name);
+        const defenderSprite = Sprites.getPokemon(result.defender.name);
+        const {url: urlA, w: wA, h: hA} = attackerSprite;
+        const {url: urlD, w: wD, h: hD} = defenderSprite;
+        html += `<img src="${urlA}" width="${wA*0.4}" height="${hA*0.4}"> vs. <strong>${result.defender.name}</strong> <img src="${urlD}" width="${wD*0.4}" height="${hD*0.4}">`;
         //html += `<h5></h5>`
     }
 
@@ -145,7 +216,7 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
         } else {
             colour = getKOChanceColourDefend(result.kochance().n);
         }
-        html += `<p>${s[0]} -- <span style="color:${colour}">${s[1] || "light chip"}</span></p>`;
+        html += `<p>${s[0]} -- <span style="color:${colour}"><strong>${s[1] || "Light chip"}</strong></span></p>`;
     } catch (error) {
         // console.log(error);
         // branch required for desc() error, print our own immunity text
@@ -168,7 +239,7 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
         } else {
             colour = "#50a95f";
         }
-        let end = `<span style="color:${colour};">Immunity</span>`
+        let end = `<span style="color:${colour};"><strong>Immunity</strong></span>`
         let text = `${teraAtk} ${result.attacker.name} ${result.move.name} vs. ${teraDef} ${result.defender.name}: 0-0 (0.0-0.0%) -- ${end}`;
         html += `<p>${text}</p>`;
         //html += `<p>${result.desc()}</p>`;
