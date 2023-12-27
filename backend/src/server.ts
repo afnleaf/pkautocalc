@@ -73,9 +73,10 @@ export async function runCalculations(text1: string, text2: string, field: any):
         html = ``;
         // get field conditions
         const fieldSettings = parseField(field);
+        const level = field.level;
         // calculate the results
-        const resultsAttack = await calc(team1Data, team2Data, fieldSettings);
-        const resultsDefend = await calc(team2Data, team1Data, fieldSettings);
+        const resultsAttack = await calc(team1Data, team2Data, fieldSettings, level);
+        const resultsDefend = await calc(team2Data, team1Data, fieldSettings, level);
         html += buildHTML(resultsAttack, resultsDefend);
     }
 
@@ -342,7 +343,7 @@ function parseField(field: any): Field {
     return new Field(fieldSettings);
 }
 
-async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): Promise<any[]> {
+async function calc(team1: PokemonData[], team2: PokemonData[], field: Field, level: number): Promise<any[]> {
     // gen 9 by default
     //let gen: typeof Generations = (Generations as typeof Generations).get(9);
     const gen = Generations.get(9);
@@ -350,12 +351,22 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field): P
     // store each result in an array
     const results: any[] = [];
 
+    //console.log(level);
+
     //double for loop to get through each matchup
     team1.forEach(pokemon1 => {
+        // check auto level flag for attacker
+        if(level > 0) {
+            pokemon1.setLevel(level);
+        }
         const attacker = toPokemon(gen, pokemon1, false);
         const teraAttacker = toPokemon(gen, pokemon1, true);
         //console.log(attacker);
         team2.forEach(pokemon2 => {
+            // check auto level flag for attacker
+            if(level > 0) {
+                pokemon2.setLevel(level);
+            }
             const defender = toPokemon(gen, pokemon2, false);
             const teraDefender = toPokemon(gen, pokemon2, true);
             // loop through each move
@@ -473,6 +484,7 @@ function toPokemon(gen: any, pokemon: PokemonData, teraflag: boolean): Pokemon {
     const item = pokemon._Item.toString();
     const nature = pokemon._Nature.toString();
     const ability = pokemon._Ability.toString();
+    const level = pokemon._Level;
     //let tera: any = pokemon._Tera.toString(); 
     let tera: TypeName = pokemon._Tera.toString() as TypeName; 
     const evs = {
@@ -495,7 +507,8 @@ function toPokemon(gen: any, pokemon: PokemonData, teraflag: boolean): Pokemon {
                 item: item,
                 nature: nature,
                 evs: evs,
-                teraType: tera
+                teraType: tera,
+                level: level
             }
         );
     // tera off
@@ -508,6 +521,7 @@ function toPokemon(gen: any, pokemon: PokemonData, teraflag: boolean): Pokemon {
                 item: item,
                 nature: nature,
                 evs: evs,
+                level: level
             }
         );
     }

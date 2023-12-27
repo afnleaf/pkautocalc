@@ -68,32 +68,139 @@ function getField() {
         field.gameType = "Doubles";
     }
     // level
+    if(document.getElementById("hundred").style.borderStyle == "inset") {
+        field.level = 100;
+    } else if(document.getElementById("fifty").style.borderStyle == "inset") {
+        field.level = 50;
+    } else if(document.getElementById("five").style.borderStyle == "inset") {
+        field.level = 5;
+    // condition to turn off autolevel
+    } else {
+        field.level = 0;
+    }
     return field;
 }
 
 
 // Field control buttons
 function singlesButtonPressed() {
+    const buttonSingles = document.getElementById("singles");
+    const buttonDoubles = document.getElementById("doubles");
     // if not pressed, press in
-    if(document.getElementById("singles").style.borderStyle == "outset") {
-    	document.getElementById("singles").style.borderStyle = "inset";
-      // if doubles is pressed currently, unpress it
-      if(document.getElementById("doubles").style.borderStyle == "inset") {
-      	document.getElementById("doubles").style.borderStyle = "outset";
-      }
+    if(buttonSingles.style.borderStyle == "outset") {
+    	buttonSingles.style.borderStyle = "inset";
+        // if doubles is pressed currently, unpress it
+        if(buttonDoubles.style.borderStyle == "inset") {
+            buttonDoubles.style.borderStyle = "outset";
+        }
     } 
 }
 
 function doublesButtonPressed() {
+    const buttonSingles = document.getElementById("singles");
+    const buttonDoubles = document.getElementById("doubles");
     // if not pressed, press in
-    if(document.getElementById("doubles").style.borderStyle == "outset") {
-    	document.getElementById("doubles").style.borderStyle = "inset";
-      // if doubles is pressed currently, unpress it
-      if(document.getElementById("singles").style.borderStyle == "inset") {
-      	document.getElementById("singles").style.borderStyle = "outset";
-      }
+    if(buttonDoubles.style.borderStyle == "outset") {
+    	buttonDoubles.style.borderStyle = "inset";
+        // if doubles is pressed currently, unpress it
+        if(buttonSingles.style.borderStyle == "inset") {
+            buttonSingles.style.borderStyle = "outset";
+        }
     } 
 }
+
+// Level control buttons
+function autolevelButtonPressed() {
+    const buttonHundred = document.getElementById("hundred");
+    const buttonFifty = document.getElementById("fifty");
+    const buttonFive = document.getElementById("five");
+    //const buttonAuto = document.getElementById("autolevel");
+    // if hundred is pressed currently, unpress it
+    if(buttonHundred.style.borderStyle == "inset") {
+        buttonHundred.style.borderStyle = "outset";
+    }    
+    // if fifty is pressed currently, unpress it
+    if(buttonFifty.style.borderStyle == "inset") {
+        buttonFifty.style.borderStyle = "outset";
+    }
+    // if five is pressed currently, unpress it
+    if(buttonFive.style.borderStyle == "inset") {
+        buttonFive.style.borderStyle = "outset";
+    }
+}
+
+
+
+
+function level100ButtonPressed() {
+    const buttonHundred = document.getElementById("hundred");
+    const buttonFifty = document.getElementById("fifty");
+    const buttonFive = document.getElementById("five");
+    const buttonAuto = document.getElementById("autolevel");
+    // if not pressed, press in
+    if(buttonHundred.style.borderStyle == "outset") {
+    	buttonHundred.style.borderStyle = "inset";
+        // if fifty is pressed currently, unpress it
+        if(buttonFifty.style.borderStyle == "inset") {
+            buttonFifty.style.borderStyle = "outset";
+        }
+        // if five is pressed currently, unpress it
+        if(buttonFive.style.borderStyle == "inset") {
+            buttonFive.style.borderStyle = "outset";
+        }
+        //
+        if(buttonAuto.style.borderStyle == "inset") {
+            buttonAuto.style.borderStyle == "outset";
+        }
+    } 
+}
+
+function level50ButtonPressed() {
+    const buttonHundred = document.getElementById("hundred");
+    const buttonFifty = document.getElementById("fifty");
+    const buttonFive = document.getElementById("five");
+    const buttonAuto = document.getElementById("autolevel");
+    // if not pressed, press in
+    if(buttonFifty.style.borderStyle == "outset") {
+        buttonFifty.style.borderStyle = "inset";
+        // if hundred is pressed currently, unpress it
+        if(buttonHundred.style.borderStyle == "inset") {
+            buttonHundred.style.borderStyle = "outset";
+        }
+        // if five is pressed currently, unpress it
+        if(buttonFive.style.borderStyle == "inset") {
+            buttonFive.style.borderStyle = "outset";
+        }
+        //
+        if(buttonAuto.style.borderStyle == "inset") {
+            buttonAuto.style.borderStyle == "outset";
+        }
+    }
+}
+
+function level5ButtonPressed() {
+    const buttonHundred = document.getElementById("hundred");
+    const buttonFifty = document.getElementById("fifty");
+    const buttonFive = document.getElementById("five");
+    const buttonAuto = document.getElementById("autolevel");
+    // if not pressed, press in
+    if(buttonFive.style.borderStyle == "outset") {
+    	buttonFive.style.borderStyle = "inset";
+        // if hundred is pressed currently, unpress it
+        if(buttonHundred.style.borderStyle == "inset") {
+            buttonHundred.style.borderStyle = "outset";
+        }
+        // if fifty is pressed currently, unpress it
+        if(buttonFifty.style.borderStyle == "inset") {
+            buttonFifty.style.borderStyle = "outset";
+        }
+        //
+        if(buttonAuto.style.borderStyle == "inset") {
+            buttonAuto.style.borderStyle == "outset";
+        }
+    } 
+}
+
 
 /*
 
