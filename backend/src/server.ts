@@ -18,7 +18,7 @@ type BaseStats = {
 };
 
 // frontend server depends upon this
-export async function runCalculations(text1: string, text2: string): Promise<string> {
+export async function runCalculations(text1: string, text2: string, field: any): Promise<string> {
     // html response
     let html = `<h1>Error</h1>`;
     let errorflag: boolean = false;
@@ -72,10 +72,10 @@ export async function runCalculations(text1: string, text2: string): Promise<str
     if(!errorflag) {
         html = ``;
         // get field conditions
-        const field = getField();
+        const fieldSettings = parseField(field);
         // calculate the results
-        const resultsAttack = await calc(team1Data, team2Data, field);
-        const resultsDefend = await calc(team2Data, team1Data, field);
+        const resultsAttack = await calc(team1Data, team2Data, fieldSettings);
+        const resultsDefend = await calc(team2Data, team1Data, fieldSettings);
         html += buildHTML(resultsAttack, resultsDefend);
     }
 
@@ -321,7 +321,7 @@ async function getText(paste: string): Promise<string> {
     }
 }
 
-
+/*
 function getField(): Field {
     // default settings
     const gameType: "Doubles" = "Doubles";
@@ -329,6 +329,16 @@ function getField(): Field {
         gameType: gameType,
         // Add other optional properties if needed
     };
+    return new Field(fieldSettings);
+}
+*/
+
+function parseField(field: any): Field {
+    // default settings
+    const fieldSettings: Partial<Field> = {
+        gameType: field.gameType,
+        // add other optional properties if needed
+    }
     return new Field(fieldSettings);
 }
 

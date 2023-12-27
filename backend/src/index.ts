@@ -18,8 +18,8 @@ app.post("/calculation", async ({ body }) => {
     try {
         //const htmlResponse = await main();
         //const htmlResponse = await runCalculations(tbody["body.team1"].toString(), tbody["body.team2"].toString());
-        const { team1, team2 } = body as { team1: string; team2: string }
-        const htmlResponse = await runCalculations(team1, team2);
+        const { team1, team2, field } = body as { team1: string; team2: string, field: any }
+        const htmlResponse = await runCalculations(team1, team2, field);
         //console.log(htmlResponse);
         return htmlResponse;
     } catch(error) {

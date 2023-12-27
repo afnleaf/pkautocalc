@@ -22,15 +22,22 @@ async function postData(url = '', data = {}) {
 * Displays results.
 */
 async function requestResults() {
+    // loading screen spinner
     let htmlLoading = `<h1>Calculating...</h1>`;
     htmlLoading += `<img src="Hitmontop.gif">`
     // inform user that calculations are taking place
     document.getElementById('results').innerHTML = htmlLoading;
 
-    // run the calculations
+    // parse field
+    const field = getField();
+
+    // message to be passed
     const data = {
+        // get pastes from textbox
         "team1" : document.getElementById("textBoxLeft").value,
-        "team2" : document.getElementById("textBoxRight").value
+        "team2" : document.getElementById("textBoxRight").value,
+        // field
+        "field": field
     }
     //const url = 'http://localhost:8080/calculation';
     //const url = "https://localhost:3000/results";
@@ -50,14 +57,42 @@ async function requestResults() {
     }
 }
 
-function pp() {
-    if( document.getElementById('pBut').style.borderStyle = 'solid') {
-        // do some stuff
-        document.getElementById('pBut').style.borderStyle = 'inset';
-    } else {
-        // do some other stuff
-        document.getElementById('pBut').style.borderStyle = 'solid';
+// parse field
+function getField() {
+    const field = {};
+    // game type doubles or singles
+    // must be capital to be parsed
+    if(document.getElementById("singles").style.borderStyle == "inset") {
+        field.gameType = "Singles";
+    } else if(document.getElementById("doubles").style.borderStyle == "inset") {
+        field.gameType = "Doubles";
     }
+    // level
+    return field;
+}
+
+
+// Field control buttons
+function singlesButtonPressed() {
+    // if not pressed, press in
+    if(document.getElementById("singles").style.borderStyle == "outset") {
+    	document.getElementById("singles").style.borderStyle = "inset";
+      // if doubles is pressed currently, unpress it
+      if(document.getElementById("doubles").style.borderStyle == "inset") {
+      	document.getElementById("doubles").style.borderStyle = "outset";
+      }
+    } 
+}
+
+function doublesButtonPressed() {
+    // if not pressed, press in
+    if(document.getElementById("doubles").style.borderStyle == "outset") {
+    	document.getElementById("doubles").style.borderStyle = "inset";
+      // if doubles is pressed currently, unpress it
+      if(document.getElementById("singles").style.borderStyle == "inset") {
+      	document.getElementById("singles").style.borderStyle = "outset";
+      }
+    } 
 }
 
 /*
