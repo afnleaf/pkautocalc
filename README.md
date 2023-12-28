@@ -142,6 +142,11 @@ check if type of move is neutral vs tera type defender
 	- weather
 	- other field conditions
 - calculate button
+- preset feature
+	- VGC F
+	- Smogon Doubles
+	- Smogon Singles
+	- LC
 - link to howto page
 - credits
 	- github

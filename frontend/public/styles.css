@@ -39,7 +39,7 @@ h3 {
 }
 
 code {
-    background-color: #999;
+    background-color: #eee;
     border-radius: 3px;
     font-family: courier, monospace;
     padding: 0 3px;
@@ -95,8 +95,16 @@ code {
     height: 10vh; /* Optionally, set a height for the container to center vertically within the viewport */
 }
 
-/*
-#button {
-    margin-top: 10px;
+/* buttons */
+button {
+    transition: border 0.3s, color 0.3s;
 }
-*/
+
+button.on {
+    border: inset;
+    background-color: #bbb
+}
+
+button.off {
+    border: outset;
+}

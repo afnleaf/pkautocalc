@@ -36,6 +36,10 @@ app.post("/results", async () => {
 app.get("/howto", () => {
   let html: string = ``;
   html += `
+  <head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+  <body>
   <h1>How to use</h1>
   <p>Pokepastes are stored on the <a href="https://pokepast.es/">https://pokepast.es/</a> website. The following link contains a team:</p>
   <a href="https://pokepast.es/2c7b8e8730f3c772">https://pokepast.es/2c7b8e8730f3c772</a>
@@ -51,8 +55,9 @@ app.get("/howto", () => {
   <div><code>- Parting Shot  </code></div>
   <div><code>- Knock Off  </code></div>
   <div><code>- Fake Out </code></div>
+  <p>For the calculator to work, a pokemon needs only a name.</p>
   <ul>
-    <li><p>Name and Item must be on the same line separeted by an <code>@</code> symbol.</p></li>
+    <li><p>Name and Item must be on the same line separeted by an <code>@</code> symbol. You need a name and an @ but not an item.</p></li>
     <li><p>Ability, Level, Tera Type, EVs, IVs, on their own line. Separated by a <code>:</code> semicolon.</p></li>
     <li><p>Nature is preceded by the nature name, no separator.</p></li>
     <li><p>Moves must be on their own line and start with a <code>-</code> dash. You can add any number of moves to a pokemon.</p></li>
@@ -63,7 +68,8 @@ app.get("/howto", () => {
   <p>The default meta paste is currently this: <a href="https://pokepast.es/dc1eac2d8740c97b">https://pokepast.es/dc1eac2d8740c97b</a></p>
   <br>
   <br>
-  <a href="/">back</a> 
+  <a href="/">back</a>
+  </body>
   `;
   return html;
 });

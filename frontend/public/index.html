@@ -32,22 +32,38 @@
 
         <div id="field"> 
             <div id="gametype">
-                <button id="singles" type="button" style="border:outset" onclick="singlesButtonPressed()">
+                <button id="singles" type="button" class="off" onclick="singlesButtonPressed()">
                   singles
                 </button>
-                <button id="doubles" type="button" style="border:inset" onclick="doublesButtonPressed()">
+                <!-- default on -->
+                <button id="doubles" type="button" class="on" onclick="doublesButtonPressed()">
                   doubles
                 </button>
             </div>
             <div id="level">
-                <button id="hundred" type="button" style="border:outset" onclick="level100ButtonPressed()">
+                <button id="hundred" type="button" class="off" onclick="level100ButtonPressed()">
                     100
                 </button>
-                <button id="fifty" type="button" style="border:outset" onclick="level50ButtonPressed()">
+                <!-- default on -->
+                <button id="fifty" type="button" class="on" onclick="level50ButtonPressed()">
                     50
                 </button>
-                <button id="five" type="button" style="border:outset" onclick="level5ButtonPressed()">
+                <button id="five" type="button" class="off" onclick="level5ButtonPressed()">
                     5
+                </button>
+            </div>
+            <div id="terrain">
+                <button id="electric" type="button" class="off" onclick="electricButtonPressed()">
+                    Electric Terrain
+                </button>
+                <button id="grassy" type="button" class="off" onclick="grassyButtonPressed()">
+                    Grassy Terrain
+                </button>
+                <button id="psychic" type="button" class="off" onclick="psychicButtonPressed()">
+                    Psychic Terrain
+                </button>
+                <button id="misty" type="button" class="off" onclick="mistyButtonPressed()">
+                    Misty Terrain
                 </button>
             </div>
         </div>

@@ -42,14 +42,8 @@ async function requestResults() {
         // field
         "field": field
     }
-    //const url = 'http://localhost:8080/calculation';
-    //const url = "https://localhost:3000/results";
-    // how to amke this dynamic
-    //const url = "http://192.168.2.104:8080/calculation";
-    //const url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/calculation`;
-    //const url = `${window.location.protocol}//${window.location.hostname}/results`;
+
     const url = "/results";
-    
     try {
         const result = await postData(url, data);
         //console.log(result);
@@ -66,29 +60,203 @@ async function requestResults() {
 // parse field
 function getField() {
     const field = {};
-    // game type doubles or singles
-    // must be capital to be parsed
-    if(document.getElementById("singles").style.borderStyle == "inset") {
+    
+    // all buttons
+    // gametype
+    const buttonSingles = document.getElementById("singles");
+    const buttonDoubles = document.getElementById("doubles");
+    // level
+    const buttonHundred = document.getElementById("hundred");
+    const buttonFifty = document.getElementById("fifty");
+    const buttonFive = document.getElementById("five");
+    // terrain
+    const buttonElectric = document.getElementById("electric");
+    const buttonGrassy = document.getElementById("grassy");
+    const buttonPsychic = document.getElementById("psychic");
+    const buttonMisty = document.getElementById("misty");
+
+    // parse state
+    // gametype
+    if(buttonSingles.classList.contains("on")) {
         field.gameType = "Singles";
-    } else if(document.getElementById("doubles").style.borderStyle == "inset") {
+    } else if(buttonDoubles.classList.contains("on")) {
+        field.gameType = "Doubles";
+    } else {
+        // default doubles
         field.gameType = "Doubles";
     }
+
     // level
-    if(document.getElementById("hundred").style.borderStyle == "inset") {
+    if(buttonHundred.classList.contains("on")) {
         field.level = 100;
-    } else if(document.getElementById("fifty").style.borderStyle == "inset") {
+    } else if(buttonFifty.classList.contains("on")) {
         field.level = 50;
-    } else if(document.getElementById("five").style.borderStyle == "inset") {
+    } else if(buttonFive.classList.contains("on")) {
         field.level = 5;
-    // condition to turn off autolevel
     } else {
+        // 0 is off because minimum level is 1
         field.level = 0;
     }
+
+    // terrain
+    if(buttonElectric.classList.contains("on")) {
+        field.terrain = "Electric";
+    } else if(buttonGrassy.classList.contains("on")) {
+        field.terrain = "Grassy";
+    } else if(buttonPsychic.classList.contains("on")) {
+        field.terrain = "Psychic";
+    } else if(buttonMisty.classList.contains("on")) {
+        field.terrain = "Misty";
+    } else {
+        field.terrain = undefined;
+    }
+
     return field;
 }
 
 
-// Field control buttons
+// Field control buttons --------------------------------------------
+
+// button util
+function toggleButtonState(button) {
+    if(button.classList.contains("on")) {
+        buttonOff(button)
+    } else {
+        buttonOn(button);
+    }
+}
+
+function buttonOn(button) {
+    button.classList.remove("off");
+    button.classList.add("on");
+}
+
+function buttonOff(button) {
+    button.classList.remove("on");
+    button.classList.add("off");
+}
+
+// gametype
+function singlesButtonPressed() {
+    const buttonSingles = document.getElementById("singles");
+    const buttonDoubles = document.getElementById("doubles");
+    toggleButtonState(buttonSingles);
+    // if pressed on, turn all the others off
+    if(buttonSingles.classList.contains("on")) {
+        buttonOff(buttonDoubles);
+    }
+}
+
+function doublesButtonPressed() {
+    const buttonSingles = document.getElementById("singles");
+    const buttonDoubles = document.getElementById("doubles");
+    toggleButtonState(buttonDoubles);
+    // if pressed on, turn all the others off
+    if(buttonDoubles.classList.contains("on")) {
+        buttonOff(buttonSingles);
+    }
+}
+
+
+
+
+// levels
+function level100ButtonPressed() {
+    const buttonHundred = document.getElementById("hundred");
+    const buttonFifty = document.getElementById("fifty");
+    const buttonFive = document.getElementById("five");
+    toggleButtonState(buttonHundred);
+    // if pressed on, turn all the others off
+    if(buttonHundred.classList.contains("on")) {
+        buttonOff(buttonFifty);
+        buttonOff(buttonFive);
+    }
+}
+
+function level50ButtonPressed() {
+    const buttonHundred = document.getElementById("hundred");
+    const buttonFifty = document.getElementById("fifty");
+    const buttonFive = document.getElementById("five");
+    toggleButtonState(buttonFifty);
+    // if pressed on, turn all the others off
+    if(buttonFifty.classList.contains("on")) {
+        buttonOff(buttonHundred);
+        buttonOff(buttonFive);
+    }
+}
+
+function level5ButtonPressed() {
+    const buttonHundred = document.getElementById("hundred");
+    const buttonFifty = document.getElementById("fifty");
+    const buttonFive = document.getElementById("five");
+    toggleButtonState(buttonFive);
+    // if pressed on, turn all the others off
+    if(buttonFive.classList.contains("on")) {
+        buttonOff(buttonHundred);
+        buttonOff(buttonFifty);
+    }
+}
+
+
+// terrain
+function electricButtonPressed() {
+    const buttonElectric = document.getElementById("electric");
+    const buttonGrassy = document.getElementById("grassy");
+    const buttonPsychic = document.getElementById("psychic");
+    const buttonMisty = document.getElementById("misty");
+    toggleButtonState(buttonElectric);
+    // if pressed on, turn all the others off
+    if(buttonElectric.classList.contains("on")) {
+        buttonOff(buttonGrassy);
+        buttonOff(buttonPsychic);
+        buttonOff(buttonMisty);
+    }
+}
+
+function grassyButtonPressed() {
+    const buttonElectric = document.getElementById("electric");
+    const buttonGrassy = document.getElementById("grassy");
+    const buttonPsychic = document.getElementById("psychic");
+    const buttonMisty = document.getElementById("misty");
+    toggleButtonState(buttonGrassy);
+    // if pressed on, turn all the others off
+    if(buttonGrassy.classList.contains("on")) {
+        buttonOff(buttonElectric);
+        buttonOff(buttonPsychic);
+        buttonOff(buttonMisty);
+    }
+}
+
+function psychicButtonPressed() {
+    const buttonElectric = document.getElementById("electric");
+    const buttonGrassy = document.getElementById("grassy");
+    const buttonPsychic = document.getElementById("psychic");
+    const buttonMisty = document.getElementById("misty");
+    toggleButtonState(buttonPsychic);
+    // if pressed on, turn all the others off
+    if(buttonPsychic.classList.contains("on")) {
+        buttonOff(buttonElectric);
+        buttonOff(buttonGrassy);
+        buttonOff(buttonMisty);
+    }
+}
+
+function mistyButtonPressed() {
+    const buttonElectric = document.getElementById("electric");
+    const buttonGrassy = document.getElementById("grassy");
+    const buttonPsychic = document.getElementById("psychic");
+    const buttonMisty = document.getElementById("misty");
+    toggleButtonState(buttonMisty);
+    // if pressed on, turn all the others off
+    if(buttonMisty.classList.contains("on")) {
+        buttonOff(buttonElectric);
+        buttonOff(buttonGrassy);
+        buttonOff(buttonPsychic);
+    }
+}
+
+
+/*
 function singlesButtonPressed() {
     const buttonSingles = document.getElementById("singles");
     const buttonDoubles = document.getElementById("doubles");
@@ -114,7 +282,9 @@ function doublesButtonPressed() {
         }
     } 
 }
+*/
 
+/*
 function level100ButtonPressed() {
     const buttonHundred = document.getElementById("hundred");
     const buttonFifty = document.getElementById("fifty");
@@ -131,11 +301,6 @@ function level100ButtonPressed() {
         if(buttonFive.style.borderStyle == "inset") {
             buttonFive.style.borderStyle = "outset";
         }
-        /*
-        if(buttonAuto.style.borderStyle == "inset") {
-            buttonAuto.style.borderStyle == "outset";
-        }
-        */
     } else if(buttonHundred.style.borderStyle = "inset") {
         buttonHundred.style.borderStyle = "outset";
     }
@@ -157,11 +322,6 @@ function level50ButtonPressed() {
         if(buttonFive.style.borderStyle == "inset") {
             buttonFive.style.borderStyle = "outset";
         }
-        /*
-        if(buttonAuto.style.borderStyle == "inset") {
-            buttonAuto.style.borderStyle == "outset";
-        }
-        */
     } else if(buttonFifty.style.borderStyle = "inset") {
         buttonFifty.style.borderStyle = "outset";
     }
@@ -183,12 +343,36 @@ function level5ButtonPressed() {
         if(buttonFifty.style.borderStyle == "inset") {
             buttonFifty.style.borderStyle = "outset";
         }
-        /*
-        if(buttonAuto.style.borderStyle == "inset") {
-            buttonAuto.style.borderStyle == "outset";
-        }
-        */
     } else if(buttonFive.style.borderStyle = "inset") {
         buttonFive.style.borderStyle = "outset";
     }
 }
+*/
+
+// game type doubles or singles
+// must be capital to be parsed?
+/*
+if(document.getElementById("singles").style.borderStyle == "inset") {
+    field.gameType = "Singles";
+} else if(document.getElementById("doubles").style.borderStyle == "inset") {
+    field.gameType = "Doubles";
+}
+// level
+if(document.getElementById("hundred").style.borderStyle == "inset") {
+    field.level = 100;
+} else if(document.getElementById("fifty").style.borderStyle == "inset") {
+    field.level = 50;
+} else if(document.getElementById("five").style.borderStyle == "inset") {
+    field.level = 5;
+// condition to turn off autolevel
+} else {
+    field.level = 0;
+}
+*/
+
+//const url = 'http://localhost:8080/calculation';
+//const url = "https://localhost:3000/results";
+// how to amke this dynamic
+//const url = "http://192.168.2.104:8080/calculation";
+//const url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/calculation`;
+//const url = `${window.location.protocol}//${window.location.hostname}/results`;

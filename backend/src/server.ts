@@ -338,6 +338,7 @@ function parseField(field: any): Field {
     // default settings
     const fieldSettings: Partial<Field> = {
         gameType: field.gameType,
+        terrain: field.terrain,
         // add other optional properties if needed
     }
     return new Field(fieldSettings);
