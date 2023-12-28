@@ -160,17 +160,22 @@ function buttonOff(button) {
 function singlesButtonPressed() {
     const buttonSingles = document.getElementById("singles");
     const buttonDoubles = document.getElementById("doubles");
-    toggleButtonState(buttonSingles);
+    // if doubles is currently off, singles shouldn't be able to be turned off
+    if(buttonDoubles.classList.contains("on")) {
+        toggleButtonState(buttonSingles);
+    } 
     // if pressed on, turn all the others off
     if(buttonSingles.classList.contains("on")) {
         buttonOff(buttonDoubles);
-    }
+    }    
 }
 
 function doublesButtonPressed() {
     const buttonSingles = document.getElementById("singles");
     const buttonDoubles = document.getElementById("doubles");
-    toggleButtonState(buttonDoubles);
+    if(buttonSingles.classList.contains("on")) {
+        toggleButtonState(buttonDoubles);
+    }
     // if pressed on, turn all the others off
     if(buttonDoubles.classList.contains("on")) {
         buttonOff(buttonSingles);
