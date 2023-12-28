@@ -101,6 +101,7 @@ https://pokepast.es/65b41d45f97335ff
 - fix female vs male versions
 - boosts
 - test score results
+- control error for undefined pokemon
 
 ### frontend
 - links to me

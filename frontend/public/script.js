@@ -28,6 +28,9 @@ async function requestResults() {
     // inform user that calculations are taking place
     document.getElementById('results').innerHTML = htmlLoading;
 
+    var target = document.getElementById("results");
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
     // parse field
     const field = getField();
 
@@ -51,10 +54,13 @@ async function requestResults() {
         const result = await postData(url, data);
         //console.log(result);
         const htmlResult = await result.text();
-        document.getElementById('results').innerHTML = htmlResult;
+        document.getElementById("results").innerHTML = htmlResult;
     } catch (error) {
         console.error('Error during POST request:', error);
     }
+
+    // Scroll the browser to the target element
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // parse field
@@ -110,6 +116,7 @@ function doublesButtonPressed() {
 }
 
 // Level control buttons
+/*
 function autolevelButtonPressed() {
     const buttonHundred = document.getElementById("hundred");
     const buttonFifty = document.getElementById("fifty");
@@ -128,6 +135,7 @@ function autolevelButtonPressed() {
         buttonFive.style.borderStyle = "outset";
     }
 }
+*/
 
 
 
@@ -136,7 +144,7 @@ function level100ButtonPressed() {
     const buttonHundred = document.getElementById("hundred");
     const buttonFifty = document.getElementById("fifty");
     const buttonFive = document.getElementById("five");
-    const buttonAuto = document.getElementById("autolevel");
+    //const buttonAuto = document.getElementById("autolevel");
     // if not pressed, press in
     if(buttonHundred.style.borderStyle == "outset") {
     	buttonHundred.style.borderStyle = "inset";
@@ -148,11 +156,14 @@ function level100ButtonPressed() {
         if(buttonFive.style.borderStyle == "inset") {
             buttonFive.style.borderStyle = "outset";
         }
-        //
+        /*
         if(buttonAuto.style.borderStyle == "inset") {
             buttonAuto.style.borderStyle == "outset";
         }
-    } 
+        */
+    } else if(buttonHundred.style.borderStyle = "inset") {
+        buttonHundred.style.borderStyle = "outset";
+    }
 }
 
 function level50ButtonPressed() {
@@ -171,10 +182,13 @@ function level50ButtonPressed() {
         if(buttonFive.style.borderStyle == "inset") {
             buttonFive.style.borderStyle = "outset";
         }
-        //
+        /*
         if(buttonAuto.style.borderStyle == "inset") {
             buttonAuto.style.borderStyle == "outset";
         }
+        */
+    } else if(buttonFifty.style.borderStyle = "inset") {
+        buttonFifty.style.borderStyle = "outset";
     }
 }
 
@@ -182,7 +196,7 @@ function level5ButtonPressed() {
     const buttonHundred = document.getElementById("hundred");
     const buttonFifty = document.getElementById("fifty");
     const buttonFive = document.getElementById("five");
-    const buttonAuto = document.getElementById("autolevel");
+    //const buttonAuto = document.getElementById("autolevel");
     // if not pressed, press in
     if(buttonFive.style.borderStyle == "outset") {
     	buttonFive.style.borderStyle = "inset";
@@ -194,11 +208,14 @@ function level5ButtonPressed() {
         if(buttonFifty.style.borderStyle == "inset") {
             buttonFifty.style.borderStyle = "outset";
         }
-        //
+        /*
         if(buttonAuto.style.borderStyle == "inset") {
             buttonAuto.style.borderStyle == "outset";
         }
-    } 
+        */
+    } else if(buttonFive.style.borderStyle = "inset") {
+        buttonFive.style.borderStyle = "outset";
+    }
 }
 
 
