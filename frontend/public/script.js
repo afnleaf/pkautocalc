@@ -74,6 +74,11 @@ function getField() {
     const buttonGrassy = document.getElementById("grassy");
     const buttonPsychic = document.getElementById("psychic");
     const buttonMisty = document.getElementById("misty");
+    // weather
+    const buttonSun = document.getElementById("sun");
+    const buttonRain = document.getElementById("rain");
+    const buttonSand = document.getElementById("sand");
+    const buttonSnow = document.getElementById("snow");
 
     // parse state
     // gametype
@@ -111,11 +116,25 @@ function getField() {
         field.terrain = undefined;
     }
 
+    // weather
+    if(buttonSun.classList.contains("on")) {
+        field.weather = "Sun";
+    } else if(buttonRain.classList.contains("on")) {
+        field.weather = "Rain";
+    } else if(buttonSand.classList.contains("on")) {
+        field.weather = "Sand";
+    } else if(buttonSnow.classList.contains("on")) {
+        field.weather = "Snow";
+    } else {
+        field.weather = undefined;
+    }
+
     return field;
 }
 
 
 // Field control buttons --------------------------------------------
+// so long but idk what else to do
 
 // button util
 function toggleButtonState(button) {
@@ -135,6 +154,7 @@ function buttonOff(button) {
     button.classList.remove("on");
     button.classList.add("off");
 }
+
 
 // gametype
 function singlesButtonPressed() {
@@ -156,8 +176,6 @@ function doublesButtonPressed() {
         buttonOff(buttonSingles);
     }
 }
-
-
 
 
 // levels
@@ -256,123 +274,59 @@ function mistyButtonPressed() {
 }
 
 
-/*
-function singlesButtonPressed() {
-    const buttonSingles = document.getElementById("singles");
-    const buttonDoubles = document.getElementById("doubles");
-    // if not pressed, press in
-    if(buttonSingles.style.borderStyle == "outset") {
-    	buttonSingles.style.borderStyle = "inset";
-        // if doubles is pressed currently, unpress it
-        if(buttonDoubles.style.borderStyle == "inset") {
-            buttonDoubles.style.borderStyle = "outset";
-        }
-    } 
-}
-
-function doublesButtonPressed() {
-    const buttonSingles = document.getElementById("singles");
-    const buttonDoubles = document.getElementById("doubles");
-    // if not pressed, press in
-    if(buttonDoubles.style.borderStyle == "outset") {
-    	buttonDoubles.style.borderStyle = "inset";
-        // if doubles is pressed currently, unpress it
-        if(buttonSingles.style.borderStyle == "inset") {
-            buttonSingles.style.borderStyle = "outset";
-        }
-    } 
-}
-*/
-
-/*
-function level100ButtonPressed() {
-    const buttonHundred = document.getElementById("hundred");
-    const buttonFifty = document.getElementById("fifty");
-    const buttonFive = document.getElementById("five");
-    //const buttonAuto = document.getElementById("autolevel");
-    // if not pressed, press in
-    if(buttonHundred.style.borderStyle == "outset") {
-    	buttonHundred.style.borderStyle = "inset";
-        // if fifty is pressed currently, unpress it
-        if(buttonFifty.style.borderStyle == "inset") {
-            buttonFifty.style.borderStyle = "outset";
-        }
-        // if five is pressed currently, unpress it
-        if(buttonFive.style.borderStyle == "inset") {
-            buttonFive.style.borderStyle = "outset";
-        }
-    } else if(buttonHundred.style.borderStyle = "inset") {
-        buttonHundred.style.borderStyle = "outset";
+// weather
+function sunButtonPressed() {
+    const buttonSun = document.getElementById("sun");
+    const buttonRain = document.getElementById("rain");
+    const buttonSand = document.getElementById("sand");
+    const buttonSnow = document.getElementById("snow");
+    toggleButtonState(buttonSun);
+    // if pressed on, turn all the others off
+    if(buttonSun.classList.contains("on")) {
+        buttonOff(buttonRain);
+        buttonOff(buttonSand);
+        buttonOff(buttonSnow);
     }
 }
 
-function level50ButtonPressed() {
-    const buttonHundred = document.getElementById("hundred");
-    const buttonFifty = document.getElementById("fifty");
-    const buttonFive = document.getElementById("five");
-    const buttonAuto = document.getElementById("autolevel");
-    // if not pressed, press in
-    if(buttonFifty.style.borderStyle == "outset") {
-        buttonFifty.style.borderStyle = "inset";
-        // if hundred is pressed currently, unpress it
-        if(buttonHundred.style.borderStyle == "inset") {
-            buttonHundred.style.borderStyle = "outset";
-        }
-        // if five is pressed currently, unpress it
-        if(buttonFive.style.borderStyle == "inset") {
-            buttonFive.style.borderStyle = "outset";
-        }
-    } else if(buttonFifty.style.borderStyle = "inset") {
-        buttonFifty.style.borderStyle = "outset";
+function rainButtonPressed() {
+    const buttonSun = document.getElementById("sun");
+    const buttonRain = document.getElementById("rain");
+    const buttonSand = document.getElementById("sand");
+    const buttonSnow = document.getElementById("snow");
+    toggleButtonState(buttonRain);
+    // if pressed on, turn all the others off
+    if(buttonRain.classList.contains("on")) {
+        buttonOff(buttonSun);
+        buttonOff(buttonSand);
+        buttonOff(buttonSnow);
     }
 }
 
-function level5ButtonPressed() {
-    const buttonHundred = document.getElementById("hundred");
-    const buttonFifty = document.getElementById("fifty");
-    const buttonFive = document.getElementById("five");
-    //const buttonAuto = document.getElementById("autolevel");
-    // if not pressed, press in
-    if(buttonFive.style.borderStyle == "outset") {
-    	buttonFive.style.borderStyle = "inset";
-        // if hundred is pressed currently, unpress it
-        if(buttonHundred.style.borderStyle == "inset") {
-            buttonHundred.style.borderStyle = "outset";
-        }
-        // if fifty is pressed currently, unpress it
-        if(buttonFifty.style.borderStyle == "inset") {
-            buttonFifty.style.borderStyle = "outset";
-        }
-    } else if(buttonFive.style.borderStyle = "inset") {
-        buttonFive.style.borderStyle = "outset";
+function sandButtonPressed() {
+    const buttonSun = document.getElementById("sun");
+    const buttonRain = document.getElementById("rain");
+    const buttonSand = document.getElementById("sand");
+    const buttonSnow = document.getElementById("snow");
+    toggleButtonState(buttonSand);
+    // if pressed on, turn all the others off
+    if(buttonSand.classList.contains("on")) {
+        buttonOff(buttonSun);
+        buttonOff(buttonRain);
+        buttonOff(buttonSnow);
     }
 }
-*/
 
-// game type doubles or singles
-// must be capital to be parsed?
-/*
-if(document.getElementById("singles").style.borderStyle == "inset") {
-    field.gameType = "Singles";
-} else if(document.getElementById("doubles").style.borderStyle == "inset") {
-    field.gameType = "Doubles";
+function snowButtonPressed() {
+    const buttonSun = document.getElementById("sun");
+    const buttonRain = document.getElementById("rain");
+    const buttonSand = document.getElementById("sand");
+    const buttonSnow = document.getElementById("snow");
+    toggleButtonState(buttonSnow);
+    // if pressed on, turn all the others off
+    if(buttonSnow.classList.contains("on")) {
+        buttonOff(buttonSun);
+        buttonOff(buttonRain);
+        buttonOff(buttonSand);
+    }
 }
-// level
-if(document.getElementById("hundred").style.borderStyle == "inset") {
-    field.level = 100;
-} else if(document.getElementById("fifty").style.borderStyle == "inset") {
-    field.level = 50;
-} else if(document.getElementById("five").style.borderStyle == "inset") {
-    field.level = 5;
-// condition to turn off autolevel
-} else {
-    field.level = 0;
-}
-*/
-
-//const url = 'http://localhost:8080/calculation';
-//const url = "https://localhost:3000/results";
-// how to amke this dynamic
-//const url = "http://192.168.2.104:8080/calculation";
-//const url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/calculation`;
-//const url = `${window.location.protocol}//${window.location.hostname}/results`;
