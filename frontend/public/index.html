@@ -30,7 +30,16 @@
             </div>
         </div>
 
-        <div id="field"> 
+        <!-- what user presses to indicate they want to calculate -->
+        <div id="submitButton">
+            <button id="postButton" type="button" onclick=requestResults()>Calculate</button>
+            <!--<button id="postButton" type="button">Calculate</button> -->
+        </div>
+
+        <a href="/howto">How to use?</a>
+
+        <div id="field">
+            <h3>Field options:</h3>
             <div id="gametype">
                 <button id="singles" type="button" class="off" onclick="singlesButtonPressed()">
                   singles
@@ -80,14 +89,55 @@
                     Snow
                 </button>
             </div>
+            <div id="rooms">
+                <button id="magicroom" type="button" class="off" onclick="magicroomButtonPressed()">
+                    Magic Room
+                </button>
+                <button id="wonderroom" type="button" class="off" onclick="wonderroomButtonPressed()">
+                    Wonder Room
+                </button>
+            </div>
+            <div id="attackers">
+                <p>attacker's side</p>
+                <div id="hazardsA">
+                    <button id="aRocks" type="button" class="off" onclick="rocksAButtonPressed('a')">
+                        Stealth Rock
+                    </button>
+                    <button id="aSpikes0" type="button" class="on" onclick="spikes0ButtonPressed('a')">
+                        0
+                    </button>
+                    <button id="aSpikes1" type="button" class="off" onclick="spikes1ButtonPressed('a')">
+                        1
+                    </button>
+                    <button id="aSpikes2" type="button" class="off" onclick="spikes2ButtonPressed('a')">
+                        2
+                    </button>
+                    <button id="aSpikes3" type="button" class="off" onclick="spikes3ButtonPressed('a')">
+                        3 Spikes
+                    </button>
+                </div>
+            </div>
+            <div id="defenders">
+                <p>defender's side</p>
+                <div id="hazardsD">
+                    <button id="dRocks" type="button" class="off" onclick="rocksButtonPressed('d')">
+                        Stealth Rock
+                    </button>
+                    <button id="dSpikes0" type="button" class="on" onclick="spikes0ButtonPressed('d')">
+                        0
+                    </button>
+                    <button id="dSpikes1" type="button" class="off" onclick="spikes1ButtonPressed('d')">
+                        1
+                    </button>
+                    <button id="dSpikes2" type="button" class="off" onclick="spikes2ButtonPressed('d')">
+                        2
+                    </button>
+                    <button id="dSpikes3" type="button" class="off" onclick="spikes3ButtonPressed('d')">
+                        3 Spikes
+                    </button>
+                </div>
+            </div>
         </div>
-        <!-- what user presses to indicate they want to calculate -->
-        <div id="submitButton">
-            <button id="postButton" type="button" onclick=requestResults()>Calculate</button>
-            <!--<button id="postButton" type="button">Calculate</button> -->
-        </div>
-
-        <a href="/howto">How to use?</a>
 
     </div>
     <!-- -->

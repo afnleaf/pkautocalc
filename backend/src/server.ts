@@ -1,4 +1,4 @@
-import { calculate, Generations, Pokemon, Move, Field } from '@smogon/calc';
+import { calculate, Generations, Pokemon, Move, Field, Side } from '@smogon/calc';
 import { Sprites, Icons } from '@pkmn/img';
 import { parse } from 'node-html-parser';
 import { PokemonData } from './pokemonData';
@@ -335,13 +335,23 @@ function getField(): Field {
 */
 
 function parseField(field: any): Field {
+    let defenderSide = new Side();
+    defenderSide.spikes = field.defenderSide.spikes;
+    defenderSide.isSR = field.defenderSide.isSR;
+
+    let attackerSide = new Side();
+    attackerSide.spikes = field.attackerSide.spikes;
+    attackerSide.isSR = field.attackerSide.isSR;
+
+    
     // default settings
     const fieldSettings: Partial<Field> = {
         gameType: field.gameType,
         terrain: field.terrain,
         weather: field.weather,
+        defenderSide: defenderSide
         // add other optional properties if needed
-    }
+    };
     return new Field(fieldSettings);
 }
 

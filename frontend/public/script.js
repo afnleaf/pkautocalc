@@ -59,32 +59,58 @@ async function requestResults() {
 
 // parse field
 function getField() {
-    const field = {};
+    // with defaults
+    const field = {
+        gameType: "Doubles",
+        level: 0,
+        terrain: undefined,
+        weather: undefined,
+        attackerSide: {},
+        defenderSide: {},
+    };
     
     // all buttons
+    // universal
     // gametype
-    const buttonSingles = document.getElementById("singles");
-    const buttonDoubles = document.getElementById("doubles");
+    const isSingles = getButtonStateFromId("singles");
+    const isDoubles = getButtonStateFromId("doubles");
     // level
-    const buttonHundred = document.getElementById("hundred");
-    const buttonFifty = document.getElementById("fifty");
-    const buttonFive = document.getElementById("five");
+    const isHundred = getButtonStateFromId("hundred");
+    const isFifty = getButtonStateFromId("fifty");
+    const isFive = getButtonStateFromId("five");
     // terrain
-    const buttonElectric = document.getElementById("electric");
-    const buttonGrassy = document.getElementById("grassy");
-    const buttonPsychic = document.getElementById("psychic");
-    const buttonMisty = document.getElementById("misty");
+    const isElectric = getButtonStateFromId("electric");
+    const isGrassy = getButtonStateFromId("grassy");
+    const isPsychic = getButtonStateFromId("psychic");
+    const isMisty = getButtonStateFromId("misty");
     // weather
-    const buttonSun = document.getElementById("sun");
-    const buttonRain = document.getElementById("rain");
-    const buttonSand = document.getElementById("sand");
-    const buttonSnow = document.getElementById("snow");
+    const isSun = getButtonStateFromId("sun");
+    const isRain = getButtonStateFromId("rain");
+    const isSand = getButtonStateFromId("sand");
+    const isSnow = getButtonStateFromId("snow");
+    // side
+    // attacker side
+    const isARocks = getButtonStateFromId("aRocks");
+    const isASpikes0 = getButtonStateFromId("aSpikes0");
+    const isASpikes1 = getButtonStateFromId("aSpikes1");
+    const isASpikes2 = getButtonStateFromId("aSpikes2");
+    const isASpikes3 = getButtonStateFromId("aSpikes3");
+    // defender side
+    // hazards
+    const isDRocks = getButtonStateFromId("dRocks");
+    const isDSpikes0 = getButtonStateFromId("dSpikes0");
+    const isDSpikes1 = getButtonStateFromId("dSpikes1");
+    const isDSpikes2 = getButtonStateFromId("dSpikes2");
+    const isDSpikes3 = getButtonStateFromId("dSpikes3");
 
     // parse state
+
+    // universal
+
     // gametype
-    if(buttonSingles.classList.contains("on")) {
+    if(isSingles) {
         field.gameType = "Singles";
-    } else if(buttonDoubles.classList.contains("on")) {
+    } else if(isDoubles) {
         field.gameType = "Doubles";
     } else {
         // default doubles
@@ -92,11 +118,11 @@ function getField() {
     }
 
     // level
-    if(buttonHundred.classList.contains("on")) {
+    if(isHundred) {
         field.level = 100;
-    } else if(buttonFifty.classList.contains("on")) {
+    } else if(isFifty) {
         field.level = 50;
-    } else if(buttonFive.classList.contains("on")) {
+    } else if(isFive) {
         field.level = 5;
     } else {
         // 0 is off because minimum level is 1
@@ -104,29 +130,68 @@ function getField() {
     }
 
     // terrain
-    if(buttonElectric.classList.contains("on")) {
+    if(isElectric) {
         field.terrain = "Electric";
-    } else if(buttonGrassy.classList.contains("on")) {
+    } else if(isGrassy) {
         field.terrain = "Grassy";
-    } else if(buttonPsychic.classList.contains("on")) {
+    } else if(isPsychic) {
         field.terrain = "Psychic";
-    } else if(buttonMisty.classList.contains("on")) {
+    } else if(isMisty) {
         field.terrain = "Misty";
     } else {
         field.terrain = undefined;
     }
 
     // weather
-    if(buttonSun.classList.contains("on")) {
+    if(isSun) {
         field.weather = "Sun";
-    } else if(buttonRain.classList.contains("on")) {
+    } else if(isRain) {
         field.weather = "Rain";
-    } else if(buttonSand.classList.contains("on")) {
+    } else if(isSand) {
         field.weather = "Sand";
-    } else if(buttonSnow.classList.contains("on")) {
+    } else if(isSnow) {
         field.weather = "Snow";
     } else {
         field.weather = undefined;
+    }
+
+    // attacker side
+    // hazards
+    // rocks
+    if(isARocks) {
+        field.attackerSide.isSR = true;
+    } else {
+        field.attackerSide.isSR = false;
+    }
+    // spikes
+    if(isASpikes0) {
+        field.attackerSide.spikes = 0;
+    } else if(isASpikes1) {
+        field.attackerSide.spikes = 1;
+    } else if(isASpikes2) {
+        field.attackerSide.spikes = 2;
+    } else if(isASpikes3) {
+        field.attackerSide.spikes = 3;
+    }
+
+    // defender side
+
+    // hazards 
+    // rocks
+    if(isDRocks) {
+        field.defenderSide.isSR = true;
+    } else {
+        field.defenderSide.isSR = false;
+    }
+    // spikes
+    if(isDSpikes0) {
+        field.defenderSide.spikes = 0;
+    } else if(isDSpikes1) {
+        field.defenderSide.spikes = 1;
+    } else if(isDSpikes2) {
+        field.defenderSide.spikes = 2;
+    } else if(isDSpikes3) {
+        field.defenderSide.spikes = 3;
     }
 
     return field;
@@ -143,6 +208,11 @@ function toggleButtonState(button) {
     } else {
         buttonOn(button);
     }
+}
+
+// true if on, false if off
+function getButtonStateFromId(id) {
+    return document.getElementById(id).classList.contains("on");
 }
 
 function buttonOn(button) {
@@ -333,5 +403,66 @@ function snowButtonPressed() {
         buttonOff(buttonSun);
         buttonOff(buttonRain);
         buttonOff(buttonSand);
+    }
+}
+
+// attacker side
+
+// defender side
+// hazards
+function rocksButtonPressed(side) {
+    const buttonRocks = document.getElementById(`${side}Rocks`);
+    toggleButtonState(buttonRocks);
+}
+
+function spikes0ButtonPressed(side) {
+    const buttonSpikes0 = document.getElementById(`${side}Spikes0`);
+    const buttonSpikes1 = document.getElementById(`${side}Spikes1`);
+    const buttonSpikes2 = document.getElementById(`${side}Spikes2`);
+    const buttonSpikes3 = document.getElementById(`${side}Spikes3`);
+    toggleButtonState(buttonSpikes0);
+    if(buttonSpikes0.classList.contains("on")) {
+        buttonOff(buttonSpikes1);
+        buttonOff(buttonSpikes2);
+        buttonOff(buttonSpikes3);
+    }
+}
+
+function spikes1ButtonPressed(side) {
+    const buttonSpikes0 = document.getElementById(`${side}Spikes0`);
+    const buttonSpikes1 = document.getElementById(`${side}Spikes1`);
+    const buttonSpikes2 = document.getElementById(`${side}Spikes2`);
+    const buttonSpikes3 = document.getElementById(`${side}Spikes3`);
+    toggleButtonState(buttonSpikes1);
+    if(buttonSpikes1.classList.contains("on")) {
+        buttonOff(buttonSpikes0);
+        buttonOff(buttonSpikes2);
+        buttonOff(buttonSpikes3);
+    }
+}
+
+function spikes2ButtonPressed(side) {
+    const buttonSpikes0 = document.getElementById(`${side}Spikes0`);
+    const buttonSpikes1 = document.getElementById(`${side}Spikes1`);
+    const buttonSpikes2 = document.getElementById(`${side}Spikes2`);
+    const buttonSpikes3 = document.getElementById(`${side}Spikes3`);
+    toggleButtonState(buttonSpikes2);
+    if(buttonSpikes2.classList.contains("on")) {
+        buttonOff(buttonSpikes0);
+        buttonOff(buttonSpikes1);
+        buttonOff(buttonSpikes3);
+    }
+}
+
+function spikes3ButtonPressed(side) {
+    const buttonSpikes0 = document.getElementById(`${side}Spikes0`);
+    const buttonSpikes1 = document.getElementById(`${side}Spikes1`);
+    const buttonSpikes2 = document.getElementById(`${side}Spikes2`);
+    const buttonSpikes3 = document.getElementById(`${side}Spikes3`);
+    toggleButtonState(buttonSpikes3);
+    if(buttonSpikes3.classList.contains("on")) {
+        buttonOff(buttonSpikes0);
+        buttonOff(buttonSpikes1);
+        buttonOff(buttonSpikes2);
     }
 }
