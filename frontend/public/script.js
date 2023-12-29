@@ -90,10 +90,17 @@ function getField() {
     // attacker side
     field.attackerSide.spikes = getChecked("spikesA")-1;
     field.attackerSide.isSR = document.getElementById("rocksA").checked;
+    field.attackerSide.isReflect = document.getElementById("reflectA").checked;
+    field.attackerSide.isLightScreen = document.getElementById("lightScreenA").checked;
+    field.attackerSide.isAuroraVeil = document.getElementById("aveilA").checked;
+
 
     // defender side
     field.defenderSide.spikes = getChecked("spikesD")-1;
     field.defenderSide.isSR = document.getElementById("rocksD").checked;
+    field.defenderSide.isReflect = document.getElementById("reflectD").checked;
+    field.defenderSide.isLightScreen = document.getElementById("lightScreenD").checked;
+    field.defenderSide.isAuroraVeil = document.getElementById("aveilD").checked;
 
     return field;
 }

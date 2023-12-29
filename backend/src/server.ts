@@ -339,10 +339,16 @@ function parseField(field: any, side: boolean): Field {
     let defenderSide = new Side();
     defenderSide.spikes = field.defenderSide.spikes;
     defenderSide.isSR = field.defenderSide.isSR;
+    defenderSide.isReflect= field.defenderSide.isReflect;
+    defenderSide.isLightScreen= field.defenderSide.isLightScreen;
+    defenderSide.isAuroraVeil= field.defenderSide.isAuroraVeil;
 
     let attackerSide = new Side();
     attackerSide.spikes = field.attackerSide.spikes;
     attackerSide.isSR = field.attackerSide.isSR;
+    attackerSide.isReflect= field.attackerSide.isReflect;
+    attackerSide.isLightScreen= field.attackerSide.isLightScreen;
+    attackerSide.isAuroraVeil= field.attackerSide.isAuroraVeil;
 
     // default settings
     const fieldSettings: Partial<Field> = {
