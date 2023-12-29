@@ -368,6 +368,10 @@ function parseField(field: any, side: boolean): Field {
         isMagicRoom: field.isMagicRoom,
         isWonderRoom: field.isWonderRoom,
         isGravity: field.isGravity,
+        isBeadsOfRuin: field.isBeadsOfRuin,
+        isTabletsOfRuin: field.isTabletsOfRuin,
+        isSwordOfRuin: field.isSwordOfRuin,
+        isVesselOfRuin: field.isVesselOfRuin,
         // if side is true then left else right
         attackerSide: side ? attackerSide : defenderSide,
         defenderSide: side ? defenderSide: attackerSide

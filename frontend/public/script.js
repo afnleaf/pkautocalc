@@ -69,6 +69,10 @@ function getField() {
         isMagicRoom: false,
         isWonderRoom: false,
         isGravity: false,
+        isBeadsOfRuin: false,
+        isTabletsOfRuin: false,
+        isSwordOfRuin: false,
+        isVesselOfRuin: false,
         attackerSide: {},
         defenderSide: {},
     };
@@ -76,7 +80,7 @@ function getField() {
     const gameTypeArr = [undefined, "Singles", "Doubles"];
     const levelArr = [0, 100, 50, 5];
     const terrainArr = [undefined, "Electric", "Grassy", "Psychic", "Misty"];
-    const weatherArr = [undefined, "Sun", "Rain", "Sand", "Snow"];
+    const weatherArr = [undefined, "Sun", "Rain", "Sand", "Snow", "Harsh Sunshine", "Heavy Rain", "Strong Winds"];
 
     // universal
     field.gameType = gameTypeArr[getChecked("gametype")];
@@ -86,6 +90,10 @@ function getField() {
     field.isMagicRoom = document.getElementById("magicroom").checked;
     field.isWonderRoom = document.getElementById("wonderroom").checked;
     field.isGravity = document.getElementById("gravity").checked;
+    field.isBeadsOfRuin = document.getElementById("beads").checked;
+    field.isTabletsOfRuin = document.getElementById("tablets").checked;
+    field.isSwordOfRuin = document.getElementById("sword").checked;
+    field.isVesselOfRuin = document.getElementById("vessel").checked;
 
     // attacker side
     // hazards

@@ -41,6 +41,7 @@
         <div id="field">
             <div class="shared">
                 <h3>Field options</h3>
+                <!-- Game Type -->
                 <div>
                     <label class="cx-container">
                         <input class="gametype" id='singles' type="checkbox" onclick="handleSwitchForced(this)">
@@ -51,6 +52,7 @@
                         <span class="cx-button">Doubles</span>
                     </label>
                 </div>
+                <!-- Level -->
                 <div>
                     <label class="cx-container">
                         <input class="level" id="hundred" type="checkbox" onclick="handleSwitch(this)">
@@ -65,6 +67,7 @@
                         <span class="cx-button">5</span>
                     </label>
                 </div>
+                <!-- Terrain -->
                 <div>
                     <label class="cx-container">
                         <input class="terrain" id="electric" type="checkbox" onclick="handleSwitch(this)">
@@ -83,6 +86,7 @@
                         <span class="cx-button">Misty Terrain</span>
                     </label>
                 </div>
+                <!-- Normal Weather -->
                 <div>
                     <label class="cx-container">
                         <input class="weather" id="sun" type="checkbox" onclick="handleSwitch(this)">
@@ -101,6 +105,22 @@
                         <span class="cx-button">Snow</span>
                     </label>
                 </div>
+                <!-- Heavy Weather -->
+                <div>
+                    <label class="cx-container">
+                        <input class="weather" id="harshsun" type="checkbox" onclick="handleSwitch(this)">
+                        <span class="cx-button">Harsh Sunshine</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="weather" id="heavyrain" type="checkbox" onclick="handleSwitch(this)">
+                        <span class="cx-button">Heavy Rain</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="weather" id="wind" type="checkbox" onclick="handleSwitch(this)">
+                        <span class="cx-button">Strong Winds</span>
+                    </label>
+                </div>
+                <!-- Rooms -->
                 <div>
                     <label class="cx-container">
                         <input class="magicroom" id="magicroom" type="checkbox">
@@ -113,6 +133,25 @@
                     <label class="cx-container">
                         <input class="gravity" id="gravity" type="checkbox">
                         <span class="cx-button">Gravity</span>
+                    </label>
+                </div>
+                <!-- Ruins -->
+                <div>
+                    <label class="cx-container">
+                        <input class="ruins" id="beads" type="checkbox">
+                        <span class="cx-button">Beads of Ruin</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="ruins" id="tablets" type="checkbox">
+                        <span class="cx-button">Tablets of Ruin</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="ruins" id="sword" type="checkbox">
+                        <span class="cx-button">Sword of Ruin</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="ruins" id="vessel" type="checkbox">
+                        <span class="cx-button">Vessel of Ruin</span>
                     </label>
                 </div>
             </div>
