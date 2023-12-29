@@ -88,19 +88,29 @@ function getField() {
     field.isGravity = document.getElementById("gravity").checked;
 
     // attacker side
+    // hazards
     field.attackerSide.spikes = getChecked("spikesA")-1;
     field.attackerSide.isSR = document.getElementById("rocksA").checked;
+    // dmg red
     field.attackerSide.isReflect = document.getElementById("reflectA").checked;
     field.attackerSide.isLightScreen = document.getElementById("lightScreenA").checked;
     field.attackerSide.isAuroraVeil = document.getElementById("aveilA").checked;
+    field.attackerSide.isFriendGuard = document.getElementById("fguardA").checked;
+    // dmg amp
+    field.attackerSide.isHelpingHand = document.getElementById("hhandA").checked;
 
 
     // defender side
+    // hazards
     field.defenderSide.spikes = getChecked("spikesD")-1;
     field.defenderSide.isSR = document.getElementById("rocksD").checked;
+    // dmg red
     field.defenderSide.isReflect = document.getElementById("reflectD").checked;
     field.defenderSide.isLightScreen = document.getElementById("lightScreenD").checked;
     field.defenderSide.isAuroraVeil = document.getElementById("aveilD").checked;
+    field.defenderSide.isFriendGuard = document.getElementById("fguardD").checked;
+    // dmg amp
+    field.defenderSide.isHelpingHand = document.getElementById("hhandD").checked;
 
     return field;
 }

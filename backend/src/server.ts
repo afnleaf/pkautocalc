@@ -337,18 +337,28 @@ function getField(): Field {
 
 function parseField(field: any, side: boolean): Field {
     let defenderSide = new Side();
+    // hazards
     defenderSide.spikes = field.defenderSide.spikes;
     defenderSide.isSR = field.defenderSide.isSR;
-    defenderSide.isReflect= field.defenderSide.isReflect;
-    defenderSide.isLightScreen= field.defenderSide.isLightScreen;
-    defenderSide.isAuroraVeil= field.defenderSide.isAuroraVeil;
+    // dmg red
+    defenderSide.isReflect = field.defenderSide.isReflect;
+    defenderSide.isLightScreen = field.defenderSide.isLightScreen;
+    defenderSide.isAuroraVeil = field.defenderSide.isAuroraVeil;
+    defenderSide.isFriendGuard = field.defenderSide.isFriendGuard;
+    // dmg amp
+    defenderSide.isHelpingHand = field.defenderSide.isHelpingHand;
 
     let attackerSide = new Side();
+    // hazards
     attackerSide.spikes = field.attackerSide.spikes;
     attackerSide.isSR = field.attackerSide.isSR;
-    attackerSide.isReflect= field.attackerSide.isReflect;
-    attackerSide.isLightScreen= field.attackerSide.isLightScreen;
-    attackerSide.isAuroraVeil= field.attackerSide.isAuroraVeil;
+    // dmg red
+    attackerSide.isReflect = field.attackerSide.isReflect;
+    attackerSide.isLightScreen = field.attackerSide.isLightScreen;
+    attackerSide.isAuroraVeil = field.attackerSide.isAuroraVeil;
+    attackerSide.isFriendGuard = field.attackerSide.isFriendGuard;
+    // dmg amp
+    attackerSide.isHelpingHand = field.attackerSide.isHelpingHand;
 
     // default settings
     const fieldSettings: Partial<Field> = {
