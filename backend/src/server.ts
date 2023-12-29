@@ -351,6 +351,7 @@ function parseField(field: any, side: boolean): Field {
         weather: field.weather,
         isMagicRoom: field.isMagicRoom,
         isWonderRoom: field.isWonderRoom,
+        isGravity: field.isGravity,
         // if side is true then left else right
         attackerSide: side ? attackerSide : defenderSide,
         defenderSide: side ? defenderSide: attackerSide

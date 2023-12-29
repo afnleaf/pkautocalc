@@ -68,6 +68,7 @@ function getField() {
         weather: undefined,
         isMagicRoom: false,
         isWonderRoom: false,
+        isGravity: false,
         attackerSide: {},
         defenderSide: {},
     };
@@ -84,6 +85,7 @@ function getField() {
     field.weather = weatherArr[getChecked("weather")];
     field.isMagicRoom = document.getElementById("magicroom").checked;
     field.isWonderRoom = document.getElementById("wonderroom").checked;
+    field.isGravity = document.getElementById("gravity").checked;
 
     // attacker side
     field.attackerSide.spikes = getChecked("spikesA")-1;
