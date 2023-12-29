@@ -106,6 +106,8 @@ function getField() {
     field.attackerSide.isFriendGuard = document.getElementById("fguardA").checked;
     // dmg amp
     field.attackerSide.isHelpingHand = document.getElementById("hhandA").checked;
+    field.attackerSide.isBattery = document.getElementById("batteryA").checked;
+    field.attackerSide.isPowerSpot = document.getElementById("pspotA").checked;
 
 
     // defender side
@@ -119,6 +121,8 @@ function getField() {
     field.defenderSide.isFriendGuard = document.getElementById("fguardD").checked;
     // dmg amp
     field.defenderSide.isHelpingHand = document.getElementById("hhandD").checked;
+    field.defenderSide.isBattery = document.getElementById("batteryD").checked;
+    field.defenderSide.isPowerSpot = document.getElementById("pspotD").checked;
 
     return field;
 }

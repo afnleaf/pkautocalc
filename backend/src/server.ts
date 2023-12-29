@@ -347,6 +347,8 @@ function parseField(field: any, side: boolean): Field {
     defenderSide.isFriendGuard = field.defenderSide.isFriendGuard;
     // dmg amp
     defenderSide.isHelpingHand = field.defenderSide.isHelpingHand;
+    defenderSide.isBattery= field.defenderSide.isBattery;
+    defenderSide.isPowerSpot = field.defenderSide.isPowerSpot;
 
     let attackerSide = new Side();
     // hazards
@@ -359,6 +361,8 @@ function parseField(field: any, side: boolean): Field {
     attackerSide.isFriendGuard = field.attackerSide.isFriendGuard;
     // dmg amp
     attackerSide.isHelpingHand = field.attackerSide.isHelpingHand;
+    attackerSide.isBattery= field.attackerSide.isBattery;
+    attackerSide.isPowerSpot = field.attackerSide.isPowerSpot;
 
     // default settings
     const fieldSettings: Partial<Field> = {
