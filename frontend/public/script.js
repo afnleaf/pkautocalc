@@ -73,8 +73,6 @@ function getField() {
         isTabletsOfRuin: false,
         isSwordOfRuin: false,
         isVesselOfRuin: false,
-        attackerSide: {},
-        defenderSide: {},
     };
 
     const gameTypeArr = [undefined, "Singles", "Doubles"];
@@ -95,36 +93,38 @@ function getField() {
     field.isSwordOfRuin = document.getElementById("sword").checked;
     field.isVesselOfRuin = document.getElementById("vessel").checked;
 
-    // attacker side
-    // hazards
-    field.attackerSide.spikes = getChecked("spikesA")-1;
-    field.attackerSide.isSR = document.getElementById("rocksA").checked;
-    // dmg red
-    field.attackerSide.isReflect = document.getElementById("reflectA").checked;
-    field.attackerSide.isLightScreen = document.getElementById("lightScreenA").checked;
-    field.attackerSide.isAuroraVeil = document.getElementById("aveilA").checked;
-    field.attackerSide.isFriendGuard = document.getElementById("fguardA").checked;
-    // dmg amp
-    field.attackerSide.isHelpingHand = document.getElementById("hhandA").checked;
-    field.attackerSide.isBattery = document.getElementById("batteryA").checked;
-    field.attackerSide.isPowerSpot = document.getElementById("pspotA").checked;
 
+    // attacker side
+    field.attackerSide = getSide(true);
 
     // defender side
-    // hazards
-    field.defenderSide.spikes = getChecked("spikesD")-1;
-    field.defenderSide.isSR = document.getElementById("rocksD").checked;
-    // dmg red
-    field.defenderSide.isReflect = document.getElementById("reflectD").checked;
-    field.defenderSide.isLightScreen = document.getElementById("lightScreenD").checked;
-    field.defenderSide.isAuroraVeil = document.getElementById("aveilD").checked;
-    field.defenderSide.isFriendGuard = document.getElementById("fguardD").checked;
-    // dmg amp
-    field.defenderSide.isHelpingHand = document.getElementById("hhandD").checked;
-    field.defenderSide.isBattery = document.getElementById("batteryD").checked;
-    field.defenderSide.isPowerSpot = document.getElementById("pspotD").checked;
+    field.defenderSide = getSide(false);
 
     return field;
+}
+
+function getSide(side) {
+    let c = side ? "A" : "D";
+    const sideField = {};
+
+    // hazards
+    sideField.isSR = document.getElementById(`rocks${c}`).checked;
+    sideField.spikes = getChecked(`spikes${c}`)-1;
+    // dmg red
+    sideField.isReflect = document.getElementById(`reflect${c}`).checked;
+    sideField.isLightScreen = document.getElementById(`lightScreen${c}`).checked;
+    sideField.isAuroraVeil = document.getElementById(`aveil${c}`).checked;
+    sideField.isFriendGuard = document.getElementById(`fguard${c}`).checked;
+    // dmg amp
+    sideField.isHelpingHand = document.getElementById(`hhand${c}`).checked;
+    sideField.isBattery = document.getElementById(`battery${c}`).checked;
+    sideField.isPowerSpot = document.getElementById(`pspot${c}`).checked;
+    // misc
+    sideField.isFlowerGift = document.getElementById(`fgift${c}`).checked;
+    sideField.isSeeded = document.getElementById(`leechseed${c}`).checked;
+    sideField.isSwitching = document.getElementById(`switchout${c}`).checked;
+
+    return sideField;
 }
 
 // find which button is selected in class name

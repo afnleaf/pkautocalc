@@ -335,36 +335,31 @@ function getField(): Field {
 }
 */
 
+function parseSide(side: any): Side {
+    let sideField = new Side();
+    // hazards
+    sideField.spikes = side.spikes;
+    sideField.isSR = side.isSR;
+    // dmg red
+    sideField.isReflect = side.isReflect;
+    sideField.isLightScreen = side.isLightScreen;
+    sideField.isAuroraVeil = side.isAuroraVeil;
+    sideField.isFriendGuard = side.isFriendGuard;
+    // dmg amp
+    sideField.isHelpingHand = side.isHelpingHand;
+    sideField.isBattery= side.isBattery;
+    sideField.isPowerSpot = side.isPowerSpot;
+    // misc
+    sideField.isFlowerGift = side.isFlowerGift;
+    sideField.isSeeded = side.isSeeded;
+    sideField.isSwitching = side.isSwitching;
+
+    return sideField;
+}
+
 function parseField(field: any, side: boolean): Field {
-    let defenderSide = new Side();
-    // hazards
-    defenderSide.spikes = field.defenderSide.spikes;
-    defenderSide.isSR = field.defenderSide.isSR;
-    // dmg red
-    defenderSide.isReflect = field.defenderSide.isReflect;
-    defenderSide.isLightScreen = field.defenderSide.isLightScreen;
-    defenderSide.isAuroraVeil = field.defenderSide.isAuroraVeil;
-    defenderSide.isFriendGuard = field.defenderSide.isFriendGuard;
-    // dmg amp
-    defenderSide.isHelpingHand = field.defenderSide.isHelpingHand;
-    defenderSide.isBattery= field.defenderSide.isBattery;
-    defenderSide.isPowerSpot = field.defenderSide.isPowerSpot;
-
-    let attackerSide = new Side();
-    // hazards
-    attackerSide.spikes = field.attackerSide.spikes;
-    attackerSide.isSR = field.attackerSide.isSR;
-    // dmg red
-    attackerSide.isReflect = field.attackerSide.isReflect;
-    attackerSide.isLightScreen = field.attackerSide.isLightScreen;
-    attackerSide.isAuroraVeil = field.attackerSide.isAuroraVeil;
-    attackerSide.isFriendGuard = field.attackerSide.isFriendGuard;
-    // dmg amp
-    attackerSide.isHelpingHand = field.attackerSide.isHelpingHand;
-    attackerSide.isBattery= field.attackerSide.isBattery;
-    attackerSide.isPowerSpot = field.attackerSide.isPowerSpot;
-
-    // default settings
+    let attackerSide = parseSide(field.attackerSide);
+    let defenderSide = parseSide(field.defenderSide);
     const fieldSettings: Partial<Field> = {
         gameType: field.gameType,
         terrain: field.terrain,
@@ -381,8 +376,9 @@ function parseField(field: any, side: boolean): Field {
         defenderSide: side ? defenderSide: attackerSide
         // add other optional properties if needed
     };
-
-    console.log(field);
+    console.log("--------");
+    console.log(side);
+    console.log(fieldSettings);
     return new Field(fieldSettings);
 }
 
