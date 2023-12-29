@@ -95,22 +95,10 @@ code {
     height: 10vh; /* Optionally, set a height for the container to center vertically within the viewport */
 }
 
-/* buttons */
-button {
-    transition: border 0.3s, color 0.3s;
-}
 
-button.on {
-    border: inset;
-    background-color: #bbb
-}
+/* Buttons made out of Checkboxes*/
 
-button.off {
-    border: outset;
-}
-
-
-/* Style for the checkbox container */
+/* What contains the buttons */
 .cx-container {
     display: inline-block;
     position: relative;
@@ -132,7 +120,7 @@ button.off {
     border: outset;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 /* Style for the checkbox when checked */

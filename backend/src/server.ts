@@ -72,11 +72,12 @@ export async function runCalculations(text1: string, text2: string, field: any):
     if(!errorflag) {
         html = ``;
         // get field conditions
-        const fieldSettings = parseField(field);
+        const fieldAttacker = parseField(field, true);
+        const fieldDefender = parseField(field, false);
         const level = field.level;
         // calculate the results
-        const resultsAttack = await calc(team1Data, team2Data, fieldSettings, level);
-        const resultsDefend = await calc(team2Data, team1Data, fieldSettings, level);
+        const resultsAttack = await calc(team1Data, team2Data, fieldAttacker, level);
+        const resultsDefend = await calc(team2Data, team1Data, fieldDefender, level);
         html += buildHTML(resultsAttack, resultsDefend);
     }
 
@@ -334,7 +335,7 @@ function getField(): Field {
 }
 */
 
-function parseField(field: any): Field {
+function parseField(field: any, side: boolean): Field {
     let defenderSide = new Side();
     defenderSide.spikes = field.defenderSide.spikes;
     defenderSide.isSR = field.defenderSide.isSR;
@@ -343,15 +344,20 @@ function parseField(field: any): Field {
     attackerSide.spikes = field.attackerSide.spikes;
     attackerSide.isSR = field.attackerSide.isSR;
 
-    
     // default settings
     const fieldSettings: Partial<Field> = {
         gameType: field.gameType,
         terrain: field.terrain,
         weather: field.weather,
-        defenderSide: defenderSide
+        isMagicRoom: field.isMagicRoom,
+        isWonderRoom: field.isWonderRoom,
+        // if side is true then left else right
+        attackerSide: side ? attackerSide : defenderSide,
+        defenderSide: side ? defenderSide: attackerSide
         // add other optional properties if needed
     };
+
+    console.log(field);
     return new Field(fieldSettings);
 }
 
