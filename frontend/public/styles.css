@@ -108,3 +108,35 @@ button.on {
 button.off {
     border: outset;
 }
+
+
+/* Style for the checkbox container */
+.cx-container {
+    display: inline-block;
+    position: relative;
+}
+
+/* Hide the actual checkbox input */
+.cx-container input[type="checkbox"] {
+    display: none;
+}
+
+/* Style for the button appearance */
+.cx-button {
+    display: inline-block;
+    padding: 3px 5px;
+    margin: 5px;
+    font-size: 14px;
+    background-color: #eee;
+    /* color: #ffffff; */
+    border: outset;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Style for the checkbox when checked */
+.cx-container input[type="checkbox"]:checked + .cx-button {
+    border: inset;
+    background-color: #bbb;
+}

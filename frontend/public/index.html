@@ -39,106 +39,127 @@
         <a href="/howto">How to use?</a>
 
         <div id="field">
-            <h3>Field options:</h3>
-            <div id="gametype">
-                <button id="singles" type="button" class="off" onclick="singlesButtonPressed()">
-                  singles
-                </button>
-                <!-- default on -->
-                <button id="doubles" type="button" class="on" onclick="doublesButtonPressed()">
-                  doubles
-                </button>
-            </div>
-            <div id="level">
-                <button id="hundred" type="button" class="off" onclick="level100ButtonPressed()">
-                    100
-                </button>
-                <!-- default on -->
-                <button id="fifty" type="button" class="on" onclick="level50ButtonPressed()">
-                    50
-                </button>
-                <button id="five" type="button" class="off" onclick="level5ButtonPressed()">
-                    5
-                </button>
-            </div>
-            <div id="terrain">
-                <button id="electric" type="button" class="off" onclick="electricButtonPressed()">
-                    Electric Terrain
-                </button>
-                <button id="grassy" type="button" class="off" onclick="grassyButtonPressed()">
-                    Grassy Terrain
-                </button>
-                <button id="psychic" type="button" class="off" onclick="psychicButtonPressed()">
-                    Psychic Terrain
-                </button>
-                <button id="misty" type="button" class="off" onclick="mistyButtonPressed()">
-                    Misty Terrain
-                </button>
-            </div>
-            <div id="weather">
-                <button id="sun" type="button" class="off" onclick="sunButtonPressed()">
-                    Sun
-                </button>
-                <button id="rain" type="button" class="off" onclick="rainButtonPressed()">
-                    Rain
-                </button>
-                <button id="sand" type="button" class="off" onclick="sandButtonPressed()">
-                    Sand
-                </button>
-                <button id="snow" type="button" class="off" onclick="snowButtonPressed()">
-                    Snow
-                </button>
-            </div>
-            <div id="rooms">
-                <button id="magicroom" type="button" class="off" onclick="magicroomButtonPressed()">
-                    Magic Room
-                </button>
-                <button id="wonderroom" type="button" class="off" onclick="wonderroomButtonPressed()">
-                    Wonder Room
-                </button>
-            </div>
-            <div id="attackers">
-                <p>attacker's side</p>
-                <div id="hazardsA">
-                    <button id="aRocks" type="button" class="off" onclick="rocksAButtonPressed('a')">
-                        Stealth Rock
-                    </button>
-                    <button id="aSpikes0" type="button" class="on" onclick="spikes0ButtonPressed('a')">
-                        0
-                    </button>
-                    <button id="aSpikes1" type="button" class="off" onclick="spikes1ButtonPressed('a')">
-                        1
-                    </button>
-                    <button id="aSpikes2" type="button" class="off" onclick="spikes2ButtonPressed('a')">
-                        2
-                    </button>
-                    <button id="aSpikes3" type="button" class="off" onclick="spikes3ButtonPressed('a')">
-                        3 Spikes
-                    </button>
+            <div class="shared">
+                <h3>Field options</h3>
+                <div>
+                    <label class="cx-container">
+                        <input class="gametype" id='singles' type="checkbox" onclick="handleSwitchForced(this)">
+                        <span class="cx-button">Singles</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="gametype" id='doubles' type="checkbox" onclick="handleSwitchForced(this)" checked>
+                        <span class="cx-button">Doubles</span>
+                    </label>
+                </div>
+                <div>
+                    <label class="cx-container">
+                        <input class="level" id="hundred" type="checkbox" onclick="handleSwitch(this)">
+                        <span class="cx-button">100</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="level" id="fifty" type="checkbox" onclick="handleSwitch(this)">
+                        <span class="cx-button">50</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="level" id="five" type="checkbox" onclick="handleSwitch(this)">
+                        <span class="cx-button">5</span>
+                    </label>
+                </div>
+                <div>
+                    <label class="cx-container">
+                        <input class="terrain" id="electric" type="checkbox" onclick="handleSwitch(this)">
+                        <span class="cx-button">Electric Terrain</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="terrain" id="grassy" type="checkbox" onclick="handleSwitch(this)">
+                        <span class="cx-button">Grassy Terrain</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="terrain" id="psychic" type="checkbox" onclick="handleSwitch(this)">
+                        <span class="cx-button">Psychic Terrain</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="terrain" id="misty" type="checkbox" onclick="handleSwitch(this)">
+                        <span class="cx-button">Misty Terrain</span>
+                    </label>
+                </div>
+                <div>
+                    <label class="cx-container">
+                        <input class="weather" id="sun" type="checkbox" onclick="handleSwitch(this)">
+                        <span class="cx-button">Sun</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="weather" id="rain" type="checkbox" onclick="handleSwitch(this)">
+                        <span class="cx-button">Rain</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="weather" id="sand" type="checkbox" onclick="handleSwitch(this)">
+                        <span class="cx-button">Sand</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="weather" id="snow" type="checkbox" onclick="handleSwitch(this)">
+                        <span class="cx-button">Snow</span>
+                    </label>
                 </div>
             </div>
-            <div id="defenders">
-                <p>defender's side</p>
-                <div id="hazardsD">
-                    <button id="dRocks" type="button" class="off" onclick="rocksButtonPressed('d')">
-                        Stealth Rock
-                    </button>
-                    <button id="dSpikes0" type="button" class="on" onclick="spikes0ButtonPressed('d')">
-                        0
-                    </button>
-                    <button id="dSpikes1" type="button" class="off" onclick="spikes1ButtonPressed('d')">
-                        1
-                    </button>
-                    <button id="dSpikes2" type="button" class="off" onclick="spikes2ButtonPressed('d')">
-                        2
-                    </button>
-                    <button id="dSpikes3" type="button" class="off" onclick="spikes3ButtonPressed('d')">
-                        3 Spikes
-                    </button>
-                </div>
-            </div>
-        </div>
 
+            <div class="attackerSide">
+                <h4>Attacker Side</h4>
+                <div>
+                    <label class="cx-container">
+                        <input class="rocksA" id="rocksA" type="checkbox">
+                        <span class="cx-button">Stealth Rocks</span>
+                    </label>
+                </div>
+                <div>
+                    <label class="cx-container">
+                        <input class="spikesA" id="zero" type="checkbox" onclick="handleSwitchForced(this)" checked>
+                        <span class="cx-button">0</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="spikesA" id="one" type="checkbox" onclick="handleSwitchForced(this)">
+                        <span class="cx-button">1</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="spikesA" id="two" type="checkbox" onclick="handleSwitchForced(this)">
+                        <span class="cx-button">2</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="spikesA" id="three" type="checkbox" onclick="handleSwitchForced(this)">
+                        <span class="cx-button">3</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="defenderSide">
+                <h4>Defender Side</h4>
+                <div>
+                    <label class="cx-container">
+                        <input class="rocksD" id="rocksD" type="checkbox">
+                        <span class="cx-button">Stealth Rocks</span>
+                    </label>
+                </div>
+                <div>
+                    <label class="cx-container">
+                        <input class="spikesD" id="zero" type="checkbox" onclick="handleSwitchForced(this)" checked>
+                        <span class="cx-button">0</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="spikesD" id="one" type="checkbox" onclick="handleSwitchForced(this)">
+                        <span class="cx-button">1</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="spikesD" id="two" type="checkbox" onclick="handleSwitchForced(this)">
+                        <span class="cx-button">2</span>
+                    </label>
+                    <label class="cx-container">
+                        <input class="spikesD" id="three" type="checkbox" onclick="handleSwitchForced(this)">
+                        <span class="cx-button">3</span>
+                    </label>
+                </div>
+            </div>
+
+        </div>
     </div>
     <!-- -->
     <div id="results"></div>
