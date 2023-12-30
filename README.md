@@ -106,12 +106,7 @@ https://pokepast.es/65b41d45f97335ff
 - test score results (could be improved)
 - control error for undefined pokemon
 
-
 ### frontend
-- links to me
-- how to use (kinda done)
-- field conditions
-	- passed through frontend
 - make everything look nicer
 
 ### production
@@ -124,6 +119,7 @@ https://pokepast.es/65b41d45f97335ff
 	- portainer
 - content size
 - geographic distribution
+- CI/CD pipeline?
 
 
 ## tera stuff
