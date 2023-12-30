@@ -1,102 +1,4 @@
-/* basic body */
-/*
-body {
-    margin: 40px auto;
-    max-width: 650px;
-    line-height: 1.6;
-    font-size: 18px;
-    color: #444;
-    padding: 0 10px
-}
-*/
-
-body {
-    margin: 2%;
-    max-width: 100%;
-    line-height: 1.6;
-    font-size: 1.125rem; /* 18px is equivalent to 1.125rem */
-    color: #444;
-    padding: 0 2%;
-}
-
-/* Media query for larger screens */
-@media screen and (min-width: 768px) {
-    body {
-        font-size: 1.25rem; /* Adjust the font size for larger screens */
-    }
-}
-
-header {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-h1,
-h2,
-h3 {
-    line-height: 1.2
-}
-
-code {
-    background-color: #eee;
-    border-radius: 3px;
-    font-family: courier, monospace;
-    padding: 0 3px;
-}
-  
-
-
-/* sections */
-#teamInfo {
-    display: none;
-}
-
-/* input styling */
-
-#userInput {
-    display: block;
-    margin: 1%;
-}
-
-#pastes {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1%;
-}
-
-#left {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    margin: 1%;
-}
-
-#right {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    margin: 1%;
-}
-
-
-/*
-#textarea {
-    flex: 1;
-    margin-right: 10px;
-}
-*/
-
-#submitButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 10vh; /* Optionally, set a height for the container to center vertically within the viewport */
-}
-
-
-/* Buttons made out of Checkboxes*/
+/* Buttons made out of Checkboxes */
 
 /* What contains the buttons */
 .cx-container {
@@ -112,9 +14,9 @@ code {
 /* Style for the button appearance */
 .cx-button {
     display: inline-block;
-    padding: 3px 5px;
-    margin: 5px;
-    font-size: 14px;
+    padding: 3px 3px;
+    margin: 3px;
+    /* font-size: 14px; */
     background-color: #eee;
     /* color: #ffffff; */
     border: outset;
