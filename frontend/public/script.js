@@ -1,3 +1,12 @@
+// need to finish still
+const metapastes = {
+    vgcRegF: "https://pokepast.es/dc1eac2d8740c97b",
+    smogSinglesOU: "",
+    smogDoublesOU: "",
+    smogLC: "",
+}
+
+
 /**
 * Posts json to server
 * @param {url} http endpoint url 
@@ -62,6 +71,7 @@ async function requestResults() {
 function getField() {
     // with defaults
     const field = {
+        metapaste: "",
         gameType: "Doubles",
         level: 0,
         terrain: undefined,
@@ -99,6 +109,10 @@ function getField() {
 
     // defender side
     field.defenderSide = getSide(false);
+
+    // get metapaste link
+    let selectedPreset = document.getElementById("presets").value;
+    field.metapaste = metapastes[selectedPreset];
 
     return field;
 }
@@ -159,5 +173,57 @@ function handleSwitchForced(cx) {
     const elements = document.getElementsByClassName(inputClass);
     for (var i = 0; i < elements.length; i++) {
        elements[i].checked = elements[i].id == selectedId;
+    }
+}
+
+// Handles preset dropwdown menu
+function handlePresets() {
+    let selectedPreset = document.getElementById("presets").value;
+    switch(selectedPreset) {
+        case "vgcRegF":
+            // doubles
+            document.getElementById("singles").checked = false;
+            document.getElementById("doubles").checked = true;
+            // 50
+            document.getElementById("hundred").checked = false;
+            document.getElementById("fifty").checked = true;
+            document.getElementById("five").checked = false;
+            // change meta paste (RegF)
+            document.getElementById("metapaste").innerHTML = `<a href="${metapastes[selectedPreset]}">metapaste</a>`;
+            break;
+        case "smogSinglesOU":
+            // singles
+            document.getElementById("singles").checked = true;
+            document.getElementById("doubles").checked = false;
+            // 100
+            document.getElementById("hundred").checked = true;
+            document.getElementById("fifty").checked = false;
+            document.getElementById("five").checked = false;
+            // change meta paste (OU)
+            document.getElementById("metapaste").innerHTML = `<a href="">${selectedPreset}</a>`;
+            break;
+        case "smogDoublesOU":
+            // doubles
+            document.getElementById("singles").checked = false;
+            document.getElementById("doubles").checked = true;
+            // 100
+            document.getElementById("hundred").checked = true;
+            document.getElementById("fifty").checked = false;
+            document.getElementById("five").checked = false;
+            // change meta paste (DOU)
+            document.getElementById("metapaste").innerHTML = `<a href="">${selectedPreset}</a>`;
+            break;
+        case "smogLC":
+            // singles
+            document.getElementById("singles").checked = true;
+            document.getElementById("doubles").checked = false;
+            // 5
+            document.getElementById("hundred").checked = false;
+            document.getElementById("fifty").checked = false;
+            document.getElementById("five").checked = true;
+            // change meta paste (LC)
+            document.getElementById("metapaste").innerHTML = `<a href="">${selectedPreset}</a>`;
+            break;
+        default:
     }
 }

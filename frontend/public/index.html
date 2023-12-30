@@ -39,8 +39,21 @@
         <a href="/howto">How to use?</a>
 
         <div id="field">            
+            <h3>Field options</h3>
+            <div class="presets">
+                <form>
+                    <!-- <label for="presets"></label> -->
+                    <select id="presets" name="presets" onchange="handlePresets()">
+                        <option value="vgcRegF">VGC Reg F</option>
+                        <option value="smogSinglesOU">Smogon Singles</option>
+                        <option value="smogDoublesOU">Smogon Doubles</option>
+                        <option value="smogLC">LC</option>
+                    </select>
+                    <span id="metapaste"><a href="https://pokepast.es/dc1eac2d8740c97b">metapaste</a></span>
+                </form>
+            </div>
+
             <div class="shared">
-                <h3>Field options</h3>
                 <!-- Game Type -->
                 <div>
                     <label class="cx-container">
@@ -59,7 +72,7 @@
                         <span class="cx-button">100</span>
                     </label>
                     <label class="cx-container">
-                        <input class="level" id="fifty" type="checkbox" onclick="handleSwitch(this)">
+                        <input class="level" id="fifty" type="checkbox" onclick="handleSwitch(this)" checked>
                         <span class="cx-button">50</span>
                     </label>
                     <label class="cx-container">
@@ -310,6 +323,14 @@
 
         </div>
     </div>
+
+    <div id="links">
+        <a href="https://github.com/afnleaf/pkautocalc">github repo</a>
+        <a href="https://www.youtube.com/@afnckingleaf">youtube</a>
+        <a href="https://twitter.com/afnckingleaf">twitter</a>
+        <a href="https://chromewebstore.google.com/detail/pokepastefix/ekceaboabpgkgbpigacngnjagcdhdkmn">pokepastefix</a>
+    </div>
+
     <!-- -->
     <div id="results"></div>
     <!-- -->

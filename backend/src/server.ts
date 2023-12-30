@@ -33,8 +33,9 @@ export async function runCalculations(text1: string, text2: string, field: any):
     // condition for meta paste
     if(text2.trim() === "") {
         //console.log(`-${text2}-`);
-        text2 = "https://pokepast.es/dc1eac2d8740c97b";
+        //text2 = "https://pokepast.es/dc1eac2d8740c97b";
         //text2 = process.env.METAPASTE.toString();
+        text2 = field.metapaste;
     }
 
     // validate textbox1
@@ -376,9 +377,9 @@ function parseField(field: any, side: boolean): Field {
         defenderSide: side ? defenderSide: attackerSide
         // add other optional properties if needed
     };
-    console.log("--------");
-    console.log(side);
-    console.log(fieldSettings);
+    //console.log("--------");
+    //console.log(side);
+    //console.log(fieldSettings);
     return new Field(fieldSettings);
 }
 
