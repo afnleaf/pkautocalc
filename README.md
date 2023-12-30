@@ -4,29 +4,32 @@
 
 ## stack
 - bun
-- smogon/damage-calc
-- elysia
 - javascript
 - typescript
+- elysia
 - css
 - html
 - docker
+- smogon/damage-calc
+- pkmn/img
+- node-html-parser
 
 
 ## ideas
-- team length limits for calculation speed requirements
-- generation picker or just 9?
-- allow more than 4 moves
-- singles vs doubles
-- default vs standard meta
-- pikalytics api?
-- pokepaste automatic integration
-- ev optimization stats
-- meta pokemon database
-- pokemon customizer
-- click button for paste to clipboard
-- upload to hastebin/pastebin
-- currently gen 9 only
+
+- [x] allow more than 4 moves
+- [x] singles vs doubles
+- [x] default vs standard meta (metapastes)
+- [x] pokepaste automatic integration
+- [ ] click button for paste to clipboard
+- [ ] upload to hastebin/pastebin
+- [ ] meta pokemon database
+- [ ] pikalytics api? -> doesn't exist, but smogon usage stats do
+- [ ] ev optimization stats (?? what ??)
+- [ ] team length limits for calculation speed requirements
+- [ ] generation picker or just 9?
+- [ ] pokemon customizer (no?)
+
 
 ## frontend ui design
 - idkman
@@ -100,8 +103,9 @@ https://pokepast.es/65b41d45f97335ff
 - tera defensive needs to be looked at again, like when a move will do more damage than base
 - fix female vs male versions
 - boosts
-- test score results
+- test score results (could be improved)
 - control error for undefined pokemon
+
 
 ### frontend
 - links to me

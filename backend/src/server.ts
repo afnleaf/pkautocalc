@@ -180,14 +180,36 @@ function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     return html;
 }
 
-
+/*
+types of sprites
+gen1rg
+gen1rb
+gen1
+gen2g
+gen2s
+gen2
+gen3rs
+gen3frlg
+gen3
+gen3-2
+gen4dp
+gen4dp-2
+gen4
+gen5
+gen5ani
+dex
+ani
+*/
 // render customized result html
 function renderResult(result: any, prevAttacker: string, prevDefender: string, side: boolean): string {
+    // sprite style
+    const spriteStyle = "gen5ani";
+    
     let html: string = ``;
     // create a visual break between new attacking pokemon
     if(result.attacker.name != prevAttacker) {
         html += `<br>`;
-        const {url, w, h, pixelated} = Sprites.getPokemon(result.attacker.name);
+        const {url, w, h, pixelated} = Sprites.getPokemon(result.attacker.name, {gen: spriteStyle});
         html += `<img src="${url}" width="${w}" height="${h}">`;
         html += `<h3>${result.attacker.name}</h3>`
         //if (pixelated) img.style.imageRendering = 'pixelated';
@@ -199,8 +221,8 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
     if(result.defender.name != prevDefender) {
         // const {url, w, h, pixelated} = Sprites.getPokemon(result.attacker.name);
         // const {url, w, h, pixelated} = Sprites.getPokemon(result.defender.name);
-        const attackerSprite = Sprites.getPokemon(result.attacker.name);
-        const defenderSprite = Sprites.getPokemon(result.defender.name);
+        const attackerSprite = Sprites.getPokemon(result.attacker.name, {gen: spriteStyle});
+        const defenderSprite = Sprites.getPokemon(result.defender.name, {gen: spriteStyle});
         const {url: urlA, w: wA, h: hA} = attackerSprite;
         const {url: urlD, w: wD, h: hD} = defenderSprite;
         html += `<img src="${urlA}" width="${wA*0.4}" height="${hA*0.4}"> vs. <strong>${result.defender.name}</strong> <img src="${urlD}" width="${wD*0.4}" height="${hD*0.4}">`;
