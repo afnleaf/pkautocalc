@@ -25,10 +25,11 @@
 - [ ] upload to hastebin/pastebin
 - [ ] meta pokemon database
 - [ ] pikalytics api? -> doesn't exist, but smogon usage stats do
-- [ ] ev optimization stats (?? what ??)
+- [ ] ev optimization rules (1/16, sub, sitrus, etc)
 - [ ] team length limits for calculation speed requirements
 - [ ] generation picker or just 9?
 - [ ] pokemon customizer (no?)
+
 
 
 ## frontend ui design
@@ -105,21 +106,41 @@ https://pokepast.es/65b41d45f97335ff
 - boosts
 - test score results (could be improved)
 - control error for undefined pokemon
+- colour gradient for xhko (green, orange, red: 1,2,3,4,5,6,7)
+- when: 2 same pkmn in adjacent blocks. results stack, must separate
+- render item as visual
+- render alt text for all visuals
+- dropdown for defense and attack
 
 ### frontend
-- make everything look nicer
+- make everything look nicer **IMPORTANT**
 
 ### production
-- how? 
-- kubernetes (no)
-- hosting provider (home server)
-- domain name pkautocalc.duckdns.org
-- why not host it myself (yes)
+- hosting provider? -> kubernetes (no, too complex), why not host it myself (yes) -> home server 👍
+- domain name pkautocalc.duckdns.org -> change to:
+	- `pokeautocalc.duckdns.org`
+	- `psyduckcalc.duckdns.org`
+	- `golduckcalc.duckdns.org`
+	- `ludicalco.duckdns.org`
+	- `ducklettcalc.duckns.org`
+	- `farfetchdcalc.duckdns.org`
+	- `quaxulator.duckdns.org`
+	- `porygonz.duckdns.org`
+- buy domain
+	- `pokeautocalc .io .xyz .uno .trade .site .space .store .fun`
+	- `calc.pokemon.online`
+- HTTPS, how important is this?
+- CI/CD pipeline
+	- testing
+	- automated deployment to prod
 - user traffic (monitoring in backend)
-	- portainer
+	- portainer? track my containers
 - content size
-- geographic distribution
-- CI/CD pipeline?
+- how long does it take to calculate?
+- how is it best to serve this calculator idea? (FFAAS, running on user pc? vs server vs wasm?, idk)
+- geographic distribution (where are people connecting from, how bad is ping?)
+
+
 
 
 ## tera stuff

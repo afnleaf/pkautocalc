@@ -146,7 +146,8 @@ function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     // attack
     html += `
     <h1>Results</h1>
-    <h2>Attacking</h2>
+    <a href="#DefenseTag">Go to defense</a>
+    <h2 id="AttackTag">Attacking</h2>
     `;
     // get test score for all of attack
     html += `
@@ -164,7 +165,8 @@ function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     // defense
     html += `
     <br>
-    <h2>Defending</h2>
+    <a href="#DefenseTag">Go to attack</a>
+    <h2 id="DefenseTag">Defending</h2>
     `;
     // get test score for all of defense
     html += `
@@ -177,6 +179,7 @@ function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
        prevAttacker = result.attacker.name;
        prevDefender = result.defender.name;
     });
+    html += `<a href="#DefenseTag">Go to attack</a> | <a href="#DefenseTag">Go to defense</a>`;
     return html;
 }
 

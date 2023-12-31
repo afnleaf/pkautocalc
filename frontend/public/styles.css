@@ -125,3 +125,17 @@ code {
     align-items: center;
     margin: 1%;
 }
+
+.attackerSide {
+    display: grid;
+    justify-content: left;
+    align-items: left;
+    margin: 1%;
+}
+
+.defenderSide {
+    display: grid;
+    justify-content: right;
+    align-items: right;
+    margin: 1%;
+}
