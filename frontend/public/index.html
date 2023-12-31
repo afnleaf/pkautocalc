@@ -15,30 +15,36 @@
     <header>
         <h1>Pokemon Auto Calculator</h1>
     </header>
-    <!-- where user inputs teams-->
-    <div id="userInput">
-        <div id="pastes">
-            <!-- where one team is pasted-->
-            <div id="left">
-                <h3>Paste your team here.</h3>
-                <textarea id="textBoxLeft" name="textBox1" wrap="soft" rows="25" cols="35"></textarea>
-            </div>
-            <!-- where the other team is pasted-->
-            <div id="right">
-                <h3>Leave Empty to calculate vs meta.</h3>
-                <textarea id="textBoxRight" name="textBox2" wrap="soft" rows="25" cols="35"></textarea>
-            </div>
-        </div>
 
-        <!-- what user presses to indicate they want to calculate -->
-        <div id="submitButton">
-            <button id="postButton" type="button" onclick=requestResults()>Calculate</button>
-            <!--<button id="postButton" type="button">Calculate</button> -->
-        </div>
-
+    <div class="container">
         <a href="/howto">How to use?</a>
+        <span id="links"> | </span>
+        <a href="https://github.com/afnleaf/pkautocalc">github repo</a>
+        <span id="links"> | </span>
+        <a href="https://www.youtube.com/@afnckingleaf">youtube</a>
+        <span id="links"> | </span>
+        <a href="https://twitter.com/afnckingleaf">twitter</a>
+        <span id="links"> | </span>
+        <a href="https://chromewebstore.google.com/detail/pokepastefix/ekceaboabpgkgbpigacngnjagcdhdkmn">pokepastefix</a>
+    </div>
+
+    <!-- where user inputs teams-->
+    <div class="container" id="userInput">
+
+        <!-- <div id="pastes"></div> -->
+
+        <!-- where one team is pasted-->
+        <div id="left">
+            <h3>Paste your team here.</h3>
+            <textarea id="textBoxLeft" name="textBox1" wrap="soft" spellcheck=false rows="50" cols="35"></textarea>
+        </div>
 
         <div id="field">            
+            <!-- what user presses to indicate they want to calculate -->
+            <div class="container" id="submitButton">
+                <button id="postButton" type="button" onclick=requestResults()>Calculate</button>
+            </div>
+
             <h3>Field options</h3>
             <div class="presets">
                 <form>
@@ -320,20 +326,21 @@
                     </label>
                 </div>
             </div>
+        </div> <!-- field div ends here-->
 
+        <!-- where the other team is pasted-->
+        <div id="right">
+            <h3>Leave Empty to calculate vs meta.</h3>
+            <textarea id="textBoxRight" name="textBox2" wrap="soft" spellcheck=false rows="50" cols="35"></textarea>
         </div>
+    </div> <!-- user input div ends here -->
+
+    <!-- result -->
+    <div class="container">
+        <div id="results"></div>
     </div>
 
-    <div id="links">
-        <a href="https://github.com/afnleaf/pkautocalc">github repo</a>
-        <a href="https://www.youtube.com/@afnckingleaf">youtube</a>
-        <a href="https://twitter.com/afnckingleaf">twitter</a>
-        <a href="https://chromewebstore.google.com/detail/pokepastefix/ekceaboabpgkgbpigacngnjagcdhdkmn">pokepastefix</a>
-    </div>
-
-    <!-- -->
-    <div id="results"></div>
-    <!-- -->
+    <!-- script loaded after all html -->
     <script src="script.js"></script>
 </body>
 

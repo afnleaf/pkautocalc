@@ -41,9 +41,7 @@ app.get("/howto", () => {
   </head>
   <body>
   <h1>How to use</h1>
-  <p>Pokepastes are stored on the <a href="https://pokepast.es/">https://pokepast.es/</a> website. The following link contains a team:</p>
-  <a href="https://pokepast.es/2c7b8e8730f3c772">https://pokepast.es/2c7b8e8730f3c772</a>
-  <br>
+  <p>Pokepastes are stored on the <a href="https://pokepast.es/">https://pokepast.es/</a> website. The following link contains a team: <a href="https://pokepast.es/2c7b8e8730f3c772">https://pokepast.es/2c7b8e8730f3c772</a></p>
   <br>
   <div><code>Incineroar @ Sitrus Berry</code></div>
   <div><code>Ability: Intimidate  </code></div>
@@ -66,7 +64,6 @@ app.get("/howto", () => {
   </ul>
   <p>You can also paste in a <code>pokepaste.es</code> link directly into the input textbox. The server will be able to parse the team out of the paste link on its own.</p>
   <p>The default meta paste is currently this: <a href="https://pokepast.es/dc1eac2d8740c97b">https://pokepast.es/dc1eac2d8740c97b</a></p>
-  <br>
   <br>
   <a href="/">back</a>
   </body>

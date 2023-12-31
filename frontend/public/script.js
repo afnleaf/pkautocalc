@@ -200,7 +200,7 @@ function handlePresets() {
             document.getElementById("fifty").checked = false;
             document.getElementById("five").checked = false;
             // change meta paste (OU)
-            document.getElementById("metapaste").innerHTML = `<a href="">${selectedPreset}</a>`;
+            document.getElementById("metapaste").innerHTML = `${selectedPreset}`;
             break;
         case "smogDoublesOU":
             // doubles
@@ -211,7 +211,7 @@ function handlePresets() {
             document.getElementById("fifty").checked = false;
             document.getElementById("five").checked = false;
             // change meta paste (DOU)
-            document.getElementById("metapaste").innerHTML = `<a href="">${selectedPreset}</a>`;
+            document.getElementById("metapaste").innerHTML = `${selectedPreset}`;
             break;
         case "smogLC":
             // singles
@@ -222,7 +222,7 @@ function handlePresets() {
             document.getElementById("fifty").checked = false;
             document.getElementById("five").checked = true;
             // change meta paste (LC)
-            document.getElementById("metapaste").innerHTML = `<a href="">${selectedPreset}</a>`;
+            document.getElementById("metapaste").innerHTML = `${selectedPreset}`;
             break;
         default:
     }
