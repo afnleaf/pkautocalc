@@ -111,6 +111,9 @@ https://pokepast.es/65b41d45f97335ff
 - render item as visual
 - render alt text for all visuals
 - dropdown for defense and attack
+- booster energy boost to atk/spa/def/spd
+- environemnt file that propagates through frontend and backend with metapastes
+- outspeed
 
 ### frontend
 - make everything look nicer **IMPORTANT**

@@ -38,20 +38,4 @@ services:
     tty: true
     depends_on:
       - backend
-
-  #nginx:
-  #  image: nginx
-  #  ports:
-  #    - "80:80"
-  #  volumes:
-  #    - ./nginx.conf:/etc/nginx/nginx.conf:ro
-  #  networks:
-  #    - my-network
-
-#networks:
-#  my-network:
-#    driver: bridge
-
-
-    
-    
+      

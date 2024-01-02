@@ -1,7 +1,7 @@
 // need to finish still
 const metapastes = {
-    vgcRegF: "https://pokepast.es/dc1eac2d8740c97b",
-    smogSinglesOU: "",
+    vgcRegF: "https://pokepast.es/517b51e2ddfe7321",
+    smogSinglesOU: "https://pokepast.es/1f3efe0715e3c21e",
     smogDoublesOU: "",
     smogLC: "",
 }
@@ -189,7 +189,7 @@ function handlePresets() {
             document.getElementById("fifty").checked = true;
             document.getElementById("five").checked = false;
             // change meta paste (RegF)
-            document.getElementById("metapaste").innerHTML = `<a href="${metapastes[selectedPreset]}">metapaste</a>`;
+            document.getElementById("metapaste").innerHTML = `<a href="${metapastes[selectedPreset]}">${selectedPreset}</a>`;
             break;
         case "smogSinglesOU":
             // singles
@@ -200,7 +200,8 @@ function handlePresets() {
             document.getElementById("fifty").checked = false;
             document.getElementById("five").checked = false;
             // change meta paste (OU)
-            document.getElementById("metapaste").innerHTML = `${selectedPreset}`;
+            document.getElementById("metapaste").innerHTML 
+            = `<a href="${metapastes[selectedPreset]}">${selectedPreset}</a>`;
             break;
         case "smogDoublesOU":
             // doubles
