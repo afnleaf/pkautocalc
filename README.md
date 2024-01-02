@@ -99,18 +99,14 @@ https://pokepast.es/65b41d45f97335ff
 ### backend
 - remove rendunt tera defensive type
 - tera defensive needs to be looked at again, like when a move will do more damage than base
+- tera stellar (not on npm?)
 - fix female vs male versions
 - boosts
 - test score results (could be improved)
-- control error for undefined pokemon
-- colour gradient for xhko (green, orange, red: 1,2,3,4,5,6,7)
+- colour gradient for xhko that factors in %chance, ex 2% chance to 2hko is worse than 99%
 - when: 2 same pkmn in adjacent blocks. results stack, must separate
-- render item as visual
-- render alt text for all visuals
-- dropdown for defense and attack
 - booster energy boost to atk/spa/def/spd
 - environemnt file that propagates through frontend and backend with metapastes
-- outspeed
 - update @smogon/calc using github repo, npm is not updated
 - is there any way to multithread the calculation?
 

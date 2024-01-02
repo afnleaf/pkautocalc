@@ -45,11 +45,9 @@ export function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
        prevAttacker = result.attacker.name;
        prevDefender = result.defender.name;
     });
-    html += `<a href="#Attack">Go to attack</a> | <a href="#Defense">Go to defense</a>`;
+    html += `<a href="#Attack">Go to attack</a> | <a href="#Defense">Go to defense</a> | <a href="#Top">Go to top</a>`;
     return html;
 }
-
-//<img src="https://play.pokemonshowdown.com/sprites/itemicons-sheet.png" style="display:inline-block;width:24px;height:24px;image-rendering:pixelated;background:transparent url(https://play.pokemonshowdown.com/sprites/itemicons-sheet.png) no-repeat scroll -144px -96px;">
 
 /*
 types of sprites
@@ -98,10 +96,10 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
     if(result.attacker.name != prevAttacker) {
         html += `<br>`;
         // pokemon sprite
-        html += `<img src="${urlA}" width="${wA}" height="${hA}">`;
+        html += `<img title="${result.attacker.name}" src="${urlA}" width="${wA}" height="${hA}">`;
         // pokemon item
         if(result.attacker.item) {
-            html += `<img style="width:24px;height:24px;image-rendering:pixelated;background: #d0d0d0 url(${attackerItemSprite.url}) no-repeat scroll ${attackerItemSprite.left}px ${attackerItemSprite.top}px; border: none; border-radius: 25px; margin: 0px 0px 0px -25px; overflow: hidden;">`;
+            html += `<span title="${result.attacker.item}"><img style="width:24px;height:24px;image-rendering:pixelated;background: #d0d0d0 url(${attackerItemSprite.url}) no-repeat scroll ${attackerItemSprite.left}px ${attackerItemSprite.top}px; border: none; border-radius: 25px; margin: 0px 0px 0px -25px; overflow: hidden;"></span>`;
         }
         // title
         html += `<h3>${result.attacker.name}</h3>`
@@ -109,8 +107,17 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
     }
     // create a visual break between new defending pokemon
     if(result.defender.name != prevDefender) {
-        
-        html += `<img src="${urlA}" width="${wA*0.4}" height="${hA*0.4}"> vs. <strong>${result.defender.name}</strong> <img src="${urlD}" width="${wD*0.4}" height="${hD*0.4}">`;
+        html += `<img title="${result.attacker.name}" src="${urlA}" width="${wA*0.4}" height="${hA*0.4}"> vs. <strong>${result.defender.name}</strong> <img title="${result.defender.name}" src="${urlD}" width="${wD*0.4}" height="${hD*0.4}">`;
+        // speed tier
+        let speed: string;
+        if(result.attacker.rawStats.spe > result.defender.rawStats.spe) {
+            speed = "faster";
+        } else if(result.attacker.rawStats.spe == result.defender.rawStats.spe) {
+            speed = "speed-tie";
+        } else {
+            speed = "slower";
+        }
+        html += `<p><em>${speed}</em></p>`
     }
 
     try {
@@ -148,9 +155,71 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
         }
         let end = `<span style="color:${colour};"><strong>Immunity</strong></span>`
         let text = `${teraAtk} ${result.attacker.name} ${result.move.name} vs. ${teraDef} ${result.defender.name}: 0-0 (0.0-0.0%) -- ${end}`;
+
         html += `<p>${text}</p>`;
     }
     return html;
+}
+
+/* Colour gradients
+Name: Candy Apple Red
+Hex: #FF0D0D
+RGB: (255, 13, 13)
+CMYK: 0, 0.949, 0.949, 0
+
+ORIOLES ORANGE	
+Name: Orioles Orange
+Hex: #FF4E11
+RGB: (255, 78, 17)
+CMYK: 0, 0.694, 0.933, 0
+
+BEER	
+Name: Beer
+Hex: #FF8E15
+RGB: (255, 142, 21)
+CMYK: 0, 0.443, 0.917, 0
+
+SAFFRON	
+Name: Saffron
+Hex: #FAB733
+RGB: (250, 183, 51)
+CMYK: 0, 0.268, 0.796, 0.019
+
+BRASS	
+Name: Brass
+Hex: #ACB334
+RGB: (172, 179, 52)
+CMYK: 0.039, 0, 0.709, 0.298
+
+APPLE	
+Name: Apple
+Hex: #69B34C
+RGB: (105, 179, 76)
+CMYK: 0.413, 0, 0.575, 0.298
+*/
+const gradientA = ["#69B34C", "#ACB334", "#FAB733", "#FF8E15", "#FF4E11", "#FF0D0D"];
+const gradientD = ["#FF0D0D", "#FF4E11", "#FF8E15", "#FAB733", "#ACB334", "#69B34C"];
+
+/**
+* Get the colour to use in result render for attack
+* @param {number} n - nHKO chance
+* @returns hex code string
+*/
+function getKOChanceColourAttack(n: number): string {
+    if(n > gradientA.length)
+        return gradientA[gradientA.length - 1];
+    return gradientA[n-1];
+} 
+
+/**
+* Get the colour to use in result render for defense
+* @param {number} n - nHKO chance
+* @returns hex code string
+*/
+function getKOChanceColourDefend(n: number): string {
+    if(n > gradientD.length)
+        return gradientD[gradientD.length - 1];
+    return gradientD[n-1];
 }
 
 /**
@@ -224,41 +293,5 @@ function gradeKOChanceDefend(n: number): number {
     } else {
         // green
         return 1;
-    }
-}
-
-/**
-* Get the colour to use in result render for attack
-* @param {number} n - nHKO chance
-* @returns hex code string
-*/
-function getKOChanceColourAttack(n: number): string {
-    if(n === 1) {
-        // green
-        return "#50a95f";
-    } else if(n === 2 || n === 3) {
-        // orange
-        return "#f3a02f";
-    } else {
-        // red
-        return "#d85146";
-    }
-} 
-
-/**
-* Get the colour to use in result render for defense
-* @param {number} n - nHKO chance
-* @returns hex code string
-*/
-function getKOChanceColourDefend(n: number): string {
-    if(n === 1) {
-        // red
-        return "#d85146";
-    } else if(n === 2 || n === 3) {
-        // orange
-        return "#f3a02f";
-    } else {
-        // green
-        return "#50a95f";
     }
 }
