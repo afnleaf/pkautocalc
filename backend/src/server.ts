@@ -18,7 +18,14 @@ type BaseStats = {
     Spe: number;
 };
 
-// frontend server depends upon this
+
+/**
+* frontend server depends upon this
+* @param {string} text1 - string containing team1 data
+* @param {string} text2 - string containing team2 data
+* @param {any} field - json object containing field data used for calculations
+* @return a json response containing the html/text to fill results
+*/
 export async function runCalculations(text1: string, text2: string, field: any): Promise<string> {
     // html response
     let html = `<h1>Error</h1>`;
@@ -30,12 +37,9 @@ export async function runCalculations(text1: string, text2: string, field: any):
     let team2Text: string = "";
     let team2Data: PokemonData[] = [];
 
-    //console.log(process.env.METAPASTE);
     // condition for meta paste
     if(text2.trim() === "") {
-        //console.log(`-${text2}-`);
         //text2 = "https://pokepast.es/dc1eac2d8740c97b";
-        //text2 = process.env.METAPASTE.toString();
         text2 = field.metapaste;
     }
 
@@ -45,12 +49,6 @@ export async function runCalculations(text1: string, text2: string, field: any):
         team1Text = await getText(text1);
         // parse the text into pokemon object data, see 'parser.ts'
         team1Data = parseText(team1Text);
-        /*
-        team1Data.forEach(pokemon => {
-            console.log(pokemon);
-            pokemon.printPokemon();
-        });
-        */
     } catch(error) {
         errorflag = true;
         html += `
@@ -86,6 +84,11 @@ export async function runCalculations(text1: string, text2: string, field: any):
     return html;
 }
 
+/**
+* Grades the chance to KO from attackers pov
+* @param {number} n - number corresponding to NHKO
+* @return a number representing the score
+*/
 function gradeKOChanceAttack(n: number): number {
     if(n === 1) {
         // green
@@ -99,6 +102,11 @@ function gradeKOChanceAttack(n: number): number {
     }
 } 
 
+/**
+* Grades the chance to KO from defenders POV
+* @param {number} n - number corresponding to NHKO
+* @return a number representing the score
+*/
 function gradeKOChanceDefend(n: number): number {
     if(n === 1) {
         // red
@@ -112,6 +120,11 @@ function gradeKOChanceDefend(n: number): number {
     }
 }
 
+/**
+* Aggregate the whole score of an attack
+* @param {any} resultsAttack - list of results
+* @return an html string representing the score
+*/
 function gradeAttack(resultsAttack: any[]): string {
     let html: string = ``;
     let score: number = 0;
@@ -126,6 +139,11 @@ function gradeAttack(resultsAttack: any[]): string {
     return html;
 }
 
+/**
+* Aggregate the whole score of a defense
+* @param {any} resultsDefense - list of results
+* @return an html string representing the score
+*/
 function gradeDefense(resultsDefense: any[]): string {
     let html: string = ``;
     let score: number = 0;
@@ -140,7 +158,13 @@ function gradeDefense(resultsDefense: any[]): string {
     return html;
 }
 
-// start the html rendering process
+
+/**
+* Start the html rendering process
+* @param {any} resultsAttack - list of results for attack
+* @param {any} resultsDefense - list of results for defense
+* @return an html string representing all the results
+*/
 function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     let html: string = ``;
     
@@ -204,7 +228,15 @@ gen5ani
 dex
 ani
 */
-// render customized result html
+
+/**
+* Render customized result html
+* @param {any} result - the result to be processed
+* @param {string} prevAttacker - name of the previously attacking pokemon
+* @param {string} prevDefender - name of the previously defending pokemon
+* @param {boolean} side - what side is the pov from true = attack, false = defense
+* @return an html string representing all the results
+*/
 function renderResult(result: any, prevAttacker: string, prevDefender: string, side: boolean): string {
     // sprite style
     const spriteStyle = "gen5ani";
@@ -243,7 +275,6 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
         }
         html += `<p>${s[0]} -- <span style="color:${colour}"><strong>${s[1] || "Light chip"}</strong></span></p>`;
     } catch (error) {
-        // console.log(error);
         // branch required for desc() error, print our own immunity text
         // Attacker-name Move-name vs. Defender-name: 0-0 (0.0-0.0%) -- Immunity
         let teraAtk: string;
@@ -271,7 +302,11 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
     return html;
 }
 
-
+/**
+* Get the colour to use in result render for attack
+* @param {number} n - nHKO chance
+* @returns hex code string
+*/
 function getKOChanceColourAttack(n: number): string {
     if(n === 1) {
         // green
@@ -285,6 +320,11 @@ function getKOChanceColourAttack(n: number): string {
     }
 } 
 
+/**
+* Get the colour to use in result render for defense
+* @param {number} n - nHKO chance
+* @returns hex code string
+*/
 function getKOChanceColourDefend(n: number): string {
     if(n === 1) {
         // red
@@ -298,8 +338,12 @@ function getKOChanceColourDefend(n: number): string {
     }
 }
 
-// function to get the pokepaste text from the txt file or pokepast.es link
-// returns same string if its not a pokepaste link
+
+/**
+* function to get the pokepaste text from the txt file or pokepast.es link
+* @param {string} paste - string from the textbox
+* @returns pokemon paste text in raw form or returns same string if its not a pokepaste link.
+*/
 async function getText(paste: string): Promise<string> {
     if (paste.includes("https://pokepast.es/" )) {    
         // have to do a fetch GET request on the pokepaste link
@@ -334,6 +378,11 @@ async function getText(paste: string): Promise<string> {
     }
 }
 
+/**
+* Field conditions that are one-sided
+* @param {any} side - field data to transfer
+* @returns a side typed object
+*/
 function parseSide(side: any): Side {
     let sideField = new Side();
     // hazards
@@ -356,6 +405,12 @@ function parseSide(side: any): Side {
     return sideField;
 }
 
+/**
+* Parse the field conditions out of the data passed from frontend
+* @param {any} field - the json object containing field conditions
+* @param {boolean} side - represents what side the pov is from
+* @returns a field object
+*/
 function parseField(field: any, side: boolean): Field {
     let attackerSide = parseSide(field.attackerSide);
     let defenderSide = parseSide(field.defenderSide);
@@ -381,6 +436,15 @@ function parseField(field: any, side: boolean): Field {
     return new Field(fieldSettings);
 }
 
+/**
+* Runs all the calculations between team1 and team2
+* @param {PokemonData[]} team1 - List of all the pokemon in team1
+* @param {PokemonData[]} team2 - List of all the pokemon in team2
+* @param {Field} field - field conditions
+* @param {number} level - level that all pokemon will automatically get turned into
+* @returns a list of results
+*/
+// IMPORTANT // refactor this terrible function
 async function calc(team1: PokemonData[], team2: PokemonData[], field: Field, level: number): Promise<any[]> {
     // gen 9 by default
     //let gen: typeof Generations = (Generations as typeof Generations).get(9);
@@ -515,7 +579,6 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field, le
                         }
                     }); 
                 }
-                
             });
         }
     });
@@ -532,6 +595,13 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field, le
 }
 
 
+/**
+* Turns PokemonData into a Pokemon object used by the calculator
+* @param {any} gen -
+* @param {PokemonData} pokemon - 
+* @param {boolean} teraflag - whether to turn tera on or off
+* @returns 
+*/
 function toPokemon(gen: any, pokemon: PokemonData, teraflag: boolean): Pokemon {
     const pokemonName = pokemon._Name.toString();
     const item = pokemon._Item.toString() as ItemName;

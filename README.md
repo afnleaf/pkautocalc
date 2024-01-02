@@ -98,8 +98,6 @@ https://pokepast.es/65b41d45f97335ff
 ## todo
 
 ### backend
-- is there any way to multithread the calculation?
-- update @smogon/calc using github repo, npm is not updated
 - remove rendunt tera defensive type
 - tera defensive needs to be looked at again, like when a move will do more damage than base
 - fix female vs male versions
@@ -114,6 +112,8 @@ https://pokepast.es/65b41d45f97335ff
 - booster energy boost to atk/spa/def/spd
 - environemnt file that propagates through frontend and backend with metapastes
 - outspeed
+- update @smogon/calc using github repo, npm is not updated
+- is there any way to multithread the calculation?
 
 ### frontend
 - make everything look nicer **IMPORTANT**
@@ -143,18 +143,6 @@ https://pokepast.es/65b41d45f97335ff
 - how is it best to serve this calculator idea? (FFAAS, running on user pc? vs server vs wasm?, idk)
 - geographic distribution (where are people connecting from, how bad is ping?)
 
-
-
-
-## tera stuff
-filter out status moves
-tera blast as tera type and normal
-
-check if tera attacker pokemons tera type is same type as move (TERA STAB) 
-
-check if type of move is neutral vs tera type defender
-
-
 ## UI components
 - user input textboxes
 	- left textbox
@@ -179,3 +167,13 @@ check if type of move is neutral vs tera type defender
 	- twitter
 	- youtube
 	- pokepastefix
+
+
+
+## tera stuff
+filter out status moves
+tera blast as tera type and normal
+
+check if tera attacker pokemons tera type is same type as move (TERA STAB) 
+
+check if type of move is neutral vs tera type defender
