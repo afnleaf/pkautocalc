@@ -104,11 +104,13 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
         html += `<img src="${urlA}" width="${wA}" height="${hA}">`;
         // pokemon item
         if(result.attacker.item) {
-            console.log(attackerItemSprite);
+            //console.log(attackerItemSprite);
             //const {url: urlAI, w: wAI, h: hAI, pixelated: pAI} = attackerItemSprite;
             //html += `<img src="${urlAI}" width="${wAI}" height="${hAI}" style="${attackerItemSprite.style} image-rendering: pixelated;">`;
             //html += `<img style="${attackerItemSprite.style}">`;
-            html += `<img style="width:24px;height:24px;image-rendering:pixelated;background: url(${attackerItemSprite.url}) no-repeat scroll ${attackerItemSprite.left}px ${attackerItemSprite.top}px; border: none; border-radius: 30px;">`;
+            //html += `<img style="width:24px;height:24px;image-rendering:pixelated;background: url(${attackerItemSprite.url}) no-repeat scroll ${attackerItemSprite.left}px ${attackerItemSprite.top}px; border: none; border-radius: 50px;">`;
+            html += `<img style="width:24px;height:24px;image-rendering:pixelated;background: #d0d0d0 url(${attackerItemSprite.url}) no-repeat scroll ${attackerItemSprite.left}px ${attackerItemSprite.top}px; border: none; border-radius: 25px; margin: 0px 0px 0px -25px; overflow: hidden;">`;
+            
         }
         // title
         html += `<h3>${result.attacker.name}</h3>`
