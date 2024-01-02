@@ -16,20 +16,19 @@
 
 
 ## ideas
-
 - [x] allow more than 4 moves
 - [x] singles vs doubles
 - [x] default vs standard meta (metapastes)
 - [x] pokepaste automatic integration
+- [ ] boosts +1 Atk, +2 Speed etc
+- [ ] outspeed in result (tailwind field condition?)
 - [ ] click button for paste to clipboard
 - [ ] upload to hastebin/pastebin
-- [ ] meta pokemon database
-- [ ] pikalytics api? -> doesn't exist, but smogon usage stats do
+- [ ] pikalytics api? -> doesn't exist, but smogon usage stats do (meta pokemon db)
 - [ ] ev optimization rules (1/16, sub, sitrus, etc)
 - [ ] team length limits for calculation speed requirements
 - [ ] generation picker or just 9?
 - [ ] pokemon customizer (no?)
-
 
 
 ## frontend ui design
@@ -168,12 +167,27 @@ https://pokepast.es/65b41d45f97335ff
 	- youtube
 	- pokepastefix
 
+## funcs in server.ts
+server.ts
+runCalculations
+getText
+calc
+parseSide
+parseField
+toPokemon
 
+render.ts
+gradeKOChanceAttack
+gradeKOChnaceDefend
+gradeAttack
+gradeDefense
+builtHTML
+renderResult
+getKOChanceColourAttack
+getKOChanceColourDefend
 
 ## tera stuff
-filter out status moves
-tera blast as tera type and normal
-
-check if tera attacker pokemons tera type is same type as move (TERA STAB) 
-
-check if type of move is neutral vs tera type defender
+- [x] tera blast as tera type and normal
+- [x] check if tera attacker pokemons tera type is same type as move (TERA STAB) 
+- [ ] check if type of move is neutral vs tera type defender
+- [ ] if defender teras, does the move have a different effectiveness than base type
