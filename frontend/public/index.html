@@ -18,8 +18,8 @@
             <h1 id="Top">Pokemon Auto Calculator</h1>
         </div>
     </header>
-
-    <div class="container">
+    <!--
+    <div class="container-links">
         <a href="/howto">How to use?</a>
         <span id="links"> | </span>
         <a href="https://github.com/afnleaf/pkautocalc" target="_blank">github repo</a>
@@ -30,11 +30,22 @@
         <span id="links"> | </span>
         <a href="https://chromewebstore.google.com/detail/pokepastefix/ekceaboabpgkgbpigacngnjagcdhdkmn" target="_blank">pokepastefix</a>
     </div>
-
+    -->
+    <div class="container-links">
+        <a href="/howto">How to use?</a>
+        <span>|</span>
+        <a href="https://github.com/afnleaf/pkautocalc" target="_blank">github repo</a>
+        <span>|</span>
+        <a href="https://www.youtube.com/@afnckingleaf" target="_blank">youtube</a>
+        <span>|</span>
+        <a href="https://twitter.com/afnckingleaf" target="_blank">twitter</a>
+        <span>|</span>
+        <a href="https://chromewebstore.google.com/detail/pokepastefix/ekceaboabpgkgbpigacngnjagcdhdkmn" target="_blank">pokepastefix</a>
+    </div>
     
 
     <!-- where user inputs teams-->
-    <div class="container" id="userInput">
+    <div class="container-big" id="userInput">
         <!-- where one team is pasted-->
         <div id="textbox">
             <span id="optionsH">Paste your team here.</span>
@@ -44,28 +55,28 @@
         <div class="container-column" id="field">
             <!-- what user presses to indicate they want to calculate -->
             <div id="centered">
-                <span id="optionsH">test</span>
-                <div id="centered">
-                    <button id="postButton" type="button" onclick=requestResults()>Calculate</button>
-                </div>
+                <button id="postButton" type="button" onclick=requestResults()>Calculate</button>
             </div>
 
             <!-- presets for meta -->
             <div id="centered">
                 <span id="optionsH">Meta</span>
                 <div id="centered">
-                    <form>
-                        <select id="presets" name="presets" onchange="handlePresets()">
-                            <option value="vgcRegF">VGC Reg F</option>
-                            <option value="smogSinglesOU">Smogon Singles</option>
-                            <option value="smogDoublesOU">Smogon Doubles</option>
-                            <option value="smogLC">LC</option>
-                        </select>
+                    <div id="centered">
+                        <form>
+                            <select class="presets" id="presets" name="presets" onchange="handlePresets()">
+                                <option value="vgcRegF">VGC Reg F</option>
+                                <option value="smogSinglesOU">Smogon Singles</option>
+                                <option value="smogDoublesOU">Smogon Doubles</option>
+                                <option value="smogLC">LC</option>
+                            </select>
+                        </form>
                         <span id="metapaste"><a href="https://pokepast.es/517b51e2ddfe7321" target="_blank">vgcRegF</a></span>
-                    </form>
+                    </div>
                     <span id="optionsP">Leave a textbox empty to calculate vs the selected meta.</span>
                 </div>
             </div>
+
             <!-- shared field options -->
             <div id="centered">
                 <span id="optionsH">Field options</span>
