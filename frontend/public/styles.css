@@ -17,7 +17,7 @@
 .cx-button {
     display: inline-block;
     padding: 3px 3px;
-    margin: 3px;
+    margin: 1px;
     font-size: 0.8em;
     background-color: #eee;
     /* color: #ffffff; */
@@ -31,6 +31,11 @@
 .cx-container input[type="checkbox"]:checked + .cx-button {
     border: inset;
     background-color: #bbb;
+}
+
+#buttonGroup {
+    /* padding: 3px 3px; */
+    margin: 1%;
 }
 
 /* actual styling */
@@ -55,9 +60,21 @@ h3 {
     line-height: 1.2
 }
 
+#optionsH {
+    font-size: 1.1em;
+    font-weight: bold;
+    line-height: 1;
+}
+
+#optionsP {
+    font-size: 1em;
+    text-align: justify;
+    line-height: 1;
+}
+
 code {
     background-color: #eee;
-    border-radius: 3px;
+    border-radius: 1px;
     font-family: courier, monospace;
     padding: 0 1px;
 }
@@ -67,13 +84,23 @@ code {
     display: flex;
     justify-content: center;
     align-items: center;
+    align-content: flex-start;
     /* height: 100vh;  Optional: Makes the container full height of the viewport */
+}
+
+.container-column {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
 }
 
 #userInput {
     display: flex;
     justify-content: center;
     align-items: start;
+    align-content: flex-start;
     margin: 1%;
     /* height: 100vh;  Optional: Makes the container full height of the viewport */
 }
@@ -84,24 +111,22 @@ code {
 
 #results {
     display: block;
+    flex-flow: column wrap;
     justify-content: center;
     align-items: center;
+    align-content: flex-start;
     margin: 1%;
 }
 
-#pastes {
+#textbox {
     display: flex;
+    flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    align-content: flex-start;
     margin: 1%;
 }
-/*
-#submitButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-*/
+
 #postButton {
     font-size: 1.25em;
     padding: 3px 3px;
@@ -113,29 +138,72 @@ code {
 }
 
 #left {
-    display: grid;
-    justify-content: center;
-    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
     margin: 1%;
 }
 
 #right {
-    display: grid;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: flex-start;
+    align-content: flex-start;
+    margin: 1%;
+}
+
+#centered {
+    display: flex;
+    flex-flow: row wrap;
     justify-content: center;
     align-items: center;
+    align-content: center;
+    margin: 1%;
+}
+
+.presets {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    margin: 2%;
+}
+
+.shared {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
     margin: 1%;
 }
 
 .attackerSide {
-    display: grid;
-    justify-content: left;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    /* justify-content: left;
     align-items: left;
+    */
     margin: 1%;
+
 }
 
 .defenderSide {
-    display: grid;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: flex-start;
+    align-content: flex-start;
+    /*
     justify-content: right;
     align-items: right;
+    */
     margin: 1%;
 }

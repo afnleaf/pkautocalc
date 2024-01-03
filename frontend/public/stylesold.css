@@ -11,6 +11,7 @@ body {
 */
 
 body {
+    display: flex;
     margin: 2%;
     max-width: 100%;
     line-height: 1.6;
@@ -55,7 +56,7 @@ code {
 /* input styling */
 
 #userInput {
-    display: block;
+    display: flex;
     margin: 1%;
 }
 
@@ -67,14 +68,14 @@ code {
 }
 
 #left {
-    display: grid;
+    display: flex;
     justify-content: center;
     align-items: center;
     margin: 1%;
 }
 
 #right {
-    display: grid;
+    display: flex;
     justify-content: center;
     align-items: center;
     margin: 1%;

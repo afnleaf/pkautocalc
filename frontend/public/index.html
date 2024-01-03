@@ -31,310 +31,317 @@
         <a href="https://chromewebstore.google.com/detail/pokepastefix/ekceaboabpgkgbpigacngnjagcdhdkmn" target="_blank">pokepastefix</a>
     </div>
 
+    
+
     <!-- where user inputs teams-->
     <div class="container" id="userInput">
-
-        <!-- <div id="pastes"></div> -->
-
         <!-- where one team is pasted-->
-        <div id="left">
-            <h3>Paste your team here.</h3>
-            <textarea id="textBoxLeft" name="textBox1" wrap="soft" spellcheck=false rows="50" cols="35"></textarea>
+        <div id="textbox">
+            <span id="optionsH">Paste your team here.</span>
+            <textarea id="textBoxLeft" name="textBox1" wrap="soft" spellcheck=false rows="45" cols="35"></textarea>
         </div>
 
-        <div id="field">            
+        <div class="container-column" id="field">
             <!-- what user presses to indicate they want to calculate -->
-            <div class="container" id="submitButton">
-                <button id="postButton" type="button" onclick=requestResults()>Calculate</button>
-            </div>
-
-            <h3>Field options</h3>
-            <div class="presets">
-                <form>
-                    <!-- <label for="presets"></label> -->
-                    <select id="presets" name="presets" onchange="handlePresets()">
-                        <option value="vgcRegF">VGC Reg F</option>
-                        <option value="smogSinglesOU">Smogon Singles</option>
-                        <option value="smogDoublesOU">Smogon Doubles</option>
-                        <option value="smogLC">LC</option>
-                    </select>
-                    <span id="metapaste"><a href="https://pokepast.es/517b51e2ddfe7321" target="_blank">vgcRegF</a></span>
-                </form>
-            </div>
-
-            <div class="shared">
-                <!-- Game Type -->
-                <div>
-                    <label class="cx-container">
-                        <input class="gametype" id='singles' type="checkbox" onclick="handleSwitchForced(this)">
-                        <span class="cx-button">Singles</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="gametype" id='doubles' type="checkbox" onclick="handleSwitchForced(this)" checked>
-                        <span class="cx-button">Doubles</span>
-                    </label>
-                </div>
-                <!-- Level -->
-                <div>
-                    <label class="cx-container">
-                        <input class="level" id="hundred" type="checkbox" onclick="handleSwitch(this)">
-                        <span class="cx-button">100</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="level" id="fifty" type="checkbox" onclick="handleSwitch(this)" checked>
-                        <span class="cx-button">50</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="level" id="five" type="checkbox" onclick="handleSwitch(this)">
-                        <span class="cx-button">5</span>
-                    </label>
-                </div>
-                <!-- Terrain -->
-                <div>
-                    <label class="cx-container">
-                        <input class="terrain" id="electric" type="checkbox" onclick="handleSwitch(this)">
-                        <span class="cx-button">Electric Terrain</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="terrain" id="grassy" type="checkbox" onclick="handleSwitch(this)">
-                        <span class="cx-button">Grassy Terrain</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="terrain" id="psychic" type="checkbox" onclick="handleSwitch(this)">
-                        <span class="cx-button">Psychic Terrain</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="terrain" id="misty" type="checkbox" onclick="handleSwitch(this)">
-                        <span class="cx-button">Misty Terrain</span>
-                    </label>
-                </div>
-                <!-- Normal Weather -->
-                <div>
-                    <label class="cx-container">
-                        <input class="weather" id="sun" type="checkbox" onclick="handleSwitch(this)">
-                        <span class="cx-button">Sun</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="weather" id="rain" type="checkbox" onclick="handleSwitch(this)">
-                        <span class="cx-button">Rain</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="weather" id="sand" type="checkbox" onclick="handleSwitch(this)">
-                        <span class="cx-button">Sand</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="weather" id="snow" type="checkbox" onclick="handleSwitch(this)">
-                        <span class="cx-button">Snow</span>
-                    </label>
-                </div>
-                <!-- Heavy Weather -->
-                <div>
-                    <label class="cx-container">
-                        <input class="weather" id="harshsun" type="checkbox" onclick="handleSwitch(this)">
-                        <span class="cx-button">Harsh Sunshine</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="weather" id="heavyrain" type="checkbox" onclick="handleSwitch(this)">
-                        <span class="cx-button">Heavy Rain</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="weather" id="wind" type="checkbox" onclick="handleSwitch(this)">
-                        <span class="cx-button">Strong Winds</span>
-                    </label>
-                </div>
-                <!-- Rooms -->
-                <div>
-                    <label class="cx-container">
-                        <input class="rooms" id="magicroom" type="checkbox">
-                        <span class="cx-button">Magic Room</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="rooms" id="wonderroom" type="checkbox">
-                        <span class="cx-button">Wonder Room</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="rooms" id="gravity" type="checkbox">
-                        <span class="cx-button">Gravity</span>
-                    </label>
-                </div>
-                <!-- Ruins -->
-                <div>
-                    <label class="cx-container">
-                        <input class="ruins" id="beads" type="checkbox">
-                        <span class="cx-button">Beads of Ruin</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="ruins" id="tablets" type="checkbox">
-                        <span class="cx-button">Tablets of Ruin</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="ruins" id="sword" type="checkbox">
-                        <span class="cx-button">Sword of Ruin</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="ruins" id="vessel" type="checkbox">
-                        <span class="cx-button">Vessel of Ruin</span>
-                    </label>
+            <div id="centered">
+                <span id="optionsH">test</span>
+                <div id="centered">
+                    <button id="postButton" type="button" onclick=requestResults()>Calculate</button>
                 </div>
             </div>
 
-            <div class="attackerSide">
-                <h4>Attacker Side</h4>
-                <!-- Hazards -->
-                <div>
-                    <label class="cx-container">
-                        <input id="rocksA" type="checkbox">
-                        <span class="cx-button">Stealth Rocks</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="spikesA" id="zero" type="checkbox" onclick="handleSwitchForced(this)" checked>
-                        <span class="cx-button">0</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="spikesA" id="one" type="checkbox" onclick="handleSwitchForced(this)">
-                        <span class="cx-button">1</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="spikesA" id="two" type="checkbox" onclick="handleSwitchForced(this)">
-                        <span class="cx-button">2</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="spikesA" id="three" type="checkbox" onclick="handleSwitchForced(this)">
-                        <span class="cx-button">3 Spikes</span>
-                    </label>
-                </div>
-                <!-- Damage reduction -->
-                <div>
-                    <label class="cx-container">
-                        <input id="reflectA" type="checkbox" onclick="">
-                        <span class="cx-button">Reflect</span>
-                    </label>
-                    <label class="cx-container">
-                        <input id="lightScreenA" type="checkbox" onclick="">
-                        <span class="cx-button">Light Screen</span>
-                    </label>
-                    <label class="cx-container">
-                        <input id="aveilA" type="checkbox" onclick="">
-                        <span class="cx-button">Aurora Veil</span>
-                    </label>
-                    <label class="cx-container">
-                        <input id="fguardA" type="checkbox" onclick="">
-                        <span class="cx-button">Friend Guard</span>
-                    </label>
-                </div>
-                <!-- Damage amplification -->
-                <div>
-                    <label class="cx-container">
-                        <input id="hhandA" type="checkbox" onclick="">
-                        <span class="cx-button">Helping Hand</span>
-                    </label>
-                    <label class="cx-container">
-                        <input id="batteryA" type="checkbox" onclick="">
-                        <span class="cx-button">Battery</span>
-                    </label>
-                    <label class="cx-container">
-                        <input id="pspotA" type="checkbox" onclick="">
-                        <span class="cx-button">Power Spot</span>
-                    </label>
-                </div>
-                <!-- Misc -->
-                <div>
-                    <label class="cx-container">
-                        <input id="fgiftA" type="checkbox" onclick="">
-                        <span class="cx-button">Flower Gift</span>
-                    </label>
-                    <label class="cx-container">
-                        <input id="leechseedA" type="checkbox" onclick="">
-                        <span class="cx-button">Leech Seed</span>
-                    </label>
-                    <label class="cx-container">
-                        <input id="switchoutA" type="checkbox" onclick="">
-                        <span class="cx-button">Switching Out</span>
-                    </label>
+            <!-- presets for meta -->
+            <div id="centered">
+                <span id="optionsH">Meta</span>
+                <div id="centered">
+                    <form>
+                        <select id="presets" name="presets" onchange="handlePresets()">
+                            <option value="vgcRegF">VGC Reg F</option>
+                            <option value="smogSinglesOU">Smogon Singles</option>
+                            <option value="smogDoublesOU">Smogon Doubles</option>
+                            <option value="smogLC">LC</option>
+                        </select>
+                        <span id="metapaste"><a href="https://pokepast.es/517b51e2ddfe7321" target="_blank">vgcRegF</a></span>
+                    </form>
+                    <span id="optionsP">Leave a textbox empty to calculate vs the selected meta.</span>
                 </div>
             </div>
-
-            <div class="defenderSide">
-                <h4>Defender Side</h4>
-                <!-- Hazards -->
-                <div>
-                    <label class="cx-container">
-                        <input id="rocksD" type="checkbox">
-                        <span class="cx-button">Stealth Rocks</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="spikesD" id="zero" type="checkbox" onclick="handleSwitchForced(this)" checked>
-                        <span class="cx-button">0</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="spikesD" id="one" type="checkbox" onclick="handleSwitchForced(this)">
-                        <span class="cx-button">1</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="spikesD" id="two" type="checkbox" onclick="handleSwitchForced(this)">
-                        <span class="cx-button">2</span>
-                    </label>
-                    <label class="cx-container">
-                        <input class="spikesD" id="three" type="checkbox" onclick="handleSwitchForced(this)">
-                        <span class="cx-button">3 Spikes</span>
-                    </label>
+            <!-- shared field options -->
+            <div id="centered">
+                <span id="optionsH">Field options</span>
+                <div id="centered">
+                    <!-- Game Type -->
+                    <div id="buttonGroup" class="shared">
+                        <label class="cx-container">
+                            <input class="gametype" id='singles' type="checkbox" onclick="handleSwitchForced(this)">
+                            <span class="cx-button">Singles</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="gametype" id='doubles' type="checkbox" onclick="handleSwitchForced(this)" checked>
+                            <span class="cx-button">Doubles</span>
+                        </label>
+                    </div>
+                    <!-- Level -->
+                    <div id="buttonGroup" class="shared">
+                        <label class="cx-container">
+                            <input class="level" id="hundred" type="checkbox" onclick="handleSwitch(this)">
+                            <span class="cx-button">100</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="level" id="fifty" type="checkbox" onclick="handleSwitch(this)" checked>
+                            <span class="cx-button">50</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="level" id="five" type="checkbox" onclick="handleSwitch(this)">
+                            <span class="cx-button">5</span>
+                        </label>
+                    </div>
+                    <!-- Terrain -->
+                    <div id="buttonGroup" class="shared">
+                        <label class="cx-container">
+                            <input class="terrain" id="electric" type="checkbox" onclick="handleSwitch(this)">
+                            <span class="cx-button">Electric Terrain</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="terrain" id="grassy" type="checkbox" onclick="handleSwitch(this)">
+                            <span class="cx-button">Grassy Terrain</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="terrain" id="psychic" type="checkbox" onclick="handleSwitch(this)">
+                            <span class="cx-button">Psychic Terrain</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="terrain" id="misty" type="checkbox" onclick="handleSwitch(this)">
+                            <span class="cx-button">Misty Terrain</span>
+                        </label>
+                    </div>
+                    <!-- Weather -->
+                    <div id="buttonGroup" class="shared">
+                        <!-- Normal Weather -->
+                        <label class="cx-container">
+                            <input class="weather" id="sun" type="checkbox" onclick="handleSwitch(this)">
+                            <span class="cx-button">Sun</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="weather" id="rain" type="checkbox" onclick="handleSwitch(this)">
+                            <span class="cx-button">Rain</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="weather" id="sand" type="checkbox" onclick="handleSwitch(this)">
+                            <span class="cx-button">Sand</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="weather" id="snow" type="checkbox" onclick="handleSwitch(this)">
+                            <span class="cx-button">Snow</span>
+                        </label>
+                        <!-- Heavy Weather -->
+                        <label class="cx-container">
+                            <input class="weather" id="harshsun" type="checkbox" onclick="handleSwitch(this)">
+                            <span class="cx-button">Harsh Sunshine</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="weather" id="heavyrain" type="checkbox" onclick="handleSwitch(this)">
+                            <span class="cx-button">Heavy Rain</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="weather" id="wind" type="checkbox" onclick="handleSwitch(this)">
+                            <span class="cx-button">Strong Winds</span>
+                        </label>
+                    </div>
+                    <!-- Rooms -->
+                    <div id="buttonGroup" class="shared">
+                        <label class="cx-container">
+                            <input class="rooms" id="magicroom" type="checkbox">
+                            <span class="cx-button">Magic Room</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="rooms" id="wonderroom" type="checkbox">
+                            <span class="cx-button">Wonder Room</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="rooms" id="gravity" type="checkbox">
+                            <span class="cx-button">Gravity</span>
+                        </label>
+                    </div>
+                    <!-- Ruins -->
+                    <div id="buttonGroup" class="shared">
+                        <label class="cx-container">
+                            <input class="ruins" id="beads" type="checkbox">
+                            <span class="cx-button">Beads of Ruin</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="ruins" id="tablets" type="checkbox">
+                            <span class="cx-button">Tablets of Ruin</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="ruins" id="sword" type="checkbox">
+                            <span class="cx-button">Sword of Ruin</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="ruins" id="vessel" type="checkbox">
+                            <span class="cx-button">Vessel of Ruin</span>
+                        </label>
+                    </div>
                 </div>
-                <!-- Damage reduction -->
-                <div>
-                    <label class="cx-container">
-                        <input id="reflectD" type="checkbox" onclick="">
-                        <span class="cx-button">Reflect</span>
-                    </label>
-                    <label class="cx-container">
-                        <input id="lightScreenD" type="checkbox" onclick="">
-                        <span class="cx-button">Light Screen</span>
-                    </label>
-                    <label class="cx-container">
-                        <input id="aveilD" type="checkbox" onclick="">
-                        <span class="cx-button">Aurora Veil</span>
-                    </label>
-                    <label class="cx-container">
-                        <input id="fguardD" type="checkbox" onclick="">
-                        <span class="cx-button">Friend Guard</span>
-                    </label>
+            </div>
+            <!-- attacker  -->
+            <div id="left">
+                <span id="optionsH">Attacker Side</span>
+                <div class="attackerSide">
+                    <!-- Hazards -->
+                    <div id="buttonGroup" class="attackerSide">
+                        <label class="cx-container">
+                            <input id="rocksA" type="checkbox">
+                            <span class="cx-button">Stealth Rocks</span>
+                        </label>
+                    </div>
+                    <div id="buttonGroup" class="attackerSide">
+                        <label class="cx-container">
+                            <input class="spikesA" id="zero" type="checkbox" onclick="handleSwitchForced(this)" checked>
+                            <span class="cx-button">0</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="spikesA" id="one" type="checkbox" onclick="handleSwitchForced(this)">
+                            <span class="cx-button">1</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="spikesA" id="two" type="checkbox" onclick="handleSwitchForced(this)">
+                            <span class="cx-button">2</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="spikesA" id="three" type="checkbox" onclick="handleSwitchForced(this)">
+                            <span class="cx-button">3 Spikes</span>
+                        </label>
+                    </div>
+                    <div id="buttonGroup" class="attackerSide">
+                        <!-- Damage reduction -->
+                        <label class="cx-container">
+                            <input id="reflectA" type="checkbox" onclick="">
+                            <span class="cx-button">Reflect</span>
+                        </label>
+                        <label class="cx-container">
+                            <input id="lightScreenA" type="checkbox" onclick="">
+                            <span class="cx-button">Light Screen</span>
+                        </label>
+                        <label class="cx-container">
+                            <input id="aveilA" type="checkbox" onclick="">
+                            <span class="cx-button">Aurora Veil</span>
+                        </label>
+                        <label class="cx-container">
+                            <input id="fguardA" type="checkbox" onclick="">
+                            <span class="cx-button">Friend Guard</span>
+                        </label>
+                        <!-- Damage amplification -->
+                        <label class="cx-container">
+                            <input id="hhandA" type="checkbox" onclick="">
+                            <span class="cx-button">Helping Hand</span>
+                        </label>
+                        <label class="cx-container">
+                            <input id="batteryA" type="checkbox" onclick="">
+                            <span class="cx-button">Battery</span>
+                        </label>
+                        <label class="cx-container">
+                            <input id="pspotA" type="checkbox" onclick="">
+                            <span class="cx-button">Power Spot</span>
+                        </label>
+                        <!-- Misc -->
+                        <label class="cx-container">
+                            <input id="fgiftA" type="checkbox" onclick="">
+                            <span class="cx-button">Flower Gift</span>
+                        </label>
+                        <label class="cx-container">
+                            <input id="leechseedA" type="checkbox" onclick="">
+                            <span class="cx-button">Leech Seed</span>
+                        </label>
+                        <label class="cx-container">
+                            <input id="switchoutA" type="checkbox" onclick="">
+                            <span class="cx-button">Switching Out</span>
+                        </label>
+                    </div>
                 </div>
-                <!-- Damage amplification -->
-                <div>
-                    <label class="cx-container">
-                        <input id="hhandD" type="checkbox" onclick="">
-                        <span class="cx-button">Helping Hand</span>
-                    </label>
-                    <label class="cx-container">
-                        <input id="batteryD" type="checkbox" onclick="">
-                        <span class="cx-button">Battery</span>
-                    </label>
-                    <label class="cx-container">
-                        <input id="pspotD" type="checkbox" onclick="">
-                        <span class="cx-button">Power Spot</span>
-                    </label>
-                </div>
-                <!-- Misc -->
-                <div>
-                    <label class="cx-container">
-                        <input id="fgiftD" type="checkbox" onclick="">
-                        <span class="cx-button">Flower Gift</span>
-                    </label>
-                    <label class="cx-container">
-                        <input id="leechseedD" type="checkbox" onclick="">
-                        <span class="cx-button">Leech Seed</span>
-                    </label>
-                    <label class="cx-container">
-                        <input id="switchoutD" type="checkbox" onclick="">
-                        <span class="cx-button">Switching Out</span>
-                    </label>
+            </div>
+            <!-- defender -->
+            <div id="right">
+                <span id="optionsH">Defender Side</span>
+                <div class="defenderSide">
+                    <!-- Hazards -->
+                    <div id="buttonGroup" class="defenderSide">
+                        <label class="cx-container">
+                            <input id="rocksD" type="checkbox">
+                            <span class="cx-button">Stealth Rocks</span>
+                        </label>
+                    </div>
+                    <div id="buttonGroup" class="defenderSide">
+                        <label class="cx-container">
+                            <input class="spikesD" id="zero" type="checkbox" onclick="handleSwitchForced(this)" checked>
+                            <span class="cx-button">0</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="spikesD" id="one" type="checkbox" onclick="handleSwitchForced(this)">
+                            <span class="cx-button">1</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="spikesD" id="two" type="checkbox" onclick="handleSwitchForced(this)">
+                            <span class="cx-button">2</span>
+                        </label>
+                        <label class="cx-container">
+                            <input class="spikesD" id="three" type="checkbox" onclick="handleSwitchForced(this)">
+                            <span class="cx-button">3 Spikes</span>
+                        </label>
+                    </div>
+                    <div id="buttonGroup" class="defenderSide">
+                        <!-- Damage reduction -->
+                        <label class="cx-container">
+                            <input id="reflectD" type="checkbox" onclick="">
+                            <span class="cx-button">Reflect</span>
+                        </label>
+                        <label class="cx-container">
+                            <input id="lightScreenD" type="checkbox" onclick="">
+                            <span class="cx-button">Light Screen</span>
+                        </label>
+                        <label class="cx-container">
+                            <input id="aveilD" type="checkbox" onclick="">
+                            <span class="cx-button">Aurora Veil</span>
+                        </label>
+                        <label class="cx-container">
+                            <input id="fguardD" type="checkbox" onclick="">
+                            <span class="cx-button">Friend Guard</span>
+                        </label>
+                        <!-- Damage amplification -->
+                        <label class="cx-container">
+                            <input id="hhandD" type="checkbox" onclick="">
+                            <span class="cx-button">Helping Hand</span>
+                        </label>
+                        <label class="cx-container">
+                            <input id="batteryD" type="checkbox" onclick="">
+                            <span class="cx-button">Battery</span>
+                        </label>
+                        <label class="cx-container">
+                            <input id="pspotD" type="checkbox" onclick="">
+                            <span class="cx-button">Power Spot</span>
+                        </label>
+                        <!-- Misc -->
+                        <label class="cx-container">
+                            <input id="fgiftD" type="checkbox" onclick="">
+                            <span class="cx-button">Flower Gift</span>
+                        </label>
+                        <label class="cx-container">
+                            <input id="leechseedD" type="checkbox" onclick="">
+                            <span class="cx-button">Leech Seed</span>
+                        </label>
+                        <label class="cx-container">
+                            <input id="switchoutD" type="checkbox" onclick="">
+                            <span class="cx-button">Switching Out</span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div> <!-- field div ends here-->
 
         <!-- where the other team is pasted-->
-        <div id="right">
-            <h3>Leave Empty to calculate vs meta.</h3>
-            <textarea id="textBoxRight" name="textBox2" wrap="soft" spellcheck=false rows="50" cols="35"></textarea>
+        <div id="textbox">
+            <span id="optionsH">Paste enemy team here.</span>
+            <textarea id="textBoxRight" name="textBox2" wrap="soft" spellcheck=false rows="45" cols="35"></textarea>
         </div>
     </div> <!-- user input div ends here -->
 

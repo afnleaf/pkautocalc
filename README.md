@@ -20,12 +20,12 @@
 - [x] singles vs doubles
 - [x] default vs standard meta (metapastes)
 - [x] pokepaste automatic integration
-- [ ] boosts +1 Atk, +2 Speed etc
 - [x] outspeed in result (tailwind field condition?)
 - [ ] click button for paste to clipboard
 - [ ] upload to hastebin/pastebin
-- [ ] pikalytics api? -> doesn't exist, but smogon usage stats do (meta pokemon db)
+- [ ] boosts +1 Atk, +2 Speed etc
 - [ ] ev optimization rules (1/16, sub, sitrus, etc)
+- [ ] pikalytics api? -> doesn't exist, but smogon usage stats do (meta pokemon db)
 - [ ] team length limits for calculation speed requirements
 - [ ] generation picker or just 9?
 - [ ] pokemon customizer (no?)

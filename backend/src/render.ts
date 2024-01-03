@@ -125,7 +125,7 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
         //console.log(result.kochance());
         //console.log(result.desc());
         const s: string[] = result.desc().split('--');
-        let colour: string;
+        let colour: string = "#000000";
         if(side){
             colour = getKOChanceColourAttack(result.kochance().n);
         } else {
