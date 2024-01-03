@@ -187,3 +187,10 @@ getKOChanceColourDefend
 - [x] check if tera attacker pokemons tera type is same type as move (TERA STAB) 
 - [ ] check if type of move is neutral vs tera type defender
 - [ ] if defender teras, does the move have a different effectiveness than base type
+
+loop 1 for each pokemon in attacker
+loop 2 for each pokemon in defender
+loop 3 for each move in attacker list
+
+
+how to make part 3 a func

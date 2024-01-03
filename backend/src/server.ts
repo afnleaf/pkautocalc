@@ -28,15 +28,18 @@ export async function runCalculations(text1: string, text2: string, field: any):
     let team2Text: string = "";
     let team2Data: PokemonData[] = [];
 
-    // condition for meta paste
+    // condition for meta paste to be used
+    if(text1.trim() === "") {
+        text1 = field.metapaste;
+    }
+
     if(text2.trim() === "") {
-        //text2 = "https://pokepast.es/dc1eac2d8740c97b";
         text2 = field.metapaste;
     }
 
     // validate textbox1
     try {
-        //
+        // get text from pokepaste dom
         team1Text = await getText(text1);
         // parse the text into pokemon object data, see 'parser.ts'
         team1Data = parseText(team1Text);
@@ -49,7 +52,7 @@ export async function runCalculations(text1: string, text2: string, field: any):
 
     // validate textbox2
     try {
-        //
+        // get text from pokepaste dom
         team2Text = await getText(text2);
         // parse the text into pokemon object data, see 'parser.ts'
         team2Data = parseText(team2Text);
@@ -67,8 +70,8 @@ export async function runCalculations(text1: string, text2: string, field: any):
         const fieldDefender = parseField(field, false);
         const level = field.level;
         // calculate the results
-        const resultsAttack = await calc(team1Data, team2Data, fieldAttacker, level);
-        const resultsDefend = await calc(team2Data, team1Data, fieldDefender, level);
+        const resultsAttack = await calculateResults(team1Data, team2Data, fieldAttacker, level);
+        const resultsDefend = await calculateResults(team2Data, team1Data, fieldDefender, level);
         html += buildHTML(resultsAttack, resultsDefend);
     }
 
@@ -174,6 +177,134 @@ function parseField(field: any, side: boolean): Field {
 }
 
 /**
+* Get all the results possible based on one move
+* @param {any} gen - generation (9)
+* @param {} attacker - attacking pokemon data
+* @param {} teraAttacker - attacking pokemon data
+* @param {} defender - defending pokemon data
+* @param {} teraDefender - defending pokemon data
+* @param {} move - move data
+* @param {} field - field conditions
+* @returns - list of results for the move
+*/
+function calcResultsOfMove(
+    gen: any,
+    move: string,
+    attacker: Pokemon, 
+    teraAttacker: Pokemon, 
+    defender: Pokemon,
+    teraDefender: Pokemon,
+    field: Field
+): any[] {
+    const results: any[] = [];
+    const moveData = new Move(gen, move.toString());
+
+    // skip if move is a status move
+    if (moveData.category === "Status") {
+        return results;
+    }
+    let result: any;
+
+    // get effectiveness vs unchanged defender
+    let baseEffectiveness: number = getBaseEffectiveness(
+        gen,
+        moveData,
+        defender.types
+    )
+    // effectiveness vs terad defender
+    let teraEffectiveness: number = getMoveEffectiveness(
+        gen,
+        moveData,
+        teraDefender.teraType as TypeName
+    )
+    
+    //console.log(`move: ${moveData.name}`);
+    //console.log(`base: ${baseEffectiveness}`);
+    //console.log(`tera: ${teraEffectiveness}`);
+    
+    // unchanged attacker vs unchanged defender
+    result = calculate(
+        gen,
+        attacker,
+        defender,
+        moveData,
+        field
+    );
+    results.push(result);
+
+    // tera type activates if tera blast or tera is same type as move
+    if(move.toString() === "Tera Blast" || teraAttacker.teraType == moveData.type) {
+        result = calculate(
+            gen,
+            teraAttacker,
+            defender,
+            moveData,
+            field
+        );
+        results.push(result);
+        if(teraEffectiveness != baseEffectiveness && teraDefender.teraType != "" as TypeName) {
+            result = calculate(
+                gen,
+                teraAttacker,
+                teraDefender,
+                moveData,
+                field
+            );
+            results.push(result);
+        }
+    }
+
+    if(teraEffectiveness != baseEffectiveness && teraDefender.teraType != "" as TypeName) {
+        result = calculate(
+            gen,
+            attacker,
+            teraDefender,
+            moveData,
+            field
+        );
+        results.push(result);
+    }
+
+    return results;
+}
+
+/**
+ * Calculate how effective a move will be versus a set of types
+ * @param {any} gen - generation (9)
+ * @param {Move} moveData - 
+ * @param {TypeName[]} types - 
+ * @returns a number corresponding to the move effectiveness
+ */
+// gonna have to ignore abilities for now
+function getBaseEffectiveness(gen: any, moveData: Move, types: TypeName[]): number {
+    // get effectiveness
+    let base1: number;
+    let base2: number;
+
+    base1 = getMoveEffectiveness(
+        gen,
+        moveData,
+        types[0]
+    );
+    // two types
+    if(types.length == 2) {
+        base2 = getMoveEffectiveness(
+            gen,
+            moveData,
+            types[1]
+        );
+        // make sure there is no immunity
+        if(base1 == 0 || base2 == 0) {
+            return 0;
+        } else {
+            return base1 * base2;
+        }
+    } else {
+        return base1;
+    }
+}
+
+/**
 * Runs all the calculations between team1 and team2
 * @param {PokemonData[]} team1 - List of all the pokemon in team1
 * @param {PokemonData[]} team2 - List of all the pokemon in team2
@@ -181,8 +312,7 @@ function parseField(field: any, side: boolean): Field {
 * @param {number} level - level that all pokemon will automatically get turned into
 * @returns a list of results
 */
-// IMPORTANT // refactor this terrible function
-async function calc(team1: PokemonData[], team2: PokemonData[], field: Field, level: number): Promise<any[]> {
+async function calculateResults(team1: PokemonData[], team2: PokemonData[], field: Field, level: number): Promise<any[]> {
     // gen 9 by default
     //let gen: typeof Generations = (Generations as typeof Generations).get(9);
     const gen = Generations.get(9);
@@ -201,7 +331,7 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field, le
             attacker = toPokemon(gen, pokemon1, false);
             teraAttacker = toPokemon(gen, pokemon1, true);
         } catch (error) {
-            console.log(`attacker na ${pokemon1._Name}`);
+            console.log(`Attacker ${pokemon1._Name} missing.`);
         }
         // making sure attacker exists
         if(attacker != undefined && teraAttacker != undefined) {
@@ -217,117 +347,25 @@ async function calc(team1: PokemonData[], team2: PokemonData[], field: Field, le
                     defender = toPokemon(gen, pokemon2, false);
                     teraDefender = toPokemon(gen, pokemon2, true);
                 } catch (error) {
-                    console.log(`defender na ${pokemon2._Name}`);
+                    console.log(`Defender ${pokemon2._Name} missing.`);
                 }
                 if(defender != undefined && teraDefender != undefined) {
                     // loop through each move
                     pokemon1._Moveset.forEach(move => {
-                        const moveData = new Move(gen, move.toString());
-                        //console.log("================================");
-                        //console.log(moveData);
-                        let result: any;
-                        // filter out status moves
-                        if (moveData.category !== "Status") {
-                            // get effectiveness for conditions
-                            let effectiveness: any = getMoveEffectiveness(
-                                gen,
-                                moveData,
-                                teraDefender.teraType as TypeName
-                            );
-                            //console.log(effectiveness);
-                            
-                            // regular
-                            result = calculate(
-                                gen,
-                                attacker,
-                                defender,
-                                moveData,
-                                field
-                            );
-                            results.push(result);
-
-                            // get tera blast with tera type activated
-                            if(move.toString() === "Tera Blast") {
-                                result = calculate(
-                                    gen,
-                                    teraAttacker,
-                                    defender,
-                                    moveData,
-                                    field
-                                );
-                                results.push(result);
-                                // condition for tera'd terablast
-                                const teraMoveData = new Move(gen, move.toString());
-                                teraMoveData.type = teraAttacker.teraType as TypeName;
-                                let teraEffectiveness: any = getMoveEffectiveness(
-                                    gen,
-                                    teraMoveData,
-                                    teraDefender.teraType as TypeName
-                                );
-                                if(teraEffectiveness != 1) {
-                                    result = calculate(
-                                        gen,
-                                        teraAttacker,
-                                        teraDefender,
-                                        teraMoveData,
-                                        field
-                                    );
-                                    results.push(result); 
-                                }
-
-                            }
-
-                            //check if type of move is neutral vs tera type defender
-                            if(effectiveness != 1) {
-                                result = calculate(
-                                    gen,
-                                    attacker,
-                                    teraDefender,
-                                    moveData,
-                                    field
-                                );
-                                results.push(result); 
-                            }
-
-                            // check if tera attacker pokemons tera type is same type as move
-                            if(teraAttacker.teraType == moveData.type) {
-                                result = calculate(
-                                    gen,
-                                    teraAttacker,
-                                    defender,
-                                    moveData,
-                                    field
-                                );
-                                results.push(result); 
-                                
-
-                                // tera attacker and defender
-                                if(effectiveness != 1) {
-                                    result = calculate(
-                                        gen,
-                                        teraAttacker,
-                                        teraDefender,
-                                        moveData,
-                                        field
-                                    );
-                                    results.push(result); 
-                                }
-                            }
-                        }
+                        results.push(...calcResultsOfMove(
+                            gen,
+                            move,
+                            attacker,
+                            teraAttacker,
+                            defender,
+                            teraDefender,
+                            field
+                        ));
                     }); 
                 }
             });
         }
     });
-
-    /*
-    If you want json String
-    var JsonString = JSON.stringify(JsArray);
-    If you want json Object
-    var JsonObject = JSON.parse(JSON.stringify(JsArray));
-    */
-    //return JSON.stringify(results);
-    //return JSON.parse(JSON.stringify(results));
     return results;
 }
 
