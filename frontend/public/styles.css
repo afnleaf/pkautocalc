@@ -108,8 +108,9 @@ code {
 }
 
 .container-links a {
-    margin-right: 5px; /* Adjust the margin as needed */
+    margin-right: 5px;
     margin-left: 5px;
+    padding-bottom: 2%;
 }
 
 .container-links span {
