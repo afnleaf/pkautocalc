@@ -65,18 +65,6 @@ h3 {
     line-height: 1.2
 }
 
-#optionsH {
-    font-size: 1.1em;
-    font-weight: bold;
-    line-height: 1;
-}
-
-#optionsP {
-    font-size: 1em;
-    text-align: justify;
-    line-height: 1;
-}
-
 code {
     background-color: #eee;
     border-radius: 1px;
@@ -89,8 +77,8 @@ code {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-evenly;
-    align-items: center;
-    align-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
     max-width: 1024px;
     /* height: 100vh;  Optional: Makes the container full height of the viewport */
 }
@@ -106,7 +94,7 @@ code {
 
 .container-column {
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: column wrap;
     justify-content: center;
     align-items: center;
     align-content: flex-start;
@@ -126,17 +114,6 @@ code {
 
 .container-links span {
     margin: 0 5px; /* Adjust the margin as needed */
-}
-
-
-#userInput {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: start;
-    align-content: flex-start;
-    margin: 1%;
-    /* height: 100vh;  Optional: Makes the container full height of the viewport */
 }
 
 #links {
@@ -163,6 +140,10 @@ code {
     margin: 1%;
 }
 
+textarea {
+    resize: none;
+}
+
 #postButton {
     font-size: 1.25em;
     padding: 3px 3px;
@@ -175,6 +156,19 @@ code {
 
 #metapaste {
     margin: 1%;
+}
+
+#optionsH {
+    font-size: 1.1em;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 1%;
+}
+
+#optionsP {
+    font-size: 1em;
+    text-align: justify;
+    line-height: 1;
 }
 
 #left {
@@ -246,4 +240,25 @@ code {
     align-items: right;
     */
     margin: 1%;
+}
+
+@media (max-width: 767px) {
+    .container-big {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: stretch;
+        align-items: center;
+        align-content: flex-start;
+    }
+
+    #textBoxLeft {
+        max-height: 200px;
+        width: 320px;
+    }
+
+    #textBoxRight {
+        max-height: 200px;
+        width: 320px;
+    }
+    
 }
