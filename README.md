@@ -86,7 +86,6 @@ Moveset:
 ## todo
 
 ### backend
-- when: 2 same pkmn in adjacent blocks. results stack, must separate
 - tera stellar (not on npm?)
 - fix female vs male versions
 - boosts
