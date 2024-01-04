@@ -363,8 +363,12 @@ async function calculateResults(team1: PokemonData[], team2: PokemonData[], fiel
                         ));
                     }); 
                 }
+                // add a skip to know there is a new mon
+                results.push(undefined);
             });
         }
+        // add a skip to know there is a new mon
+        results.push(undefined);
     });
     return results;
 }

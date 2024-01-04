@@ -23,9 +23,14 @@ export function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     let prevAttacker = "";
     let prevDefender = "";
     resultsAttack.forEach(result => {
-        html += renderResult(result, prevAttacker, prevDefender, true);
-        prevAttacker = result.attacker.name;
-        prevDefender = result.defender.name;
+        if(result != undefined) {
+            html += renderResult(result, prevAttacker, prevDefender, true);
+            prevAttacker = result.attacker.name;
+            prevDefender = result.defender.name;
+        } else {
+            prevAttacker = "";
+            prevDefender = "";
+        }
     });
     
     // defense
@@ -41,9 +46,14 @@ export function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     prevAttacker = "";
     prevDefender = "";
     resultsDefense.forEach(result => {
-       html += renderResult(result, prevAttacker, prevDefender, false);
-       prevAttacker = result.attacker.name;
-       prevDefender = result.defender.name;
+        if(result != undefined) {
+            html += renderResult(result, prevAttacker, prevDefender, false);
+            prevAttacker = result.attacker.name;
+            prevDefender = result.defender.name;
+        } else {
+            prevAttacker = "";
+            prevDefender = "";
+        }
     });
     html += `<a href="#Attack">Go to attack</a> | <a href="#Defense">Go to defense</a> | <a href="#Top">Go to top</a>`;
     return html;
