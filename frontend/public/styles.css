@@ -102,7 +102,7 @@ code {
 
 .container-links {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     align-items: stretch;
     margin-right: 10px;
 }
@@ -169,6 +169,8 @@ textarea {
     font-size: 1em;
     text-align: justify;
     line-height: 1;
+    display: flex;
+    flex-flow: row wrap;
 }
 
 #left {
