@@ -86,6 +86,7 @@ Moveset:
 ## todo
 
 ### backend
+- sort results by xhko chance
 - tera stellar (not on npm?)
 - fix female vs male versions
 - boosts

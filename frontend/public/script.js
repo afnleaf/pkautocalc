@@ -33,12 +33,13 @@ async function postData(url = '', data = {}) {
 async function requestResults() {
     // loading screen spinner
     let htmlLoading = `<h1>Calculating...</h1>`;
-    htmlLoading += `<img src="Hitmontop.gif">`
+    htmlLoading += `<img src="Hitmontop.gif">`;
+    htmlLoading += `<p id="target">work it.</p>`;
     // inform user that calculations are taking place
-    document.getElementById('results').innerHTML = htmlLoading;
-
-    var target = document.getElementById("results");
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById("results").innerHTML = htmlLoading;
+    // scroll results into view while loading
+    var target = document.getElementById("target");
+    target.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
 
     // parse field
     const field = getField();
@@ -63,7 +64,7 @@ async function requestResults() {
     }
 
     // Scroll the browser to the target element
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    target.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
 }
 
 
