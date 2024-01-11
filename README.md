@@ -101,7 +101,7 @@ Moveset:
 - make everything look nicer **IMPORTANT**
 
 ### production
-- hosting provider? -> kubernetes (no, too complex), why not host it myself (yes) -> home server 👍
+- [x] hosting provider? -> kubernetes (no, too complex), why not host it myself (yes) -> home server 
 - domain name pkautocalc.duckdns.org -> change to:
 	- `pokeautocalc.duckdns.org`
 	- `psyduckcalc.duckdns.org`
@@ -110,11 +110,12 @@ Moveset:
 	- `ducklettcalc.duckns.org`
 	- `farfetchdcalc.duckdns.org`
 	- `quaxulator.duckdns.org`
-	- `porygonz.duckdns.org`
 - buy domain
+	- `porygonz.duckdns.org`
 	- `pokeautocalc .io .xyz .uno .trade .site .space .store .fun`
 	- `calc.pokemon.online`
-- HTTPS, how important is this?
+- [x] https
+
 - CI/CD pipeline
 	- testing
 	- automated deployment to prod
@@ -124,3 +125,13 @@ Moveset:
 - how long does it take to calculate?
 - how is it best to serve this calculator idea? (FFAAS, running on user pc? vs server vs wasm?, idk)
 - geographic distribution (where are people connecting from, how bad is ping?)
+
+### Production Server Stack
+- nginx proxy manager
+- portainer
+- kuma uptime or w/e its called
+- watchtower? uploading build to public image?
+- automatic docker compose build and stop and up when github main repo is updated
+
+
+
