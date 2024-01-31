@@ -110,8 +110,8 @@ Moveset:
 	- `ducklettcalc.duckns.org`
 	- `farfetchdcalc.duckdns.org`
 	- `quaxulator.duckdns.org`
-- buy domain
 	- `porygonz.duckdns.org`
+- buy domain
 	- `pokeautocalc .io .xyz .uno .trade .site .space .store .fun`
 	- `calc.pokemon.online`
 - [x] https
