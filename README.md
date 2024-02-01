@@ -15,6 +15,13 @@
 - pkmn/img
 - node-html-parser
 
+## How Self Host (DOCKER REQUIRED)
+This web application is completely containerzied and can be run locally using docker on Linux or docker desktop on Windows/macOS. The docker compose file makes things quite easy. 
+- clone this repository
+- `docker compose build --no-cache`
+- `docker compose up` (`-d` if you want to run in detatched mode)
+- Go to `localhost:3000`
+- Use the app like normal.
 
 ## Ideas
 - [x] allow more than 4 moves
