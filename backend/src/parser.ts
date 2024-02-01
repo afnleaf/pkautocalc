@@ -146,7 +146,7 @@ function parseElement(pokemonObject: PokemonData, key: string, value: string): v
     //console.log("parseElement()");
     //console.log(key);
     //console.log(value);
-    switch (key) {
+    switch (key.toLowerCase()) {
         /*
         case "Name":
             pokemonObject.setName(value.trim());
@@ -155,22 +155,22 @@ function parseElement(pokemonObject: PokemonData, key: string, value: string): v
             pokemonObject.setItem(value.trim());
             break;
         */
-        case "Ability":
+        case "ability":
             pokemonObject.setAbility(value.trim());
             break;
-        case "Level":
+        case "level":
             pokemonObject.setLevel(parseInt(value.trim()));
             break;
-        case "Tera Type":
+        case "tera type":
             pokemonObject.setTera(value.trim());
             break;
-        case "EVs":
+        case "evs":
             pokemonObject.setEVs(parseEVs(value.trim()));
             break;
-        case "IVs":
+        case "ivs":
             pokemonObject.setIVs(parseIVs(value.trim()));
             break;
-        case "Boosts":
+        case "boosts":
             pokemonObject.setBoosts(parseBoosts(value.trim()));
             break;
         /*
