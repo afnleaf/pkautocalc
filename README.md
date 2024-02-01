@@ -1,8 +1,9 @@
-# pokemon auto calculator
-- automatically calculate every matchup between two pokemon pastes
-- print out results as text
+# Pokemon Auto Calculator
+- Automatically calculate every matchup between two pokemon pastes.
+- Deliver results of the calculation to the client.
+- Hosted at: (https://pkautocalc.duckdns.org/)
 
-## stack
+## Tech Stack
 - bun
 - javascript
 - typescript
@@ -15,7 +16,7 @@
 - node-html-parser
 
 
-## ideas
+## Ideas
 - [x] allow more than 4 moves
 - [x] singles vs doubles
 - [x] default vs standard meta (metapastes)
@@ -23,14 +24,14 @@
 - [x] outspeed in result (tailwind field condition?)
 - [ ] click button for paste to clipboard
 - [ ] upload to hastebin/pastebin
-- [ ] boosts +1 Atk, +2 Speed etc
+- [x] boosts +1 Atk, +2 Speed etc
 - [ ] ev optimization rules (1/16, sub, sitrus, etc)
 - [ ] pikalytics api? -> doesn't exist, but smogon usage stats do (meta pokemon db)
 - [ ] team length limits for calculation speed requirements
 - [ ] generation picker or just 9?
 - [ ] pokemon customizer (no?)
 
-## pokemon object data
+## Pokemon Object Data
 ```
 Name:
 Item:
@@ -62,7 +63,7 @@ Nature:
 Moveset:
 ```
 
-## webapp architecture
+## Webapp Architecture
 
 - Frontend
 	- user input
@@ -78,9 +79,9 @@ Moveset:
 	- backend: parse smogon stats and store in db
 	- backend: access database to create a superset of mons to calculate vs
 
-## todo
+## ToDo
 
-### backend
+### Backend
 - sort results by xhko chance
 - tera stellar (not on npm?)
 - fix female vs male versions
@@ -92,10 +93,10 @@ Moveset:
 - update @smogon/calc using github repo, npm is not updated
 - is there any way to multithread the calculation?
 
-### frontend
+### Frontend
 - make everything look nicer **IMPORTANT**
 
-### production
+### Production
 - [x] hosting provider? -> kubernetes (no, too complex), why not host it myself (yes) -> home server 
 - domain name pkautocalc.duckdns.org -> change to:
 	- `pokeautocalc.duckdns.org`
@@ -110,7 +111,6 @@ Moveset:
 	- `pokeautocalc .io .xyz .uno .trade .site .space .store .fun`
 	- `calc.pokemon.online`
 - [x] https
-
 - CI/CD pipeline
 	- testing
 	- automated deployment to prod

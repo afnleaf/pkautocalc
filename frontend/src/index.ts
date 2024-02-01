@@ -43,6 +43,7 @@ app.get("/howto", () => {
   <h1>How to use</h1>
   <p>Pokepastes are stored on the <a href="https://pokepast.es/">https://pokepast.es/</a> website. The following link contains a team: <a href="https://pokepast.es/2c7b8e8730f3c772">https://pokepast.es/2c7b8e8730f3c772</a></p>
   <br>
+  <div id="codepaste">
   <div><code>Incineroar @ Sitrus Berry</code></div>
   <div><code>Ability: Intimidate  </code></div>
   <div><code>Level: 50  </code></div>
@@ -53,13 +54,14 @@ app.get("/howto", () => {
   <div><code>- Parting Shot  </code></div>
   <div><code>- Knock Off  </code></div>
   <div><code>- Fake Out </code></div>
+  </div>
   <p>For the calculator to work, a pokemon needs only a name.</p>
   <ul>
-    <li><p>Name and Item must be on the same line separeted by an <code>@</code> symbol. You need a name and an @ but not an item.</p></li>
-    <li><p>Ability, Level, Tera Type, EVs, IVs, on their own line. Separated by a <code>:</code> semicolon.</p></li>
-    <li><p>Nature is preceded by the nature name, no separator.</p></li>
-    <li><p>Moves must be on their own line and start with a <code>-</code> dash. You can add any number of moves to a pokemon.</p></li>
-    <li><p>EVs and IVs follow the same pattern. HP, Atk, Def, SpA, SpD, Spe must be separated by a <code>/</code> forward-slash.</p></li>
+    <li><p><em>Name</em> and <em>Item</em> must be on the same line separeted by an <code>@</code> symbol. You need a name and an @ but not an item.</p></li>
+    <li><p><em>Ability</em>, <em>Level</em>, <em>Tera Type</em>, <em>EVs</em>, <em>IVs</em>, <em>Boosts</em> on their own line. Separated by a <code>:</code> semicolon.</p></li>
+    <li><p><em>Nature</em> is preceded by the nature name, no separator.</p></li>
+    <li><p><em>Moves</em> must be on their own line and start with a <code>-</code> dash. You can add any number of moves to a pokemon.</p></li>
+    <li><p><em>EVs</em>, <em>IVs</em> and <em>Boosts</em> follow the same pattern. HP, Atk, Def, SpA, SpD, Spe must be separated by a <code>/</code> forward-slash.</p></li>
     <li><p>Each pokemon must be separated by a newline.</p></li>
   </ul>
   <p>You can also paste in a <code>pokepaste.es</code> link directly into the input textbox. The server will be able to parse the team out of the paste link on its own.</p>
