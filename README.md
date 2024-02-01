@@ -20,7 +20,7 @@ This web application is completely containerzied and can be run locally using do
 - clone this repository
 - `docker compose build --no-cache`
 - `docker compose up` (`-d` if you want to run in detatched mode)
-- Go to `localhost:3000`
+- Go to `localhost:3000` in your web browser of choice.
 - Use the app like normal.
 
 ## Ideas
