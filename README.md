@@ -30,18 +30,6 @@
 - [ ] generation picker or just 9?
 - [ ] pokemon customizer (no?)
 
-
-## frontend ui design
-- idkman
-- chill with normalize for now?
-- center submit button
-- put paste boxes side by side
-- flexbox stack on eachother
-- both pastes should fit side by side
-- drag?
-- scroll
-- alt-scroll?
-
 ## pokemon object data
 ```
 Name:
@@ -57,6 +45,13 @@ EVs:
 	SpA:
 	Spe:
 IVs:
+	HP:
+	Atk:
+	Def:
+	SpD:
+	SpA:
+	Spe:
+Boost:
 	HP:
 	Atk:
 	Def:

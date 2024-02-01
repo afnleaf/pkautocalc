@@ -18,9 +18,11 @@ export class PokemonData {
     public _Tera: string;
     public _EVs: BaseStats;
     public _IVs: BaseStats;
+    public _Boosts: BaseStats;
     public _Nature: string;
     public _Moveset: string[];
-    // basestats notset flag
+
+    // basestats notset
     public notset: BaseStats = { 
         Hp: -1, 
         Atk: -1, 
@@ -28,6 +30,15 @@ export class PokemonData {
         SpA: -1, 
         SpD: -1, 
         Spe: -1 
+    };
+    // basestat at 0
+    public zeroset: BaseStats = { 
+        Hp: 0, 
+        Atk: 0, 
+        Def: 0, 
+        SpA: 0, 
+        SpD: 0, 
+        Spe: 0 
     };
 
     constructor() {
@@ -38,6 +49,7 @@ export class PokemonData {
         this._Tera = "";
         this._EVs = this.notset;
         this._IVs = this.notset;
+        this._Boosts = this.zeroset;
         this._Nature = "";
         this._Moveset = [];
     }
@@ -70,6 +82,10 @@ export class PokemonData {
         this._IVs = value;
     }
 
+    setBoosts(value: BaseStats): void {
+        this._Boosts = value;
+    }
+
     setNature(value: string): void {
         this._Nature = value;
     }
@@ -87,6 +103,7 @@ export class PokemonData {
         console.log(`Tera: ${this._Tera}`);
         this.printEVs();
         this.printIVs();
+        this.printBoosts();
         console.log(`Nature: ${this._Nature}`);
         this.printMoveset();
         console.log("");
@@ -110,6 +127,16 @@ export class PokemonData {
         console.log(`\tSpA: ${this._IVs.SpA}`);
         console.log(`\tSpD: ${this._IVs.SpD}`);
         console.log(`\tSpe: ${this._IVs.Spe}`);
+    }
+
+    printBoosts(): void {
+        console.log(`Boosts:`);
+        console.log(`\tHP: ${this._Boosts.Hp}`);
+        console.log(`\tAtk: ${this._Boosts.Atk}`);
+        console.log(`\tDef: ${this._Boosts.Def}`);
+        console.log(`\tSpA: ${this._Boosts.SpA}`);
+        console.log(`\tSpD: ${this._Boosts.SpD}`);
+        console.log(`\tSpe: ${this._Boosts.Spe}`);
     }
 
     printMoveset(): void {

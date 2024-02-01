@@ -405,6 +405,14 @@ function toPokemon(gen: any, pokemon: PokemonData, teraflag: boolean): Pokemon {
         spd: pokemon._IVs.SpD,
         spe: pokemon._IVs.Spe
     };
+    const boosts = {
+        hp: pokemon._Boosts.Hp,
+        atk: pokemon._Boosts.Atk,
+        def: pokemon._Boosts.Def,
+        spa: pokemon._Boosts.SpA,
+        spd: pokemon._Boosts.SpD,
+        spe: pokemon._Boosts.Spe
+    }
 
     let newPokemon: any;
     try {
@@ -417,6 +425,7 @@ function toPokemon(gen: any, pokemon: PokemonData, teraflag: boolean): Pokemon {
         newPokemon.level = level;
         newPokemon.evs = evs;
         newPokemon.ivs = ivs;
+        newPokemon.boosts = boosts;
         if(teraflag) {
             newPokemon.teraType = tera;
         }

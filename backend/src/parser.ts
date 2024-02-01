@@ -170,6 +170,9 @@ function parseElement(pokemonObject: PokemonData, key: string, value: string): v
         case "IVs":
             pokemonObject.setIVs(parseIVs(value.trim()));
             break;
+        case "Boosts":
+            pokemonObject.setBoosts(parseBoosts(value.trim()));
+            break;
         /*
         case "Nature":
             pokemonObject.setNature(value.trim());
@@ -284,4 +287,59 @@ function parseIVs(ivs: string): { Hp: number, Atk: number, Def: number, SpA: num
         }
     });
     return _IVs;
+}
+
+/**
+* Parses Boosts out of Boost string
+* @param {string} boosts - string containing IV numbers 
+* @return Boost data
+*/
+function parseBoosts(boosts: string): { Hp: number, Atk: number, Def: number, SpA: number, SpD: number, Spe: number } {
+    const _Boosts = {
+        Hp: 0,
+        Atk: 0,
+        Def: 0,
+        SpD: 0,
+        SpA: 0,
+        Spe: 0,
+    }
+    var tokens = [`${boosts}`];
+    // multiple tokens
+    if(boosts.includes("/")) {
+        tokens = boosts.split(" / ");
+    }
+    //console.log(tokens);
+    tokens.forEach(token => {
+        const [valueString, key] = token.split(" ")
+        const value = parseInt(valueString);
+        if(value > 6 || value < -6) {
+            throw new Error(`Boost value <${value}> is too high or too low, [-6, 6] only.`);
+        } else {
+            switch (key) {
+                // always gonna be 0?
+                case "HP":
+                    _Boosts.Hp = 0;
+                    break;
+                case "Atk":
+                    _Boosts.Atk = value;
+                    break;
+                case "Def":
+                    _Boosts.Def = value;
+                    break;
+                case "SpA":
+                    _Boosts.SpA = value;
+                    break;
+                case "SpD":
+                    _Boosts.SpD = value;
+                    break;
+                case "Spe":
+                    _Boosts.Spe = value;
+                    break;
+                default:
+                    //throw error
+                    throw new Error(`Unknown Boost stat: <${key}>`);
+            }
+        }
+    });
+    return _Boosts;
 }
