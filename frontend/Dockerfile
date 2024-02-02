@@ -1,5 +1,5 @@
 # image
-FROM oven/bun:1.0
+FROM oven/bun:latest
 
 # where are we working
 WORKDIR /home/bun/app

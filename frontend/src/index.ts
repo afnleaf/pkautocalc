@@ -15,6 +15,16 @@ app.use(staticPlugin({
 }))
 */
 
+/*
+app.head('/geo', ({ set }) => {
+  set.status = 200
+})
+app.get("/geo", ({ request, set }) => {
+  set.status = 200
+  return request.headers.get('true-client-ip')
+})
+*/
+
 // homepage
 app.get("/", () => Bun.file("./public/index.html").text())
 app.get("/styles.css", () => Bun.file("./public/styles.css"))
@@ -75,7 +85,7 @@ app.get("/howto", () => {
 
 
 // post results to backend
-app.post("/results", async ({body}) => {
+app.post("/results", async ({request, body}) => {
     console.log(body);
     // parse out
     //const tbody = body as { team1: any, team2: any };
@@ -90,9 +100,19 @@ app.post("/results", async ({body}) => {
     }
 
     try {
-        const result = await postData(url, data);
-        //console.log(result);
+        // track time
+        // from here
+        const startTime = new Date().getTime();
+
+        // run calculations
+        const result = await postData(url, data);        
         const htmlResult = await result.text();
+
+        // to here
+        const endTime = new Date().getTime();
+        const elapsedTime = endTime - startTime;
+        console.log('Elapsed time:', elapsedTime, 'milliseconds');
+        
         return htmlResult;
     } catch (error) {
         console.error('Error during POST request:', error);
