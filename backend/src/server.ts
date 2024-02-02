@@ -332,6 +332,7 @@ async function calculateResults(team1: PokemonData[], team2: PokemonData[], fiel
             teraAttacker = toPokemon(gen, pokemon1, true);
         } catch (error) {
             console.log(`Attacker ${pokemon1._Name} missing.`);
+            results.push(0);
         }
         // making sure attacker exists
         if(attacker != undefined && teraAttacker != undefined) {
@@ -348,6 +349,7 @@ async function calculateResults(team1: PokemonData[], team2: PokemonData[], fiel
                     teraDefender = toPokemon(gen, pokemon2, true);
                 } catch (error) {
                     console.log(`Defender ${pokemon2._Name} missing.`);
+                    results.push(0);
                 }
                 if(defender != undefined && teraDefender != undefined) {
                     // loop through each move

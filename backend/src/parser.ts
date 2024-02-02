@@ -1,4 +1,5 @@
 import { PokemonData } from './pokemonData';
+import { Pokemon } from '@smogon/calc';
 
 
 /**
@@ -60,7 +61,8 @@ function parsePokemon(block: string): PokemonData {
     // split text into lines
     const lines = block.split("\n");
     //console.log(lines);
-
+    // to prevent garbage
+    let nameSet = false;
     lines.forEach(line => {
         //console.log(line);
         // split each line into key and value pairs
@@ -84,7 +86,12 @@ function parsePokemon(block: string): PokemonData {
                 pokemonObject.setItem(item.trim());
             }
         } else {
-            throw new Error(`Unknown attribute: <${line}>`);
+            // check if line is a name of a pokemon?
+            //const newPokemon = new Pokemon(9, line.trim());
+            // let it go thru as garbage
+            pokemonObject.setName(nameTrim(line.trim()));
+            //throw new Error(`Unknown attribute: <${line}>`);
+            
         }
         // catch condition for no item
     });

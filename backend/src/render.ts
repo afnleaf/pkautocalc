@@ -24,9 +24,13 @@ export function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     let prevDefender = "";
     resultsAttack.forEach(result => {
         if(result != undefined) {
-            html += renderResult(result, prevAttacker, prevDefender, true);
-            prevAttacker = result.attacker.name;
-            prevDefender = result.defender.name;
+            if(result != 0) {
+                html += renderResult(result, prevAttacker, prevDefender, true);
+                prevAttacker = result.attacker.name;
+                prevDefender = result.defender.name;
+            } else {
+                html += `<p>Error: incorrect pokemon name parsed.</p>`;
+            }
         } else {
             prevAttacker = "";
             prevDefender = "";
@@ -47,9 +51,13 @@ export function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     prevDefender = "";
     resultsDefense.forEach(result => {
         if(result != undefined) {
-            html += renderResult(result, prevAttacker, prevDefender, false);
-            prevAttacker = result.attacker.name;
-            prevDefender = result.defender.name;
+            if(result != 0) {
+                html += renderResult(result, prevAttacker, prevDefender, false);
+                prevAttacker = result.attacker.name;
+                prevDefender = result.defender.name;
+            } else {
+                html += `<p>Error: incorrect pokemon name parsed.</p>`;
+            }
         } else {
             prevAttacker = "";
             prevDefender = "";

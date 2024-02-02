@@ -59,7 +59,7 @@ IVs:
 	SpD:
 	SpA:
 	Spe:
-Boost:
+Boosts:
 	HP:
 	Atk:
 	Def:
