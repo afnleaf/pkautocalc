@@ -1,6 +1,15 @@
-// need to finish still
+// need to finish still*
+/*
 const metapastes = {
-    vgcRegF: "https://pokepast.es/517b51e2ddfe7321",
+    vgcRegF: process.env.vgcRegF,
+    smogSinglesOU: process.env.smogSinglesOU,
+    smogDoublesOU: "",
+    smogLC: "",
+}
+*/
+
+const metapastes = {
+    vgcRegF: "https://pokepast.es/be764b189495b269",
     smogSinglesOU: "https://pokepast.es/1f3efe0715e3c21e",
     smogDoublesOU: "",
     smogLC: "",
