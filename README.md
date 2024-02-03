@@ -32,6 +32,7 @@ This web application is completely containerzied and can be run locally using do
 - [ ] click button for paste to clipboard
 - [ ] upload to hastebin/pastebin
 - [x] boosts +1 Atk, +2 Speed etc
+- [ ] move type colour code result
 - [ ] ev optimization rules (1/16, sub, sitrus, etc)
 - [ ] pikalytics api? -> doesn't exist, but smogon usage stats do (meta pokemon db)
 - [ ] team length limits for calculation speed requirements
