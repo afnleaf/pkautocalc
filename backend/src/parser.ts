@@ -180,6 +180,9 @@ function parseElement(pokemonObject: PokemonData, key: string, value: string): v
         case "boosts":
             pokemonObject.setBoosts(parseBoosts(value.trim()));
             break;
+        // do nothing for now
+        case "shiny":
+            break;
         /*
         case "Nature":
             pokemonObject.setNature(value.trim());

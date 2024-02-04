@@ -90,6 +90,7 @@ Moveset:
 ## ToDo
 
 ### Backend
+- ogerpon ivy cudgel form bug vs tera defender
 - sort results by xhko chance
 - tera stellar (not on npm?)
 - fix female vs male versions
