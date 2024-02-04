@@ -84,8 +84,12 @@ export function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
                 html += `<p>Error: incorrect pokemon name parsed.</p>`;
             }
         } else {
-            prevAttacker = "";
-            prevDefender = "";
+            if(result == 0) {
+
+            } else {
+                prevAttacker = "";
+                prevDefender = "";
+            }
         }
     });
     html += `<a href="#Attack">Go to attack</a> | <a href="#Defense">Go to defense</a> | <a href="#Top">Go to top</a>`;
@@ -137,9 +141,9 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
     // create a visual break between new attacking pokemon
     
     if(result.attacker.name.toUpperCase() != prevAttacker.toUpperCase()) {
-        console.log("Attacker separate.")
-        console.log(result.attacker.name);
-        console.log(prevAttacker);
+        //console.log("Attacker separate.")
+        //console.log(result.attacker.name);
+        //console.log(prevAttacker);
         html += `<br>`;
         // pokemon sprite
         html += `<img title="${result.attacker.name}" src="${urlA}" width="${wA}" height="${hA}">`;
