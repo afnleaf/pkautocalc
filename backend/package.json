@@ -18,8 +18,6 @@
     "node-html-parser": "^6.1.11"
   },
   "scripts": {
-    "dev": "bun --hot server.js",
-    "prod1": "bun server.js",
     "prod": "bun src/index.ts"
   }
 }
