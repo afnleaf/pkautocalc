@@ -84,7 +84,7 @@ export function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
                 html += `<p>Error: incorrect pokemon name parsed.</p>`;
             }
         } else {
-            if(result == 0) {
+            if(result != 0) {
 
             } else {
                 prevAttacker = "";
