@@ -53,8 +53,12 @@ export function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
                 html += `<p>Error: incorrect pokemon name parsed.</p>`;
             }
         } else {
-            prevAttacker = "";
-            prevDefender = "";
+            if(result != 0) {
+
+            } else {
+                prevAttacker = "";
+                prevDefender = "";
+            }
         }
     });
     
@@ -129,10 +133,13 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
     let attackerItemSprite: any;    
     if(result.attacker.item) 
         attackerItemSprite = Icons.getItem(result.attacker.item);
-
     let html: string = ``;
     // create a visual break between new attacking pokemon
-    if(result.attacker.name != prevAttacker) {
+    
+    if(result.attacker.name.toUpperCase() != prevAttacker.toUpperCase()) {
+        console.log("Attacker separate.")
+        console.log(result.attacker.name);
+        console.log(prevAttacker);
         html += `<br>`;
         // pokemon sprite
         html += `<img title="${result.attacker.name}" src="${urlA}" width="${wA}" height="${hA}">`;
@@ -146,7 +153,7 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
     }
     // create a visual break between new defending pokemon
     if(result.defender.name != prevDefender) {
-        html += `<img title="${result.attacker.name}" src="${urlA}" width="${wA*0.4}" height="${hA*0.4}"> vs. <strong>${result.defender.name}</strong> <img title="${result.defender.name}" src="${urlD}" width="${wD*0.4}" height="${hD*0.4}">`;
+       html += `<img title="${result.attacker.name}" src="${urlA}" width="${wA*0.4}" height="${hA*0.4}"> vs. <strong>${result.defender.name}</strong> <img title="${result.defender.name}" src="${urlD}" width="${wD*0.4}" height="${hD*0.4}">`;
         // speed tier
         let speed: string;
         if(result.attacker.rawStats.spe > result.defender.rawStats.spe) {
