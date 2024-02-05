@@ -211,7 +211,7 @@ function handlePresets() {
             document.getElementById("five").checked = false;
             // change meta paste (OU)
             document.getElementById("metapaste").innerHTML 
-            = `<a href="${metapastes[selectedPreset]}">${selectedPreset}target="_blank"</a>`;
+            = `<a href="${metapastes[selectedPreset]}">${selectedPreset} target="_blank"</a>`;
             break;
         case "smogDoublesOU":
             // doubles
