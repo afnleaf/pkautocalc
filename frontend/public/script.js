@@ -199,7 +199,7 @@ function handlePresets() {
             document.getElementById("fifty").checked = true;
             document.getElementById("five").checked = false;
             // change meta paste (RegF)
-            document.getElementById("metapaste").innerHTML = `<a href="${metapastes[selectedPreset]}">${selectedPreset}</a>`;
+            document.getElementById("metapaste").innerHTML = `<a href="${metapastes[selectedPreset]}">${selectedPreset} target="_blank"</a>`;
             break;
         case "smogSinglesOU":
             // singles
@@ -211,7 +211,7 @@ function handlePresets() {
             document.getElementById("five").checked = false;
             // change meta paste (OU)
             document.getElementById("metapaste").innerHTML 
-            = `<a href="${metapastes[selectedPreset]}">${selectedPreset}</a>`;
+            = `<a href="${metapastes[selectedPreset]}">${selectedPreset}target="_blank"</a>`;
             break;
         case "smogDoublesOU":
             // doubles
