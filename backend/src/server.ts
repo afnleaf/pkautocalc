@@ -205,6 +205,17 @@ function calcResultsOfMove(
     }
     let result: any;
 
+    // ogerpon ivy cudgel, fire, water, rock condition
+    if(moveData.name.toLowerCase() == "ivy cudgel") {
+        if(attacker.name == "Ogerpon-Wellspring") {
+            moveData.type = "Water";
+        } else if(attacker.name == "Ogerpon-Hearthflame") {
+            moveData.type = "Fire";
+        } else if(attacker.name == "Ogerpon-Cornerstone") {
+            moveData.type = "Rock"
+        }
+    }
+
     // get effectiveness vs unchanged defender
     let baseEffectiveness: number = getBaseEffectiveness(
         gen,
