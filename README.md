@@ -90,16 +90,16 @@ Moveset:
 ## ToDo
 
 ### Backend
-- ogerpon ivy cudgel form bug vs tera defender
-- sort results by xhko chance
-- tera stellar (not on npm?)
-- fix female vs male versions
-- boosts
+- fix nicknames
+- fix seperation on new pokemon item
 - test score results (could be improved)
 - colour gradient for xhko that factors in %chance, ex 2% chance to 2hko is worse than 99%
-- booster energy boost to atk/spa/def/spd
+- acrobatics no item clause
+- fix female vs male versions (might already be fixed)
+- booster energy boost to atk/spa/def/spd (this won't work, give fake Life Orb)
+- sort results by xhko chance
+- tera stellar (not on npm?)
 - environemnt file that propagates through frontend and backend with metapastes
-- update @smogon/calc using github repo, npm is not updated
 - is there any way to multithread the calculation?
 
 ### Frontend

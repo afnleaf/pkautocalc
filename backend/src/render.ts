@@ -43,12 +43,14 @@ export function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     // get individual results
     let prevAttacker = "";
     let prevDefender = "";
+    //let prevAttackerItem = "";
     resultsAttack.forEach(result => {
         if(result != undefined) {
             if(result != 0) {
                 html += renderResult(result, prevAttacker, prevDefender, true);
                 prevAttacker = result.attacker.name;
                 prevDefender = result.defender.name;
+                //prevAttackerItem = result.attacker.item;
             } else {
                 html += `<p>Error: incorrect pokemon name parsed.</p>`;
             }
@@ -58,6 +60,7 @@ export function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
             } else {
                 prevAttacker = "";
                 prevDefender = "";
+                //prevAttackerItem = "";
             }
         }
     });
@@ -74,12 +77,14 @@ export function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     `;
     prevAttacker = "";
     prevDefender = "";
+    //prevAttackerItem = "";
     resultsDefense.forEach(result => {
         if(result != undefined) {
             if(result != 0) {
                 html += renderResult(result, prevAttacker, prevDefender, false);
                 prevAttacker = result.attacker.name;
                 prevDefender = result.defender.name;
+                //prevAttackerItem = result.attacker.item;
             } else {
                 html += `<p>Error: incorrect pokemon name parsed.</p>`;
             }
@@ -89,6 +94,7 @@ export function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
             } else {
                 prevAttacker = "";
                 prevDefender = "";
+                //prevAttackerItem = "";
             }
         }
     });
