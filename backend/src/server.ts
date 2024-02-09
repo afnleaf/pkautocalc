@@ -443,11 +443,10 @@ function toPokemon(gen: any, pokemon: PokemonData, teraflag: boolean): Pokemon {
             newPokemon.teraType = tera;
         }
         // booster energy
-        
-        console.log("test");
-        if(item.toLowerCase() == "booster energy") {
-            console.log(item);
-            console.log("booster case");
+        //console.log("test");
+        //if(item.toLowerCase() == "booster energy") {
+            //console.log(item);
+            //console.log("booster case");
             
             /*
             //console.log(newPokemon.calcStats());
@@ -484,7 +483,7 @@ function toPokemon(gen: any, pokemon: PokemonData, teraflag: boolean): Pokemon {
             }
             console.log(newPokemon);
             */
-        }
+        //}
     } catch (error) {
         // cause of pokemonName not existing in calc yet
         throw new Error(error);

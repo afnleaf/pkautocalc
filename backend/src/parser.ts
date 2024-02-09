@@ -123,23 +123,35 @@ function parsePokemon(block: string): PokemonData {
     return pokemonObject;
 }
 
-
-/*
+/**
 * To extract the real pokemon name if a pokemon has a nickname
-* @param {} asdasd
+* Fix case: Monke (Rillaboom) (F)
+* @param {string} - name string with nickname and/or gender
+* @return {string} - the pokemon name
 */
 function nameTrim(name: string): string {
     let trimmedName: string = name;
-    // slice out the name between the last parentheses of the string
-    if(name.includes("(") && name.includes(")")) {
-        trimmedName = name.slice(name.lastIndexOf("(") + 1, name.lastIndexOf(")"));
-    }
-    // check if name is F or M
-    if(trimmedName === "F" || trimmedName === "M") {
-        const splitName = name.split("(");
-        trimmedName = splitName[0].trim();
+    // check if gender exists
+    if(name.includes("(M)") || name.includes("(F)")) {
+        const split = name.slice(0, name.lastIndexOf("("));
+        trimmedName = checkForParentheses(split);
+    } else {
+        trimmedName = checkForParentheses(name);
     }
     return trimmedName;
+}
+
+/**
+* To extract the values out of the parentheses
+* @param {string} - name string
+* @return {string} - what is between the parentheses
+*/
+function checkForParentheses(s: string): string {
+    let trimmed: string = s;
+    if(s.includes("(") && s.includes(")")) {
+        trimmed = s.slice(s.lastIndexOf("(") + 1, s.lastIndexOf(")"));
+    }
+    return trimmed;
 }
 
 
