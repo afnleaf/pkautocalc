@@ -43,25 +43,24 @@ export function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     // get individual results
     let prevAttacker = "";
     let prevDefender = "";
+    let prevResult = 1;
     //let prevAttackerItem = "";
     resultsAttack.forEach(result => {
+        //console.log(`curr: ${result} prev: ${prevResult}`);
         if(result != undefined) {
-            if(result != 0) {
-                html += renderResult(result, prevAttacker, prevDefender, true);
-                prevAttacker = result.attacker.name;
-                prevDefender = result.defender.name;
-                //prevAttackerItem = result.attacker.item;
-            } else {
-                html += `<p>Error: incorrect pokemon name parsed.</p>`;
+            switch(result) {
+                case 0:
+                    html += `<p>Error: incorrect pokemon name parsed.</p>`;        
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                default:
+                    html += renderResult(result, prevResult, true);
+                    break;
             }
-        } else {
-            if(result != 0) {
-
-            } else {
-                prevAttacker = "";
-                prevDefender = "";
-                //prevAttackerItem = "";
-            }
+            prevResult = result;
         }
     });
     
@@ -77,25 +76,23 @@ export function buildHTML(resultsAttack: any[], resultsDefense: any[]): string {
     `;
     prevAttacker = "";
     prevDefender = "";
+    prevResult = 1;
     //prevAttackerItem = "";
     resultsDefense.forEach(result => {
         if(result != undefined) {
-            if(result != 0) {
-                html += renderResult(result, prevAttacker, prevDefender, false);
-                prevAttacker = result.attacker.name;
-                prevDefender = result.defender.name;
-                //prevAttackerItem = result.attacker.item;
-            } else {
-                html += `<p>Error: incorrect pokemon name parsed.</p>`;
+            switch(result) {
+                case 0:
+                    html += `<p>Error: incorrect pokemon name parsed.</p>`;        
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                default:
+                    html += renderResult(result, prevResult, true);
+                    break;
             }
-        } else {
-            if(result != 0) {
-
-            } else {
-                prevAttacker = "";
-                prevDefender = "";
-                //prevAttackerItem = "";
-            }
+            prevResult = result;
         }
     });
     html += `<a href="#Attack">Go to attack</a> | <a href="#Defense">Go to defense</a> | <a href="#Top">Go to top</a>`;
@@ -131,7 +128,7 @@ ani
 * @param {boolean} side - what side is the pov from true = attack, false = defense
 * @return an html string representing all the results
 */
-function renderResult(result: any, prevAttacker: string, prevDefender: string, side: boolean): string {
+function renderResult(result: any, prevResult: any, side: boolean): string {
     // sprite style
     const spriteStyle = "gen5ani";
     // get sprite from @pkmn/img
@@ -146,7 +143,7 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
     let html: string = ``;
     // create a visual break between new attacking pokemon
     
-    if(result.attacker.name.toUpperCase() != prevAttacker.toUpperCase()) {
+    if(prevResult == 1) {
         //console.log("Attacker separate.")
         //console.log(result.attacker.name);
         //console.log(prevAttacker);
@@ -158,11 +155,11 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
             html += `<span title="${result.attacker.item}"><img style="width:24px;height:24px;image-rendering:pixelated;background: #d0d0d0 url(${attackerItemSprite.url}) no-repeat scroll ${attackerItemSprite.left}px ${attackerItemSprite.top}px; border: none; border-radius: 25px; margin: 0px 0px 0px -25px; overflow: hidden;"></span>`;
         }
         // title
-        html += `<h3>${result.attacker.name}</h3>`
-        prevDefender = "";
+        html += `<h3>${result.attacker.name} @ ${result.attacker.item}</h3>`
+        //prevDefender = "";
     }
     // create a visual break between new defending pokemon
-    if(result.defender.name != prevDefender) {
+    if(prevResult == 2 || prevResult == 1) {
        html += `<img title="${result.attacker.name}" src="${urlA}" width="${wA*0.4}" height="${hA*0.4}"> vs. <strong>${result.defender.name}</strong> <img title="${result.defender.name}" src="${urlD}" width="${wD*0.4}" height="${hD*0.4}">`;
         // speed tier
         let speed: string;
@@ -217,6 +214,7 @@ function renderResult(result: any, prevAttacker: string, prevDefender: string, s
     }
     return html;
 }
+
 
 /* Colour gradients
 Name: Candy Apple Red

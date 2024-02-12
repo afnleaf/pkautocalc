@@ -90,8 +90,6 @@ Moveset:
 ## ToDo
 
 ### Backend
-- fix nicknames
-- fix seperation on new pokemon item
 - test score results (could be improved)
 - colour gradient for xhko that factors in %chance, ex 2% chance to 2hko is worse than 99%
 - acrobatics no item clause

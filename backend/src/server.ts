@@ -376,12 +376,14 @@ async function calculateResults(team1: PokemonData[], team2: PokemonData[], fiel
                         ));
                     }); 
                 }
-                // add a skip to know there is a new mon
-                results.push(undefined);
+                // add a skip to know there is a new defender mon
+                //results.push(undefined);
+                results.push(2);
             });
         }
-        // add a skip to know there is a new mon
-        results.push(undefined);
+        // add a skip to know there is a new attacker mon
+        //results.push(undefined);
+        results.push(1);
     });
     return results;
 }
