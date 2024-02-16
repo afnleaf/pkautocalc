@@ -280,7 +280,7 @@ function calcResultsOfMove(
     if(moveData.name.toLowerCase() == "acrobatics" && 
     attacker.item != undefined && 
     teraAttacker.item != undefined) {
-        // save move
+        // save item
         let item = attacker.item;
         // remove item
         attacker.item = undefined;
@@ -469,47 +469,9 @@ function toPokemon(gen: any, pokemon: PokemonData, teraflag: boolean): Pokemon {
             newPokemon.teraType = tera;
         }
         // booster energy
-        //console.log("test");
-        //if(item.toLowerCase() == "booster energy") {
-            //console.log(item);
-            //console.log("booster case");
-            
-            /*
-            //console.log(newPokemon.calcStats());
-            console.log(newPokemon);
-            const statArr = [
-                newPokemon.rawStats.atk,
-                newPokemon.rawStats.def,
-                newPokemon.rawStats.spa,
-                newPokemon.rawStats.spd,
-                newPokemon.rawStats.spe
-            ];
-            switch(statArr.indexOf(Math.max(...statArr))) {
-                case 0:
-                    console.log("atk");
-                    newPokemon.rawStats.atk = newPokemon.rawStats.atk * 1.33;
-                    break;
-                case 1:
-                    console.log("def");
-                    newPokemon.rawStats.def = newPokemon.rawStats.def * 1.33;
-                    break;
-                case 2:
-                    console.log("spa");
-                    newPokemon.rawStats.spa = newPokemon.rawStats.spa * 1.33;
-                    break;
-                case 3:
-                    console.log("spd");
-                    newPokemon.rawStats.spd = newPokemon.rawStats.spd * 1.33;
-                    break;
-                case 4:
-                    console.log("spe");
-                    newPokemon.rawStats.spe = newPokemon.rawStats.spe * 1.5;
-                    break;
-                default:
-            }
-            console.log(newPokemon);
-            */
-        //}
+        if(item.toLowerCase() == "booster energy") {
+            newPokemon.boostedStat = "auto";
+        }
     } catch (error) {
         // cause of pokemonName not existing in calc yet
         throw new Error(error);
