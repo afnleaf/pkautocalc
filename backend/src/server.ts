@@ -243,8 +243,15 @@ function calcResultsOfMove(
     );
     results.push(result);
 
-    // tera type activates if tera blast or tera is same type as move
-    if(move.toString() === "Tera Blast" || teraAttacker.teraType == moveData.type) {
+    // tera type activates if tera blast or tera is same type as move or tera type is stellar
+    if(move.toString() === "Tera Blast" || 
+    teraAttacker.teraType == moveData.type ||
+    teraAttacker.teraType?.toLowerCase() == "stellar" as TypeName) {
+        // open stellar
+        if(teraAttacker.teraType?.toLowerCase() == "stellar" as TypeName) {
+            moveData.isStellarFirstUse = true;
+        }
+        // get results
         result = calculate(
             gen,
             teraAttacker,
@@ -262,6 +269,10 @@ function calcResultsOfMove(
                 field
             );
             results.push(result);
+        }
+        // close stellar
+        if(teraAttacker.teraType?.toLowerCase() == "stellar" as TypeName) {
+            moveData.isStellarFirstUse = false;
         }
     }
 
@@ -299,7 +310,6 @@ function calcResultsOfMove(
         attacker.item = item;
         teraAttacker.item = item;
     }
-
     return results;
 }
 
