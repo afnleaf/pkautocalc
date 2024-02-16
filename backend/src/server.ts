@@ -280,8 +280,12 @@ function calcResultsOfMove(
     if(moveData.name.toLowerCase() == "acrobatics" && 
     attacker.item != undefined && 
     teraAttacker.item != undefined) {
+        // save move
+        let item = attacker.item;
+        // remove item
         attacker.item = undefined;
         teraAttacker.item = undefined;
+        // run calcs
         results.push(...calcResultsOfMove(
             gen,
             move,
@@ -291,6 +295,9 @@ function calcResultsOfMove(
             teraDefender,
             field
         ));
+        // put items back after calc
+        attacker.item = item;
+        teraAttacker.item = item;
     }
 
     return results;
