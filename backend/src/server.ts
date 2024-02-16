@@ -276,6 +276,23 @@ function calcResultsOfMove(
         results.push(result);
     }
 
+    // acrobatics clause, remove item
+    if(moveData.name.toLowerCase() == "acrobatics" && 
+    attacker.item != undefined && 
+    teraAttacker.item != undefined) {
+        attacker.item = undefined;
+        teraAttacker.item = undefined;
+        results.push(...calcResultsOfMove(
+            gen,
+            move,
+            attacker,
+            teraAttacker,
+            defender,
+            teraDefender,
+            field
+        ));
+    }
+
     return results;
 }
 

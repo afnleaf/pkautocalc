@@ -92,7 +92,6 @@ Moveset:
 ### Backend
 - test score results (could be improved)
 - colour gradient for xhko that factors in %chance, ex 2% chance to 2hko is worse than 99%
-- acrobatics no item clause
 - fix female vs male versions (might already be fixed)
 - booster energy boost to atk/spa/def/spd (this won't work, give fake Life Orb)
 - sort results by xhko chance
