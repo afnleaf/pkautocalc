@@ -277,6 +277,9 @@ function getKOChanceColourDefend(n: number): string {
     return gradientD[n-1];
 }
 
+
+// Score grade
+
 /**
 * Aggregate the whole score of an attack
 * @param {any} resultsAttack - list of results
@@ -292,7 +295,7 @@ function gradeAttack(resultsAttack: any[]): string {
             score += 0;
         } 
     });
-    html += `${score}/${resultsAttack.length}`;
+    html += `${score.toFixed(2)}/${resultsAttack.length}`;
     return html;
 }
 
@@ -311,7 +314,7 @@ function gradeDefense(resultsDefense: any[]): string {
             score += 0;
         } 
     });
-    html += `${score}/${resultsDefense.length}`;
+    html += `${score.toFixed(2)}/${resultsDefense.length}`;
     return html;
 }
 
@@ -321,15 +324,17 @@ function gradeDefense(resultsDefense: any[]): string {
 * @return a number representing the score
 */
 function gradeKOChanceAttack(n: number): number {
-    if(n === 1) {
-        // green
-        return 1;
-    } else if(n === 2 || n === 3) {
-        // orange
-        return 0.5;
-    } else {
-        // red
-        return 0;
+    switch(n) {
+        case 1:
+            return 1;
+        case 2:
+            return 0.8;
+        case 3:
+            return 0.6;
+        case 4:
+            return 0.4;
+        default:
+            return 0;        
     }
 } 
 
@@ -339,14 +344,16 @@ function gradeKOChanceAttack(n: number): number {
 * @return a number representing the score
 */
 function gradeKOChanceDefend(n: number): number {
-    if(n === 1) {
-        // red
-        return 0;
-    } else if(n === 2 || n === 3) {
-        // orange
-        return 0.5;
-    } else {
-        // green
-        return 1;
+    switch(n) {
+        case 1:
+            return 0;
+        case 2:
+            return 0.4;
+        case 3:
+            return 0.6;
+        case 4:
+            return 0.8;
+        default:
+            return 1;        
     }
 }

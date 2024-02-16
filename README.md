@@ -90,12 +90,13 @@ Moveset:
 ## ToDo
 
 ### Backend
-- test score results (could be improved)
 - colour gradient for xhko that factors in %chance, ex 2% chance to 2hko is worse than 99%
+- test score results (could be improved)
 - sort results by xhko chance
 - tera stellar (not on npm?)
 - environemnt file that propagates through frontend and backend with metapastes
 - is there any way to multithread the calculation?
+- 55/60 bp acro?
 
 ### Frontend
 - make everything look nicer **IMPORTANT**
