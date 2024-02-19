@@ -1,5 +1,5 @@
 import { Elysia } from 'elysia'
-import { cors } from '@elysiajs/cors'
+//import { cors } from '@elysiajs/cors'
 //import { html } from '@elysiajs/html'
 import { runCalculations } from './server'
 
@@ -7,8 +7,8 @@ const PORT = process.env.PORT || 8080;
 
 const app = new Elysia();
 
-// enable cors
-app.use(cors());
+// enable cors what did I need this for?
+//app.use(cors());
 
 // send text in textbox to server
 app.post("/calculation", async ({ body }) => {
