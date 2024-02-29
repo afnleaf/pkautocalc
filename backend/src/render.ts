@@ -163,9 +163,10 @@ function renderResult(result: any, prevResult: any, side: boolean): string {
        html += `<img title="${result.attacker.name}" src="${urlA}" width="${wA*0.4}" height="${hA*0.4}"> vs. <strong>${result.defender.name}</strong> <img title="${result.defender.name}" src="${urlD}" width="${wD*0.4}" height="${hD*0.4}">`;
         // speed tier
         let speed: string;
-        if(result.attacker.rawStats.spe > result.defender.rawStats.spe) {
+        // use stats over rawStats to get boosted stats, ex chlorophyll 
+        if(result.attacker.stats.spe > result.defender.stats.spe) {
             speed = "faster";
-        } else if(result.attacker.rawStats.spe == result.defender.rawStats.spe) {
+        } else if(result.attacker.stats.spe == result.defender.stats.spe) {
             speed = "speed-tie";
         } else {
             speed = "slower";
@@ -187,6 +188,7 @@ function renderResult(result: any, prevResult: any, side: boolean): string {
         }
         html += `<p>${s[0]} -- <span style="color:${colour}"><strong>${s[1] || "Light chip"}</strong></span></p>`;
     } catch (error) {
+        /*
         // branch required for desc() error, print our own immunity text
         // Attacker-name Move-name vs. Defender-name: 0-0 (0.0-0.0%) -- Immunity
         let teraAtk: string;
@@ -211,6 +213,7 @@ function renderResult(result: any, prevResult: any, side: boolean): string {
         let text = `${teraAtk} ${result.attacker.name} ${result.move.name} vs. ${teraDef} ${result.defender.name}: 0-0 (0.0-0.0%) -- ${end}`;
 
         html += `<p>${text}</p>`;
+        */
     }
     return html;
 }
