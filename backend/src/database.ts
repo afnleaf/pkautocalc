@@ -1,10 +1,12 @@
 export { };
 
+const path = "file.txt";
+
 // get request
 // https://www.smogon.com/stats/2024-01/chaos/gen9vgc2024regfbo3-1760.json
 let data: any;
 try {
-    const response = await fetch("https://www.smogon.com/stats/2024-01/chaos/gen9vgc2024regfbo3-1760.json");
+    const response = await fetch("https://www.smogon.com/stats/2024-02/chaos/gen9vgc2024regfbo3-1760.json");
     data = await response.json();
     console.log(response);
 } catch (error) {
@@ -34,8 +36,8 @@ for(const key in pokemon) {
 
 list.sort((a: any, b: any) => b.usage - a.usage);
 //console.log(list.slice(0,24));
-
-for(let i = 0; i < 24; i++) {
+let text = ``;
+for(let i = 0; i < 64; i++) {
     const poke = list[i];
 
     // name
@@ -66,6 +68,7 @@ for(let i = 0; i < 24; i++) {
     const movesArr = Object.entries(poke.Moves);
     movesArr.sort((a: any, b: any) => b[1] -  a[1]);
 
+    /*
     console.log(`${name} @ ${item}`)
     console.log(`Ability: ${ability}`);
     console.log(`Level: 50`);
@@ -82,10 +85,23 @@ for(let i = 0; i < 24; i++) {
         console.log(`- ${movesArr[i][0]}`);
     }
     console.log();
-    
+    */
     //IVs
     //tera type
+
+    
+    text += `${name} @ ${item}\nAbility: ${ability}\n`;
+    text += `Level: 50\n`;
+    text += `Tera Type: ?\n`;
+    text += `EVs: ${evs[0]} HP / ${evs[1]} Atk / ${evs[2]} Def / ${evs[3]} SpA / ${evs[4]} SpD / ${evs[5]} Spe\n`;
+    text += `${nature} Nature\n`;
+    for(let i = 0; i < 10; i++) {
+        text += `- ${movesArr[i][0]}\n`;
+    }
+    text += `\n`;
 }
+console.log(text);
+await Bun.write(path, text);
 
 /*
 Flutter Mane @ Choice Specs  

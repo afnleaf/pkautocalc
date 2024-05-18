@@ -29,9 +29,10 @@ This web application is completely containerzied and can be run locally using do
 - [x] default vs standard meta (metapastes)
 - [x] pokepaste automatic integration
 - [x] outspeed in result (tailwind field condition?)
+- [x] boosts +1 Atk, +2 Speed etc
+
 - [ ] click button for paste to clipboard
 - [ ] upload to hastebin/pastebin
-- [x] boosts +1 Atk, +2 Speed etc
 - [ ] move type colour code result
 - [ ] ev optimization rules (1/16, sub, sitrus, etc)
 - [ ] pikalytics api? -> doesn't exist, but smogon usage stats do (meta pokemon db)
@@ -91,10 +92,12 @@ Moveset:
 
 ### Backend
 - metapaste database
+- HP percentage in paste for stuff like eruption or reversal
 - colour gradient for xhko that factors in %chance, ex 2% chance to 2hko is worse than 99% (UI 2.0)
 - sort results by xhko chance (UI 2.0)
 - environemnt file that propagates through frontend and backend with metapastes (just do db)
 - lower/uppercase parsing
+- helping hand, weather abilities, etc automatically set field conditions conditions (UI 2.0)
 
 ### Frontend
 - make everything look nicer **IMPORTANT**
