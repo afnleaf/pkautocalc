@@ -26,7 +26,8 @@ app.get("/geo", ({ request, set }) => {
 */
 
 // homepage
-app.get("/", () => Bun.file("./public/index.html").text())
+//app.get("/", () => Bun.file("./public/index.html").text())
+app.get("/", () => Bun.file("./public/index.html"))
 app.get("/styles.css", () => Bun.file("./public/styles.css"))
 app.get("/script.js", () => Bun.file("./public/script.js"))
 // favicons

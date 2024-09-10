@@ -1,12 +1,16 @@
 export { };
 
+const howManyToPrint = 12;
 const path = "file.txt";
 
 // get request
 // https://www.smogon.com/stats/2024-01/chaos/gen9vgc2024regfbo3-1760.json
+// https://www.smogon.com/stats/2024-08/chaos/gen9vgc2024regh-1760.json
+// https://www.smogon.com/stats/2024-02/chaos/gen9vgc2024regfbo3-1760.json
+const urlToFetch = "https://www.smogon.com/stats/2024-08/chaos/gen9vgc2024regh-1760.json"
 let data: any;
 try {
-    const response = await fetch("https://www.smogon.com/stats/2024-02/chaos/gen9vgc2024regfbo3-1760.json");
+    const response = await fetch(urlToFetch);
     data = await response.json();
     console.log(response);
 } catch (error) {
@@ -23,6 +27,7 @@ try {
 let list: any = [];
 
 const pokemon = data.data;
+
 for(const key in pokemon) {
     if(Object.prototype.hasOwnProperty.call(pokemon, key)) {
         const value = pokemon[key];
@@ -37,7 +42,7 @@ for(const key in pokemon) {
 list.sort((a: any, b: any) => b.usage - a.usage);
 //console.log(list.slice(0,24));
 let text = ``;
-for(let i = 0; i < 64; i++) {
+for(let i = 0; i < howManyToPrint; i++) {
     const poke = list[i];
 
     // name
