@@ -35,9 +35,11 @@ app.get("/favicon-32x32.png", () => Bun.file("./public/favicon-32x32.png"))
 app.get("/favicon-16x16.png", () => Bun.file("./public/favicon-16x16.png"))
 app.get("/favicon.ico", () => Bun.file("./public/favicon.ico"))
 app.get("/376.png", () => Bun.file("./public/376.png"))
+// team paste
+app.get("/file.txt", () => Bun.file("./file.txt"))
 // loading
 app.get("/Hitmontop.gif", () => Bun.file("./public/Hitmontop.gif"))
-// calcualtion
+// calculation
 /*
 app.post("/results", async () => {
   return "results";
@@ -126,7 +128,7 @@ app.post("/results", async ({request, body}) => {
 app.listen(PORT);
 
 console.log(
-    `Frontend is running at ${app.server?.hostname}:${app.server?.port}`
+    `Frontend is running at http://${app.server?.hostname}:${app.server?.port}`
 );
 
 
