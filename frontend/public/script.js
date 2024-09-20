@@ -8,7 +8,10 @@ const metapastes = {
 }
 */
 
+
 const metapastes = {
+    vgcRegH: "https://pokepast.es/58ae6d9c45491de9",
+    vgcRegG: "https://pokepast.es/da04e26788fc78a1",
     vgcRegF: "https://pokepast.es/be764b189495b269",
     smogSinglesOU: "https://pokepast.es/1f3efe0715e3c21e",
     smogDoublesOU: "",
@@ -190,6 +193,28 @@ function handleSwitchForced(cx) {
 function handlePresets() {
     let selectedPreset = document.getElementById("presets").value;
     switch(selectedPreset) {
+        case "vgcRegH":
+            // doubles
+            document.getElementById("singles").checked = false;
+            document.getElementById("doubles").checked = true;
+            // 50
+            document.getElementById("hundred").checked = false;
+            document.getElementById("fifty").checked = true;
+            document.getElementById("five").checked = false;
+            // change meta paste (RegF)
+            document.getElementById("metapaste").innerHTML = `<a href="${metapastes[selectedPreset]}" target="_blank">${selectedPreset} </a>`;
+            break;
+        case "vgcRegG":
+            // doubles
+            document.getElementById("singles").checked = false;
+            document.getElementById("doubles").checked = true;
+            // 50
+            document.getElementById("hundred").checked = false;
+            document.getElementById("fifty").checked = true;
+            document.getElementById("five").checked = false;
+            // change meta paste (RegF)
+            document.getElementById("metapaste").innerHTML = `<a href="${metapastes[selectedPreset]}" target="_blank">${selectedPreset} </a>`;
+            break;
         case "vgcRegF":
             // doubles
             document.getElementById("singles").checked = false;

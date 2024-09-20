@@ -7,7 +7,8 @@ const path = "file.txt";
 // https://www.smogon.com/stats/2024-01/chaos/gen9vgc2024regfbo3-1760.json
 // https://www.smogon.com/stats/2024-08/chaos/gen9vgc2024regh-1760.json
 // https://www.smogon.com/stats/2024-02/chaos/gen9vgc2024regfbo3-1760.json
-const urlToFetch = "https://www.smogon.com/stats/2024-08/chaos/gen9vgc2024regh-1760.json"
+// https://www.smogon.com/stats/2024-08/chaos/gen9vgc2024regh-1760.json
+const urlToFetch = "https://www.smogon.com/stats/2024-08/chaos/gen9vgc2024regg-1760.json"
 let data: any;
 try {
     const response = await fetch(urlToFetch);
