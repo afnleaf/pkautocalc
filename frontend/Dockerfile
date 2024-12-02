@@ -2,7 +2,7 @@
 FROM oven/bun:latest
 
 # where are we working
-WORKDIR /home/bun/app
+WORKDIR /app
 
 # copy package json to directory
 COPY ./package.json .

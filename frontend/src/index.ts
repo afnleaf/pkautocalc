@@ -1,19 +1,25 @@
 import { Elysia } from 'elysia'
 import { html } from '@elysiajs/html'
 import { cors } from '@elysiajs/cors'
-//import { staticPlugin } from '@elysiajs/static'
+import { staticPlugin } from '@elysiajs/static'
+import { join } from 'path'
+
 const PORT = process.env.PORT || 3000;
+const PUBLIC_DIR = join(import.meta.dir, "../public")
+
+console.log({
+    cwd: process.cwd(),
+    public: PUBLIC_DIR,
+})
 
 const app = new Elysia();
 app.use(cors());
 app.use(html());
-
-/*
 app.use(staticPlugin({ 
-  prefix: '/',
-  alwaysStatic: false,
+    assets: PUBLIC_DIR,
+    prefix: '/',
+    alwaysStatic: false,
 }))
-*/
 
 /*
 app.head('/geo', ({ set }) => {
@@ -25,9 +31,9 @@ app.get("/geo", ({ request, set }) => {
 })
 */
 
-// homepage
-//app.get("/", () => Bun.file("./public/index.html").text())
+// homepage needs route
 app.get("/", () => Bun.file("./public/index.html"))
+/*
 app.get("/styles.css", () => Bun.file("./public/styles.css"))
 app.get("/script.js", () => Bun.file("./public/script.js"))
 // favicons
@@ -39,6 +45,8 @@ app.get("/376.png", () => Bun.file("./public/376.png"))
 app.get("/vgcRegH.txt", () => Bun.file("./metapastes/vgcRegH.txt"))
 // loading
 app.get("/Hitmontop.gif", () => Bun.file("./public/Hitmontop.gif"))
+*/
+
 // calculation
 /*
 app.post("/results", async () => {
@@ -46,10 +54,11 @@ app.post("/results", async () => {
 })
 */
 
+
 // to explain how to use the calculator
-app.get("/howto", () => {
-  let html: string = ``;
-  html += `
+app.get("/howto", ({ html }) => {
+  let content: string = `
+  <!DOCTYPE html>
   <head>
   <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
@@ -83,7 +92,11 @@ app.get("/howto", () => {
   <a href="/">back</a>
   </body>
   `;
-  return html;
+    return new Response(content, {
+        headers: {
+            "Content-Type": "text/html" 
+        },
+    });
 });
 
 
@@ -121,8 +134,6 @@ app.post("/results", async ({request, body}) => {
         console.error('Error during POST request:', error);
     }
 });
-
-
 
 // port
 app.listen(PORT);
