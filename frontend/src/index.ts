@@ -7,11 +7,6 @@ import { join } from 'path'
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = join(import.meta.dir, "../public")
 
-console.log({
-    cwd: process.cwd(),
-    public: PUBLIC_DIR,
-})
-
 const app = new Elysia();
 app.use(cors());
 app.use(html());
@@ -20,16 +15,6 @@ app.use(staticPlugin({
     prefix: '/',
     alwaysStatic: false,
 }))
-
-/*
-app.head('/geo', ({ set }) => {
-  set.status = 200
-})
-app.get("/geo", ({ request, set }) => {
-  set.status = 200
-  return request.headers.get('true-client-ip')
-})
-*/
 
 // homepage needs route
 app.get("/", () => Bun.file("./public/index.html"))
@@ -141,8 +126,6 @@ app.listen(PORT);
 console.log(
     `Frontend is running at http://${app.server?.hostname}:${app.server?.port}`
 );
-
-
 
 /**
 * Posts json to server
